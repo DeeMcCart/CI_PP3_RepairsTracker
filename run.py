@@ -19,30 +19,36 @@ def main():
     """
 
 print("Welcome to RepairTracker")
-print("OPTIONS:")
-print("(E)nter new estimate/repair") 
-""" # this should include tracking (hmm what did I mean by this???) 
-"""
-print("(F)ind existing estimate/repair")
-"""
-Allows search by repair or phone number or customer name - from here can 
-(U)pdate status ie estimate->order (in which case need to track deposit taken & assign completion date 7 days from today)
-(U)pdate status to in-progress->) 
-"""
-print("(N)otify customers of repair completion")
-""" 
-this will:
-accept multiple repair numbers separated by commas
-allow status update from in-progress to complete
-update the spreadsheet row completed status and notified date
-activate a trigger to send a customer notification (email or text)
-"""
-print("(M)aintain system")
-""" 
-this will:
-print customer list with last repair date
-"""
-# estimates = SHEET.worksheet("estimates")
-# data=estimates.get_all_values()
-# print(data)
+print("For demo purposes user-user will provide basic user level access")
+print("and super-super will provide super-user access\n\n")
+user_name = input("Please enter username:\n")
+password = input("password:\n")
+valid_user = authenticate_user(user_name, password)
+while valid_user:
+    print("OPTIONS:")
+    print("(E)nter new estimate/repair") 
+    """ # this should include tracking (hmm what did I mean by this???) 
+    """
+    print("(F)ind existing estimate/repair")
+    """
+    Allows search by repair or phone number or customer name - from here can 
+    (U)pdate status ie estimate->order (in which case need to track deposit taken & assign completion date 7 days from today)
+    (U)pdate status to in-progress->) 
+    """
+    print("(N)otify customers of repair completion")
+    """ 
+    this will:
+    accept multiple repair numbers separated by commas
+    allow status update from in-progress to complete
+    update the spreadsheet row completed status and notified date
+    activate a trigger to send a customer notification (email or text)
+    """
+    print("(M)aintain system")
+    """ 
+    this will:
+    print customer list with last repair date
+    """
+    # estimates = SHEET.worksheet("estimates")
+    # data=estimates.get_all_values()
+    # print(data)
 
