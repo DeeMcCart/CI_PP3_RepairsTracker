@@ -21,7 +21,7 @@ def main():
 print("Welcome to RepairTracker")
 print("OPTIONS:")
 print("(E)nter new estimate/repair") 
-""" # this should include tracking 
+""" # this should include tracking (hmm what did I mean by this???) 
 """
 print("(F)ind existing estimate/repair")
 """
@@ -29,15 +29,20 @@ Allows search by repair or phone number or customer name - from here can
 (U)pdate status ie estimate->order (in which case need to track deposit taken & assign completion date 7 days from today)
 (U)pdate status to in-progress->) 
 """
-print("(C)omplete a batch of repairs and text customers")
+print("(N)otify customers of repair completion")
 """ 
-this should:
+this will:
 accept multiple repair numbers separated by commas
 allow status update from in-progress to complete
 update the spreadsheet row completed status and notified date
 activate a trigger to send a customer notification (email or text)
 """
-estimates = SHEET.worksheet("estimates")
-data=estimates.get_all_values()
-print(data)
+print("(M)aintain system")
+""" 
+this will:
+print customer list with last repair date
+"""
+# estimates = SHEET.worksheet("estimates")
+# data=estimates.get_all_values()
+# print(data)
 
