@@ -48,8 +48,6 @@ def all_upper(my_set):
     return my_set
 
     
-
-
 def find_cust(search_string):
     """ 
     This is a utility function which searches for matching customer record(s) 
@@ -61,17 +59,14 @@ def find_cust(search_string):
     all_custs.pop(0)
     # change all fields to uppercase
     all_custs = all_upper(all_custs)
+   # print(f"all_custs after uppercase conversion {all_custs}")
 
     for ind_cust in all_custs:
-       # print(f"Customer record before uppercase conversion: {ind_cust}")
-       # ind_cust= all_upper(ind_cust)
-       # print(f"Customer record after uppercase conversion: {ind_cust}")
-            
         cust_found = (set([search_string]) <= set(ind_cust))
         if(cust_found):
             print(f"customer found, details are {ind_cust}\n")
             return ind_cust
-    print("Invalid customer details, please try again.....")
+    print("Existing customer not found.....")
     return False
 
 
@@ -86,8 +81,12 @@ def enter_repair(options):
     print("------------------------------")
     print(f"\nEnter repair with options {options}\n" )
     search_string = input("Mobile phone or customer name: \n").upper()
-        
+    repair_record=[]   
     cust_index = find_cust(search_string)
+    print(f"Returned value from find_cust: {cust_index}")
+    if (cust_index):
+        print("Valid customer returned")
+        repair_record.append(cust_index[0], cust_index[1], 0, 0, 0, 0)
     time.sleep(5)
     
 def find_repair(options):

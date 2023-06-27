@@ -532,7 +532,7 @@ The following sites were used for research and improving  understanding while cr
 * https://pythonguides.com/remove-first-character-from-a-string-in-python/
 * https://stackoverflow.com/questions/11552320/correct-way-to-pause-a-python-program
 * https://blog.finxter.com/python-convert-string-list-to-uppercase/#:~:text=The%20most%20Pythonic%20way%20to,new%20string%20list%2C%20all%20uppercase.
-
+* https://www.studytonight.com/python-howtos/how-to-print-colored-text-in-python
  
 ### Acknowledgements
 * I would like to sincerely thank my mentor, Mo Shami for his excellent guidance and support.
@@ -563,7 +563,3 @@ Connect your GitHub repository and deploy as normal.
 ## Constraints
 
 The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
-
----
-
-Happy coding!
