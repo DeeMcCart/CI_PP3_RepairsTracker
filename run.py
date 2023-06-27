@@ -34,9 +34,21 @@ def authenticate_user(user_name, password):
     return False
 
 def all_upper(my_set):
-    print(f"Function all_upper, value entered is {my_set}")
+#    print(f"Function all_upper, value entered is {my_set}")
+    upper_set = []
     for ind in my_set:
-        my_set[ind] [x.upper() for x in ind]
+#       print(f"The value of ind is {ind}")
+        ind = [x.upper() for x in ind]
+#       print(f"The value of ind after conversion is {ind}")
+        upper_set.append(ind)
+#   print(f"The value of upper_set is {upper_set}")
+    my_set = upper_set
+#   print(f"Resulting value for my_set is {my_set}")
+#   print("Ending function all_upper")
+    return my_set
+
+    
+
 
 def find_cust(search_string):
     """ 
@@ -48,12 +60,12 @@ def find_cust(search_string):
     # remove the title row
     all_custs.pop(0)
     # change all fields to uppercase
-        all_custs = all_upper(all_custs)
+    all_custs = all_upper(all_custs)
 
     for ind_cust in all_custs:
-        print(f"Customer record before uppercase conversion: {ind_cust}")
-        ind_cust= all_upper(ind_cust)
-        print(f"Customer record after uppercase conversion: {ind_cust}")
+       # print(f"Customer record before uppercase conversion: {ind_cust}")
+       # ind_cust= all_upper(ind_cust)
+       # print(f"Customer record after uppercase conversion: {ind_cust}")
             
         cust_found = (set([search_string]) <= set(ind_cust))
         if(cust_found):
