@@ -3,6 +3,7 @@
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 import gspread 
 from google.oauth2.service_account import Credentials
+import time
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -35,11 +36,14 @@ def authenticate_user(user_name, password):
 def enter_repair(options):
     """ # this should include tracking (hmm what did I mean by this???)
     (Note - need to deal with situation where options is blank or null) 
+    This function is designed to make input as quick as possible for the user
+    Parameter 'options' is a string containing null or more characters, and it can be used for typeahead. 
     """
     print("\n\n\n\n------------------------------")
     print("---   ENTER REPAIR   ---------")
     print("------------------------------")
     print(f"\nEnter repair with options {options}\n" )
+    time.sleep(5)
     
 def find_repair(options):
     """
@@ -52,12 +56,7 @@ def find_repair(options):
     print("---    FIND REPAIR   ---------")
     print("------------------------------")
     print(f"\nFind repair with options {options}\n" )
-
-def find_repair(options):
-    print("\n\n\n\n------------------------------")
-    print("---    FIND REPAIR   ---------")
-    print("------------------------------")
-    print(f"\nFind repair with options {options}\n" )
+    time.sleep(5)
 
 def notify_customer(options):
     """ 
@@ -72,6 +71,7 @@ def notify_customer(options):
     print("--     NOTIFY CUSTOMER(s)   --")
     print("------------------------------")
     print(f"\nNotify customer(s) with options {options}\n" )
+    time.sleep(5)
 
 def maintain_sys(options):
     """ 
@@ -86,6 +86,7 @@ def maintain_sys(options):
     print("-- MAINTAIN REPAIRS SYSTEM  --")
     print("------------------------------")
     print(f"\nMaintain repairs tracking system with options {options}\n" )
+    time.sleep(5)
 
 def show_help(options):
     """
@@ -112,6 +113,7 @@ def show_help(options):
     print("(You can combine with submenu options ")
     print("e.g. EE to enter estimate, ER to enter repair)")
     print("")
+    input("Press any key to return to main menu....\n")
 
 def menu_manager():
     print("\n\n\n\n------------------------------")
