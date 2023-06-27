@@ -27,23 +27,37 @@ def authenticate_user(user_name, password):
     for ind_user in all_users:
         user_found = (set([user_name, password]) <= set(ind_user))
         if(user_found):
-            print(f"Username found, security level {ind_user[2]}\n")
+            print(f"Username & password verified, security level {ind_user[2]}\n")
             return ind_user[2]
     print("Invalid userid, please try again.....")
     return False
 
-def menu_manager():
-    print("OPTIONS (main menu):")
-    print("    (E)nter new estimate/repair") 
+def enter_repair(options):
     """ # this should include tracking (hmm what did I mean by this???) 
     """
-    print("    (F)ind existing estimate/repair")
+    print("\n\n\n\n------------------------------")
+    print("---   ENTER REPAIR   ---------")
+    print("------------------------------")
+    print(f"\nEnter repair with options {options}\n" )
+    
+def find_repair(options):
     """
     Allows search by repair or phone number or customer name - from here can 
     (U)pdate status ie estimate->order (in which case need to track deposit taken & assign completion date 7 days from today)
     (U)pdate status to in-progress->) 
     """
-    print("    (N)otify customers of repair completion")
+    print("\n\n\n\n------------------------------")
+    print("---    FIND REPAIR   ---------")
+    print("------------------------------")
+    print(f"\nFind repair with options {options}\n" )
+
+def find_repair(options):
+    print("\n\n\n\n------------------------------")
+    print("---    FIND REPAIR   ---------")
+    print("------------------------------")
+    print(f"\nFind repair with options {options}\n" )
+
+def notify_customer(options):
     """ 
     this will:
     accept multiple repair numbers separated by commas
@@ -51,23 +65,62 @@ def menu_manager():
     update the spreadsheet row completed status and notified date
     activate a trigger to send a customer notification (email or text)
     """
-    print("    (H)elp")
-    """
-    this (clears the screen and) prints a set of help text
-    """
-    print("    (M)aintain system")
+    print("\n\n\n\n------------------------------")
+    print("--     NOTIFY CUSTOMER(s)   --")
+    print("------------------------------")
+    print(f"\nNotify customer(s) with options {options}\n" )
+
+def maintain_sys(options):
     """ 
     this will:
     print customer list with last repair date
     """
-    print("    e(X)it")
-    """ 
-    if selected this will return a value of False
+    print("\n\n\n\n------------------------------")
+    print("-- MAINTAIN REPAIRS SYSTEM  --")
+    print("------------------------------")
+    print(f"\nMaintain repairs tracking system with options {options}\n" )
+
+def show_help(options):
     """
-    print("(Note you can combine with submenu options e.g. EE to enter estimate, ER to enter repair)")
-    input_string = input("option:\n")
-    if (input_string.upper()=="X"):
+    this (clears the screen and) prints a set of help text
+    """
+    print("\n\n\n\n------------------------------")
+    print("-- MAINTAIN REPAIRS SYSTEM  --")
+    print("------------------------------")
+    print(f"\nMaintain repairs tracking system with options {options}\n" )
+
+def menu_manager():
+    print("\n\n\n\n------------------------------")
+    print("OPTIONS (main menu):")
+    print("    (E)nter new estimate/repair") 
+    print("    (F)ind existing estimate/repair")
+    print("    (N)otify customers of repair completion")
+    print("    (M)aintain system")
+    print("    (H)elp")
+    print("    e(X)it")  # if selected this will return a value of False
+    print("(You can combine with submenu options ")
+    print("e.g. EE to enter estimate, ER to enter repair)")
+    
+    input_string = input("Option:\n").upper()
+    user_option=input_string[0]
+    if (user_option=="X"):
         return False
+    
+    if (input_string[1:] !=""):
+        further_options = input_string[1:]
+        print(f"Option selected is {user_option}, further input options {further_options}")
+    if(user_option=="E"):
+        enter_repair(further_options)
+    elif (user_option=="F"):
+        find_repair(further_options)
+    elif (user_option=="N"):
+        notify_customer(further_options) 
+    elif (user_option=="M"):
+        maintain_sys(further_options)
+    elif (user_option=="H"):
+        show_help()
+    else:
+        print("Invalid option, try again!")
     return True
 
 def main():
