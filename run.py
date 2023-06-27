@@ -86,7 +86,7 @@ def enter_repair(options):
     print(f"Returned value from find_cust: {cust_index}")
     if (cust_index):
         print("Valid customer returned")
-        repair_record.append(cust_index[0], cust_index[1], 0, 0, 0, 0)
+#        repair_record.append(cust_index[0], cust_index[1], 0, 0, 0, 0)
     time.sleep(5)
     
 def find_repair(options):
