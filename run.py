@@ -33,6 +33,11 @@ def authenticate_user(user_name, password):
     print("Invalid userid, please try again.....")
     return False
 
+def all_upper(my_set):
+    print(f"Function all_upper, value entered is {my_set}")
+    for ind in my_set:
+        my_set[ind] [x.upper() for x in ind]
+
 def find_cust(search_string):
     """ 
     This is a utility function which searches for matching customer record(s) 
@@ -42,8 +47,15 @@ def find_cust(search_string):
     all_custs = SHEET.worksheet("sys_cust").get_all_values()
     # remove the title row
     all_custs.pop(0)
+    # change all fields to uppercase
+        all_custs = all_upper(all_custs)
+
     for ind_cust in all_custs:
-        cust_found = (set([search_string]) <= set(ind_cust).upper())
+        print(f"Customer record before uppercase conversion: {ind_cust}")
+        ind_cust= all_upper(ind_cust)
+        print(f"Customer record after uppercase conversion: {ind_cust}")
+            
+        cust_found = (set([search_string]) <= set(ind_cust))
         if(cust_found):
             print(f"customer found, details are {ind_cust}\n")
             return ind_cust
@@ -137,8 +149,8 @@ def show_help(options):
     input("Press any key to return to main menu....\n")
 
 def menu_manager():
-    print("\n\n\n\n------------------------------")
-    print("OPTIONS (main menu):")
+    print("\n\n\n\n---------------------------------")
+    print("- REPAIRS TRACKER - OPTIONS (main menu):")
     print("    (E)nter new estimate/repair") 
     print("    (F)ind existing estimate/repair")
     print("    (N)otify customers of repair completion")
