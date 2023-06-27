@@ -33,3 +33,4 @@ Happy coding!
 References:
 https://pythonguides.com/remove-first-character-from-a-string-in-python/
 https://stackoverflow.com/questions/11552320/correct-way-to-pause-a-python-program
+https://blog.finxter.com/python-convert-string-list-to-uppercase/#:~:text=The%20most%20Pythonic%20way%20to,new%20string%20list%2C%20all%20uppercase.

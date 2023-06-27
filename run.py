@@ -33,6 +33,24 @@ def authenticate_user(user_name, password):
     print("Invalid userid, please try again.....")
     return False
 
+def find_cust(search_string):
+    """ 
+    This is a utility function which searches for matching customer record(s) 
+    when passed a phone number or name 
+    It returns the customer index within the spreadsheet, or 0 if not found
+    """
+    all_custs = SHEET.worksheet("sys_cust").get_all_values()
+    # remove the title row
+    all_custs.pop(0)
+    for ind_cust in all_custs:
+        cust_found = (set([search_string]) <= set(ind_cust).upper())
+        if(cust_found):
+            print(f"customer found, details are {ind_cust}\n")
+            return ind_cust
+    print("Invalid customer details, please try again.....")
+    return False
+
+
 def enter_repair(options):
     """ # this should include tracking (hmm what did I mean by this???)
     (Note - need to deal with situation where options is blank or null) 
@@ -43,6 +61,9 @@ def enter_repair(options):
     print("---   ENTER REPAIR   ---------")
     print("------------------------------")
     print(f"\nEnter repair with options {options}\n" )
+    search_string = input("Mobile phone or customer name: \n").upper()
+        
+    cust_index = find_cust(search_string)
     time.sleep(5)
     
 def find_repair(options):
@@ -128,25 +149,29 @@ def menu_manager():
     print("e.g. EE to enter estimate, ER to enter repair)")
     
     input_string = input("Option:\n").upper()
-    user_option=input_string[0]
-    if (user_option=="X"):
-        return False
-    
-    if (input_string[1:] !=""):
-        further_options = input_string[1:]
-        print(f"Option selected is {user_option}, further input options {further_options}")
-    if(user_option=="E"):
-        enter_repair(further_options)
-    elif (user_option=="F"):
-        find_repair(further_options)
-    elif (user_option=="N"):
-        notify_customer(further_options) 
-    elif (user_option=="M"):
-        maintain_sys(further_options)
-    elif (user_option=="H"):
-        show_help(further_options)
+    if input_string!="":
+        user_option=input_string[0]
+        if (user_option=="X"):
+            return False
+        
+        if (input_string[1:] !=""):
+            further_options = input_string[1:]
+            print(f"Option selected is {user_option}, further input options {further_options}")
+        if(user_option=="E"):
+            enter_repair(further_options)
+        elif (user_option=="F"):
+            find_repair(further_options)
+        elif (user_option=="N"):
+            notify_customer(further_options) 
+        elif (user_option=="M"):
+            maintain_sys(further_options)
+        elif (user_option=="H"):
+            show_help(further_options)
+        else:
+            print("Invalid option, try again!")
     else:
-        print("Invalid option, try again!")
+       print("Blank option, try again!")
+         
     return True
 
 def main():
