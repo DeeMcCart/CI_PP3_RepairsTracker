@@ -13,19 +13,21 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("RepairsTracker")
 
-def main():
+def authenticate_user(user_name, password):
     """
-    Run all program functions
+    The autenticate_user function takes a user_name and password and compares it to the entries in the sys_users table.
+    If username is located and corresponding password matches the password parameter then return success (True)
+    else
+    return false
     """
+    print("Accessing sys_users sheet....\n")
+    all_users = SHEET.worksheet("sys_users").get_all_values()
+    print(all_users)
+    return True
 
-print("Welcome to RepairTracker")
-print("For demo purposes user-user will provide basic user level access")
-print("and super-super will provide super-user access\n\n")
-user_name = input("Please enter username:\n")
-password = input("password:\n")
-valid_user = authenticate_user(user_name, password)
-while valid_user:
-    print("OPTIONS:")
+def menu_manager():
+    print("Input option string")
+    print("OPTIONS at this level:")
     print("(E)nter new estimate/repair") 
     """ # this should include tracking (hmm what did I mean by this???) 
     """
@@ -48,7 +50,26 @@ while valid_user:
     this will:
     print customer list with last repair date
     """
-    # estimates = SHEET.worksheet("estimates")
-    # data=estimates.get_all_values()
-    # print(data)
+    print("e(X)it")
+    """ 
+    if selected this will return a value of False
+    """
+    input_string = input("option:\n")
+    if (input_string.upper()=="X"):
+        return False
+    return True
+
+def main():
+    """
+    Run all program functions
+    """
+    print("Welcome to RepairTracker")
+    print("For demo purposes user-user will provide basic user level access")
+    print("and super-super will provide super-user access\n\n")
+    user_name = input("Please enter username:\n")
+    password = input("password:\n")
+#    valid_user = authenticate_user(user_name, password)
+#    while valid_user:
+#        valid_user=menu_manager
+#    print("Exiting... Thank you for using RepairTracker...\n")
 
