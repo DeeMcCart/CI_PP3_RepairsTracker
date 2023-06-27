@@ -33,7 +33,8 @@ def authenticate_user(user_name, password):
     return False
 
 def enter_repair(options):
-    """ # this should include tracking (hmm what did I mean by this???) 
+    """ # this should include tracking (hmm what did I mean by this???)
+    (Note - need to deal with situation where options is blank or null) 
     """
     print("\n\n\n\n------------------------------")
     print("---   ENTER REPAIR   ---------")
@@ -45,6 +46,7 @@ def find_repair(options):
     Allows search by repair or phone number or customer name - from here can 
     (U)pdate status ie estimate->order (in which case need to track deposit taken & assign completion date 7 days from today)
     (U)pdate status to in-progress->) 
+    (Note - need to deal with situation where options is blank or null)
     """
     print("\n\n\n\n------------------------------")
     print("---    FIND REPAIR   ---------")
@@ -64,6 +66,7 @@ def notify_customer(options):
     allow status update from in-progress to complete
     update the spreadsheet row completed status and notified date
     activate a trigger to send a customer notification (email or text)
+    (Note - need to deal with situation where options is blank or null)
     """
     print("\n\n\n\n------------------------------")
     print("--     NOTIFY CUSTOMER(s)   --")
@@ -73,7 +76,11 @@ def notify_customer(options):
 def maintain_sys(options):
     """ 
     this will:
-    print customer list with last repair date
+    maintain users
+    maintain other sys tables
+    maintain customer list with last repair date
+    In each case maintain means find, list, edit based on index number
+    (Note - need to deal with situation where options is blank or null)
     """
     print("\n\n\n\n------------------------------")
     print("-- MAINTAIN REPAIRS SYSTEM  --")
@@ -83,11 +90,28 @@ def maintain_sys(options):
 def show_help(options):
     """
     this (clears the screen and) prints a set of help text
+    (Note - need to deal with situation where options is blank or null)
     """
-    print("\n\n\n\n------------------------------")
-    print("-- MAINTAIN REPAIRS SYSTEM  --")
-    print("------------------------------")
-    print(f"\nMaintain repairs tracking system with options {options}\n" )
+    print(f"\nShow help screen with options {options}\n" )
+    print("\n\n\n\n---------------------------------")
+    print("- REPAIRS TRACKER - HELP SCREEN -\n")
+    print("1. Security")
+    print("-----------")
+    print("To use the system, you must have a userid and password ")
+    print("This assigns access at user or super-user level")
+    print("(For demo purposes u-u provides basic user level access")
+    print("and s-s provides super-user access)")
+    print("It is recommended that these userids are removed when moving from demo to live usage")
+    print("OPTIONS (main menu) are below:")
+    print("    (E)nter new estimate/repair") 
+    print("    (F)ind existing estimate/repair")
+    print("    (N)otify customers of repair completion")
+    print("    (M)aintain system")
+    print("    (H)elp")
+    print("    e(X)it")  # if selected this will return a value of False
+    print("(You can combine with submenu options ")
+    print("e.g. EE to enter estimate, ER to enter repair)")
+    print("")
 
 def menu_manager():
     print("\n\n\n\n------------------------------")
@@ -118,7 +142,7 @@ def menu_manager():
     elif (user_option=="M"):
         maintain_sys(further_options)
     elif (user_option=="H"):
-        show_help()
+        show_help(further_options)
     else:
         print("Invalid option, try again!")
     return True
@@ -128,8 +152,6 @@ def main():
     Run all program functions
     """
     print("Welcome to RepairTracker")
-    print("(For demo purposes u-u provides basic user level access")
-    print("and s-s provides super-user access)")
     user_name = input("Please enter username:\n")
     password = input("password:\n")
     # note that valid_user returns a value of 0(False) 1(user-level security) 2(super-user level security)
