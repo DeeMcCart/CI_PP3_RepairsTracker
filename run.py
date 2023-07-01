@@ -6,7 +6,8 @@ from google.oauth2.service_account import Credentials
 import time
 from termcolor import colored
 from tabulate import tabulate
-from wallpaper import set_wallpaper, get_wallpaper
+# from wallpaper import set_wallpaper, get_wallpaper
+import tkinter as tk
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -205,7 +206,7 @@ def main():
     """
     Run all program functions
     """
-    set_wallpaper("assets/images/jewellery_bench.jpg")
+    # set_wallpaper("../assets/images/jewellery_bench.jpg")
     print("Welcome to RepairTracker")
     user_name = input("Please enter username:\n")
     password = input("password:\n")
