@@ -8,7 +8,8 @@ from termcolor import colored
 from tabulate import tabulate
 # from wallpaper import set_wallpaper, get_wallpaper
 import tkinter as tk
-
+from tkinter import *
+from tkinter improt tkinter
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
