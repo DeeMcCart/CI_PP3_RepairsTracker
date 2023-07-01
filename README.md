@@ -519,6 +519,8 @@ The live link can be found here - https://deemccart.github.io/CI_PP2_Humble_Numb
 ## Credits 
 Multiple sources were used in assembling this site.
 
+* Image credits:  https://www.istockphoto.com/ for wallpaper photo of jewellers bench
+
 
 ### Content - Humble Numble
 * Inspiration taken from wordle.com

@@ -205,6 +205,7 @@ def main():
     """
     Run all program functions
     """
+    set_wallpaper("assets/images/jewellery_bench.jpg")
     print("Welcome to RepairTracker")
     user_name = input("Please enter username:\n")
     password = input("password:\n")
