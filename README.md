@@ -533,7 +533,8 @@ The following sites were used for research and improving  understanding while cr
 * https://stackoverflow.com/questions/11552320/correct-way-to-pause-a-python-program
 * https://blog.finxter.com/python-convert-string-list-to-uppercase/#:~:text=The%20most%20Pythonic%20way%20to,new%20string%20list%2C%20all%20uppercase.
 * https://www.studytonight.com/python-howtos/how-to-print-colored-text-in-python
-* useriasminna - referenced project to see about tabulating, printing coloured text and adding a background image.  Located at teh following URL:  https://github.com/useriasminna/american_pizza_order_system/tree/main 
+* useriasminna - referenced project to see about tabulating, printing coloured text and adding a background image.  Located at the following URL:  https://github.com/useriasminna/american_pizza_order_system/tree/main 
+* https://stackoverflow.com/questions/1977694/how-can-i-change-my-desktop-background-with-python?rq=4 
 
 
  

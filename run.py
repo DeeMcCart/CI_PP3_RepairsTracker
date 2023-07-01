@@ -6,6 +6,7 @@ from google.oauth2.service_account import Credentials
 import time
 from termcolor import colored
 from tabulate import tabulate
+from wallpaper import set_wallpaper, get_wallpaper
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
