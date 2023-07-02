@@ -80,6 +80,16 @@ def find_cust(search_string):
     print("Existing customer not found.....")
     return False
 
+def update_worksheet(data, worksheet):
+    """
+    This function taken from love sandwiches
+    Update any worksheet, add new row with the list data provided
+    """
+    print(f"Updating {worksheet} worksheet...\n")
+    worksheet_to_update = SHEET.worksheet(worksheet)
+    worksheet_to_update.append_row(data)
+    print(f"{worksheet} worksheet updated successfully.\n")
+
 def enter_repair(options):
     """ # this should include tracking (hmm what did I mean by this???)
     (Note - need to deal with situation where options is blank or null) 
@@ -101,12 +111,13 @@ def enter_repair(options):
     if (cust_index):
         print("Valid customer returned")
         print(f"Customer name: {cust_index[1]}")
-        repair_record.append([cust_index[0], cust_index[1], 1, W, 25, 10, "01/07/23", "08/07/23"])
+        repair_record.append([15000, "R", cust_index[0], cust_index[1], "Add spangly diamonds", 1, "W", 25, 10, "01/07/23", "08/07/23", "01/01/1900", "20"])
     else:
         print("No valid customer returned from find_cust")
         cust_name = input("Customer name: \n")
-        repair_record.append([search_string, cust_name, 1, W, 25, 10, "01/07/23", "08/07/23"])
+        repair_record.append([15001, "R", search_string, cust_name, "Fix broken strap", 1, "W", 25, 10, "01/07/23", "08/07/23", "01/01/1900", "20"])
     print(f"repair record is: {repair_record}")
+    update_worksheet(repair_record, "repairs")
     time.sleep(5)
     
 def find_repair(options):
@@ -150,6 +161,12 @@ def maintain_sys(options):
     print("-- MAINTAIN REPAIRS SYSTEM  --")
     print("------------------------------")
     print(f"\nMaintain repairs tracking system with options {options}\n" )
+    print("Adding value to sys_status sheet")
+    sys_record=[]
+    sys_record.append(["60", "Repair - Archived"])
+    print(f"sys record is: {sys_record}")
+    update_worksheet(sys_record, "sys_status")
+
     time.sleep(5)
 
 def show_help(options):
