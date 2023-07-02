@@ -43,17 +43,15 @@ def authenticate_user(user_name, password):
     return False
 
 def all_upper(my_set):
-#    print(f"Function all_upper, value entered is {my_set}")
+    """ 
+    print(f"Function all_upper, value entered is {my_set}")
+    returns uppercase set based on what is submitted
+    """
     upper_set = []
     for ind in my_set:
-#       print(f"The value of ind is {ind}")
         ind = [x.upper() for x in ind]
-#       print(f"The value of ind after conversion is {ind}")
         upper_set.append(ind)
-#   print(f"The value of upper_set is {upper_set}")
     my_set = upper_set
-#   print(f"Resulting value for my_set is {my_set}")
-#   print("Ending function all_upper")
     return my_set
 
     
@@ -67,17 +65,17 @@ def find_cust(search_string):
     # remove the title row
     all_custs.pop(0)
     # change all fields to uppercase
-    all_custs = all_upper(all_custs)
-   # print(f"all_custs after uppercase conversion {all_custs}")
+    upper_custs={}
+    upper_custs = all_upper(all_custs)
+    print(f"upper_custs after uppercase conversion {upper_custs}")
 
-    for ind_cust in all_custs:
-        cust_found = (set([search_string]) <= set(ind_cust))
+    for ind_cust in upper_custs:
+        cust_found = (set([search_string]) <= set(upper_custs))
         if(cust_found):
-            print(f"customer found, details are {ind_cust}\n")
+            print(f"customer found, details are {upper_custs} index is \n")
             return ind_cust
     print("Existing customer not found.....")
     return False
-
 
 def enter_repair(options):
     """ # this should include tracking (hmm what did I mean by this???)
@@ -104,7 +102,7 @@ def enter_repair(options):
     else:
         print("No valid customer returned from find_cust")
         cust_name = input("Customer name: \n")
-        repair_record.append([search_string, cust_name, 0, 0, 0, 0])
+        repair_record.append([search_string, cust_name, 1, 25, "01/07/23", "08/07/23"])
     print(f"repair record is: {repair_record}")
     time.sleep(5)
     
