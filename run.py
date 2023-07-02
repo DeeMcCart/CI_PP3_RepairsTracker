@@ -7,8 +7,7 @@ import time
 from termcolor import colored
 from tabulate import tabulate
 # from wallpaper import set_wallpaper, get_wallpaper
-import tkinter as tk
-from tkinter import *
+from tk import *
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",

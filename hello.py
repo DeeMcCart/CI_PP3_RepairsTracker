@@ -1,6 +1,7 @@
 import matplotlib as mpl
 import customtkinter
 import os 
+from tkinter import *
 
 if os.environ.get('DISPLAY','') == '':
     print('no display found. Using non-interactive Agg backend')
