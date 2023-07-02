@@ -538,6 +538,8 @@ The following sites were used for research and improving  understanding while cr
 * useriasminna - referenced project to see about tabulating, printing coloured text and adding a background image.  Located at the following URL:  https://github.com/useriasminna/american_pizza_order_system/tree/main 
 * https://stackoverflow.com/questions/1977694/how-can-i-change-my-desktop-background-with-python?rq=4 
 * https://tkdocs.com/
+* Ulrike Riemenschneider for hints re background image 
+* 
 
 
  
