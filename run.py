@@ -65,14 +65,17 @@ def find_cust(search_string):
     # remove the title row
     all_custs.pop(0)
     # change all fields to uppercase
-    upper_custs={}
+    upper_custs=[]
     upper_custs = all_upper(all_custs)
     print(f"upper_custs after uppercase conversion {upper_custs}")
+    all_custs = all_upper(all_custs)
+    print(f"all_custs after uppercase conversion {all_custs}")
+    print(f"search string is {search_string}")
 
-    for ind_cust in upper_custs:
-        cust_found = (set([search_string]) <= set(upper_custs))
+    for ind_cust in all_custs:
+        cust_found = (set([search_string]) <= set(ind_cust))
         if(cust_found):
-            print(f"customer found, details are {upper_custs} index is \n")
+            print(f"customer found, details are {ind_cust} index is \n")
             return ind_cust
     print("Existing customer not found.....")
     return False
@@ -98,11 +101,11 @@ def enter_repair(options):
     if (cust_index):
         print("Valid customer returned")
         print(f"Customer name: {cust_index[1]}")
-        repair_record.append([cust_index[0], cust_index[1], 0, 0, 0, 0])
+        repair_record.append([cust_index[0], cust_index[1], 1, W, 25, 10, "01/07/23", "08/07/23"])
     else:
         print("No valid customer returned from find_cust")
         cust_name = input("Customer name: \n")
-        repair_record.append([search_string, cust_name, 1, 25, "01/07/23", "08/07/23"])
+        repair_record.append([search_string, cust_name, 1, W, 25, 10, "01/07/23", "08/07/23"])
     print(f"repair record is: {repair_record}")
     time.sleep(5)
     
