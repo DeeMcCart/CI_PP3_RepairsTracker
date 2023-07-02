@@ -1,13 +1,17 @@
 # Your code goes here.
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
+import matplotlib
+matplotlib.use('Agg')
 import gspread 
 from google.oauth2.service_account import Credentials
 import time
 from termcolor import colored
 from tabulate import tabulate
 # from wallpaper import set_wallpaper, get_wallpaper
-from tk import *
+import tk
+import tkinter
+#export DISPLAY=:0
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -84,14 +88,24 @@ def enter_repair(options):
     print("\n\n\n\n------------------------------")
     print("---   ENTER REPAIR   ---------")
     print("------------------------------")
-    print(f"\nEnter repair with options {options}\n" )
-    search_string = input("Mobile phone or customer name: \n").upper()
+    # greeting = tkinter.Label(text="Hello, Tkinter")
+    # window = tk.Tk()
+
+    if options !="":
+        print(f"\nEnter repair with options {options}\n" )
+    search_string = input("Customer phone #: \n").upper()
     repair_record=[]   
     cust_index = find_cust(search_string)
     print(f"Returned value from find_cust: {cust_index}")
     if (cust_index):
         print("Valid customer returned")
-#        repair_record.append(cust_index[0], cust_index[1], 0, 0, 0, 0)
+        print(f"Customer name: {cust_index[1]}")
+        repair_record.append([cust_index[0], cust_index[1], 0, 0, 0, 0])
+    else:
+        print("No valid customer returned from find_cust")
+        cust_name = input("Customer name: \n")
+        repair_record.append([search_string, cust_name, 0, 0, 0, 0])
+    print(f"repair record is: {repair_record}")
     time.sleep(5)
     
 def find_repair(options):
@@ -185,6 +199,9 @@ def menu_manager():
         if (input_string[1:] !=""):
             further_options = input_string[1:]
             print(f"Option selected is {user_option}, further input options {further_options}")
+        else:
+            further_options=""
+
         if(user_option=="E"):
             enter_repair(further_options)
         elif (user_option=="F"):

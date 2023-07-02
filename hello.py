@@ -1,7 +1,7 @@
 import matplotlib as mpl
 import customtkinter
 import os 
-from tkinter import *
+import tk as tkinter
 
 if os.environ.get('DISPLAY','') == '':
     print('no display found. Using non-interactive Agg backend')
@@ -15,6 +15,7 @@ app = customtkinter.CTk()  # create CTk window like you do with the Tk window
 app.geometry("400x240")
 
 if os.environ.get('DISPLAY','') == '': print('no display found.')
+
 def button_function():
     print("button pressed")
 
