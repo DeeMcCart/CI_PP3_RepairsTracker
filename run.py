@@ -18,7 +18,7 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive"
     ]
-CREDS = Credentials.from_service_account_file("creds.json")
+CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("RepairsTracker")
@@ -166,6 +166,10 @@ def maintain_sys(options):
     sys_record.append(["60", "Repair - Archived"])
     print(f"sys record is: {sys_record}")
     update_worksheet(sys_record, "sys_status")
+    print(f"Updating sys_status worksheet...\n")
+    worksheet_to_update = SHEET.worksheet("sys_status")
+    worksheet_to_update.append_row(["60", "Repair - Archived"])
+    print(f"{worksheet} worksheet updated successfully.\n")
 
     time.sleep(5)
 
