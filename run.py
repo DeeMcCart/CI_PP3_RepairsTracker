@@ -13,9 +13,13 @@ import tk
 # import tkinter
 #export DISPLAY=:0
 from twilio.rest import Client
+from dotenv import load_dotenv
+load_dotenv()
+
+import os
 
 account_sid = 'AC83dacc66cbdf1b6f8a278daba6a47c06'
-auth_token = '[AuthToken]'
+auth_token = os.environ.get("auth_token")
 client = Client(account_sid, auth_token)
 
 SCOPE = [
@@ -163,10 +167,10 @@ def find_repair(options):
     time.sleep(5)
 
 
-def notify_customer(options):
+def notify_customer(repair_num):
     """ 
     this will:
-    accept multiple repair numbers separated by commas
+    accept none, one, or more repair number(s)s separated by commas
     allow status update from in-progress to complete
     update the spreadsheet row completed status and notified date
     activate a trigger to send a customer notification (email or text)
@@ -303,6 +307,7 @@ def menu_manager(valid_user):
             find_repair(further_options)
         elif (user_option=="N"):
             notify_customer(further_options) 
+            # future:  allow for multiple repair numbers separated by commas
         elif (user_option=="M"):
             # print(f"Valid user value is {valid_user}")
             # note that valid_user holds a value of 0(False) 1(user-level security) 2(super-user level security)

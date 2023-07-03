@@ -12,7 +12,15 @@ from tabulate import tabulate
 import tk
 # import tkinter
 #export DISPLAY=:0
+from twilio.rest import Client
+from dotenv import load_dotenv
+load_dotenv()
 
+import os
+
+account_sid = 'AC83dacc66cbdf1b6f8a278daba6a47c06'
+auth_token = os.environ.get("auth_token")
+  
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -73,24 +81,21 @@ def find_cust(search_string):
     for ind_cust in all_custs:
         cust_found = (set([search_string]) <= set(ind_cust))
         if(cust_found):
-            print(f"customer found, details are {ind_cust} index is \n")
+            # print(f"customer found, details are {ind_cust} \n")
             return ind_cust
     print("Existing customer not found.....")
     return False
 
-def next_index(worksheet, col):
+
+def next_index(worksheet):
     """
-    This function calculates the next index number in column 1 of spreadsheet
-    it is calculated as max index + 1
-    logic is get all entries from worksheet column as per parameters
-    then increment by 1
+    This function calculates the next index number in column 0 of repairs spreadsheet
+    it is calculated as last index + 1
     return this value
     """
-    print("Calculating next index... \n")
     all_repairs = SHEET.worksheet(worksheet).get_all_values()
     next_index=int(all_repairs[-1][0]) + 1
-    print(next_index)
-    time.sleep(2)
+    print(f"Calculated next index: {next_index}")
     return next_index
 
 def list_worksheet(worksheet):
@@ -128,15 +133,22 @@ def enter_repair(options):
     cust_index = find_cust(search_string)
     print(f"Returned value from find_cust: {cust_index}")
     if (cust_index):
-        print("Valid customer returned")
-        print(f"Customer name: {cust_index[1]}")
-        repair_record = [15006, "R", cust_index[0], cust_index[1], "Add spangly diamonds", 1, "W", 25, 10, '01/07/23', '08/07/23', '01/01/1900', '20']
+        rep_phone=cust_index[0]
+        rep_cname=cust_index[1]
     else:
         print("No valid customer returned from find_cust")
-        cust_name = input("Customer name: \n")
-        repair_record = [15006, "R", search_string, cust_name, "Fix broken strap", 1, "W", 25, 10, '01/07/23', '08/07/23', '01/01/1900', '20']
+        rep_phone = search_string
+        rep_cname = input("Customer name: \n")
+    rep_item_type = input("Item type: (W)atch, (R)ing, (P)endant, (C)hain: ")
+    rep_material = input("Material type: 1 = silver; 2 = 9ctgold; 3=18ctgold: ")
+    rep_details = input("Repair details:")
+    rep_estimate = input("Estimated cost (if known): ")
+    rep_deposit = input("Deposit taken: ")
+
+
+    
+    repair_record = [next_index("repairs"), "R", rep_phone, rep_cname,  rep_item_type, rep_material, rep_details,  25, 10, '01/07/23', '08/07/23', '01/01/1900', '20']
     print(f"repair record is: {repair_record}")
-    #update_worksheet([15004, "R", cust_index[0], cust_index[1], "Fix broken strap", 1, "W", 25, 10, '03/07/23', '10/07/23', '01/01/1900', 10], 'repairs')
     update_worksheet(repair_record, 'repairs')
     time.sleep(5)
     
@@ -153,10 +165,11 @@ def find_repair(options):
     print(f"\nFind repair with options {options}\n" )
     time.sleep(5)
 
-def notify_customer(options):
+
+def notify_customer(repair):
     """ 
     this will:
-    accept multiple repair numbers separated by commas
+    accept a single repair number as parameter
     allow status update from in-progress to complete
     update the spreadsheet row completed status and notified date
     activate a trigger to send a customer notification (email or text)
@@ -166,7 +179,18 @@ def notify_customer(options):
     print("--     NOTIFY CUSTOMER(s)   --")
     print("------------------------------")
     print(f"\nNotify customer(s) with options {options}\n" )
-    time.sleep(5)
+    client = Client(account_sid, auth_token)
+    fred=os.environ.get("auth_token")
+    print(f"Retrieving environment variable {fred}")
+    time.sleep(2)
+    message_body = "Hi "
+    message = client.messages.create(
+    from_='+14847423801',
+    body='Hi Deirdre your repair from Goldmark jewellers is ready for collection, regards, Derek',
+    to='+353876203184'
+    )
+    print(message.sid)
+    time.sleep(2)
 
 def maintain_sys(options):
     """ 
@@ -287,6 +311,7 @@ def menu_manager(valid_user):
             find_repair(further_options)
         elif (user_option=="N"):
             notify_customer(further_options) 
+            # allow for multiple repair numbers separated by commas
         elif (user_option=="M"):
             # print(f"Valid user value is {valid_user}")
             # note that valid_user holds a value of 0(False) 1(user-level security) 2(super-user level security)
@@ -311,8 +336,6 @@ def main():
     """
     # set_wallpaper("../assets/images/jewellery_bench.jpg")
     print("Welcome to RepairTracker")
-    fred = next_index("repairs", 1)
-    print(f"fred is {fred}")
     user_name = input("Please enter username:\n")
     password = input("password:\n")
     # note that valid_user returns a value of 0(False) 1(user-level security) 2(super-user level security)
