@@ -67,10 +67,8 @@ def find_cust(search_string):
     # change all fields to uppercase
     upper_custs=[]
     upper_custs = all_upper(all_custs)
-    print(f"upper_custs after uppercase conversion {upper_custs}")
     all_custs = all_upper(all_custs)
-    print(f"all_custs after uppercase conversion {all_custs}")
-    print(f"search string is {search_string}")
+    # print(f"search string is {search_string}")
 
     for ind_cust in all_custs:
         cust_found = (set([search_string]) <= set(ind_cust))
@@ -165,13 +163,10 @@ def maintain_sys(options):
     (Note - need to deal with situation where options is blank or null)
     """
     
-    print(f"\nMaintain system tables, value passed is: {options}\n" )
-    if (options[0] !=""):
-        print(f"non-blank options[1:], has value {options[0]}")
+    if (options!=""):
         user_option = options[0]
         print(f"Option passed is {user_option}")
     else:
-        print(f"blank options[1:] has value {options[0]}")
         # present the user with a menu if an option not already selected
         print("\n\n\n\n------------------------------")
         print("-- MAINTAIN/ UPDATE: --")
@@ -217,7 +212,7 @@ def maintain_sys(options):
     # worksheet_to_update.append_row(["60", "Repair - Archived"])
     # print(f"{worksheet} worksheet updated successfully.\n")
 
-    time.sleep(5)
+    time.sleep(2)
 
 def show_help(options):
     """
@@ -247,8 +242,9 @@ def show_help(options):
     input("Press any key to return to main menu....\n")
 
 def menu_manager(valid_user):
-    print("\n\n\n\n---------------------------------")
-    print("- REPAIRS TRACKER - OPTIONS (main menu):")
+    print("\n\n\n\n----------------------------------------")
+    print("  REPAIRS TRACKER - OPTIONS (main menu):")
+    print("----------------------------------------")
     print("    (E)nter new estimate/repair") 
     print("    (F)ind existing estimate/repair")
     print("    (N)otify customers of repair completion")
@@ -277,12 +273,12 @@ def menu_manager(valid_user):
         elif (user_option=="N"):
             notify_customer(further_options) 
         elif (user_option=="M"):
-            print(f"Valid user value is {valid_user}")
+            # print(f"Valid user value is {valid_user}")
             # note that valid_user holds a value of 0(False) 1(user-level security) 2(super-user level security)
             if (valid_user=='2'):
                 maintain_sys(further_options)
             else:
-                print("You do not have security priviledges to access this option")
+                print("You do not have security privileges to access this option")
                 time.sleep(2)
 
         elif (user_option=="H"):
