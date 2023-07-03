@@ -132,7 +132,7 @@ def update_worksheet(data, worksheet):
     This function taken from love sandwiches
     Update any worksheet, add new row with the list data provided
     """
-    print(f"Updating {worksheet} worksheet...\n")
+#    print(f"Updating {worksheet} worksheet...\n")
 #    print(f"data to update: {data}")
     worksheet_to_update = SHEET.worksheet(worksheet)
     worksheet_to_update.append_row(data)
@@ -204,13 +204,14 @@ def notify_customer(repair_num):
     print("\n\n\n\n------------------------------")
     print("--     NOTIFY CUSTOMER(s)   --")
     print("------------------------------")
-    print(f"\nNotify customer(s) with options {options}\n" )
+    print(f"\nNotify customer(s) with options {repair_num}\n" )
     message = client.messages.create(
     from_='+14847423801',
     body='HI Deirdre your repair from Goldmark jewellers is ready for collection, regards, Derek',
     to='+353876203184'
     )
-    print(message.sid)
+    if (message.sid !="")
+        print("Notification message sent")
     time.sleep(2)
 
 def maintain_sys(options):
