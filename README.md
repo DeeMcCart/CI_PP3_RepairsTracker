@@ -28,15 +28,13 @@
     1. [Languages](#langugages)
     2. [Frameworks and Tools](#frameworks--tools)
 8. [Validation](#validation)
-    1. [HTML Validation](#html-validation)
-    2. [CSS Validation](#css-validation)
-    3. [Javascript Validation](#javascript-validation)
-    4. [Accessibility](#accessibility)
-    5. [Performance](#performance)
-    6. [Multi-device Testing](#multi-device-testing)
-    7. [Multi-browser Testing](#multi-browser-testing)
-    8. [Testing user stories](#testing-user-stories)
-    9. [Unfixed Bugs](#unfixed-bugs)
+    1. [Python Validation](#python-validation)
+    2. [Accessibility](#accessibility)
+    3. [Performance](#performance)
+    4. [Multi-device Testing](#multi-device-testing)
+    5. [Multi-browser Testing](#multi-browser-testing)
+    6. [Testing user stories](#testing-user-stories)
+    7. [Unfixed Bugs](#unfixed-bugs)
 9. [Accessibility](#accessibility)
 10. [Performance](#performance)
 11. [Deployment](#deployment)
@@ -395,25 +393,30 @@ Share results
 * Balsamiq:  used for wireframing
 * Google Fonts: used to locate suitable fonts for website
 
+### Libraries
+* Twilio Client - used to generate SMS for customer notification once repair is completed
+* gspread - used to access google worksheets/ spreadsheets 
+* google.oauth2.service_account used for Credentials/ permissions management
+* os - used to pickup environment variable(s)
+* dotenv - used to picup environment variables
+import time
+from termcolor import colored
+from tabulate import tabulate
+matplotlib.use('Agg')
+* # from wallpaper import set_wallpaper, get_wallpaper
+import tk
+# import tkinter
+
 
 ## Validation 
 
-### HTML Validation 
-- HTML
+### Python Validation 
+- PEP8 validation
   - No errors returned on the index html pages when checked in the W3C validator:
   - [W3C validator - index page](https://validator.w3.org/nu/?doc=https%3A%2F%2Fdeemccart.github.io%2FCI_PP2_HumbleNumble%2Findex.html) 
   - [W3C validator - 404 page](https://validator.w3.org/nu/?doc=https%3A%2F%2Fdeemccart.github.io%2FCI_PP2_HumbleNumble%2F404.html)
   
   - [W3C validator - settings page](https://validator.w3.org/nu/?doc=https%3A%2F%2Fdeemccart.github.io%2FCI_PP2_HumbleNumble%2Fsettings.html)
-
-### CSS Validation
-  - No errors returned when passing through the official [(Jigsaw) validator](https://jigsaw.w3.org/css-validator/validator?uri=https://deemccart.github.io/CI_PP2_HumbleNumble/&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en) 
-
-### Javascript Validation
-  - No errors returned, when javascript was pasted into the jshint validator - however 10 unused variables were identified, which are the function names.    
-<details><summary>jshint - no errors however the function names were identified as unused variables</summary>
-<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/jshint_result.jpg">
-</details>
 
 ### Accessibility
 The site was tested using the WAVE WebAIM accessibility evaluation tool.
@@ -495,10 +498,14 @@ The following sites were used for research and improving  understanding while cr
 * https://www.studytonight.com/python-howtos/how-to-print-colored-text-in-python
 * useriasminna - referenced project to see about tabulating, printing coloured text and adding a background image.  Located at the following URL:  https://github.com/useriasminna/american_pizza_order_system/tree/main 
 * https://stackoverflow.com/questions/1977694/how-can-i-change-my-desktop-background-with-python?rq=4 
+* https://stackoverflow.com/questions/71678738/how-i-convert-a-string-representation-of-a-nested-list-into-a-nested-list
 * https://tkdocs.com/
 * Ulrike Riemenschneider for hints re background image 
 * https://devcenter.heroku.com/articles/config-vars for details of how to map environment variables onto the runtime environment
+* https://sparkbyexamples.com/python/using-python-dotenv-load-environment-variables/?expand_article=1
+* https://www.trendmicro.com/en_ie/research/22/h/analyzing-hidden-danger-of-environment-variables-for-keeping-secrets.html
 * https://www.askpython.com/python-modules/tabulate-tables-in-python
+* https://twilio.com/docs/libraries/reference/twilio-python/
 
 
 
