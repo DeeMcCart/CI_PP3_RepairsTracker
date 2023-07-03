@@ -210,7 +210,7 @@ def notify_customer(repair_num):
     body='HI Deirdre your repair from Goldmark jewellers is ready for collection, regards, Derek',
     to='+353876203184'
     )
-    if (message.sid !="")
+    if (message.sid !=""):
         print("Notification message sent")
     time.sleep(2)
 
