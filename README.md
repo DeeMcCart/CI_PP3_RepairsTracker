@@ -399,7 +399,7 @@ Share results
 * google.oauth2.service_account used for Credentials/ permissions management
 * os - used to pickup environment variable(s)
 * dotenv - used to picup environment variables
-import time
+* time - used for sleep function
 from termcolor import colored
 from tabulate import tabulate
 matplotlib.use('Agg')

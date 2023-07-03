@@ -180,7 +180,7 @@ def enter_repair(options):
     repair_record = [next_index("repairs"), "R", rep_phone, rep_cname,  rep_item_type, rep_material, rep_details,  25, 10, '01/07/23', '08/07/23', '01/01/1900', '20']
 #    print(f"repair record is: {repair_record}")
     update_worksheet(repair_record, 'repairs')
-    time.sleep(5)
+    time.sleep(2)
     
 def find_repair(options):
     """
