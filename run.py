@@ -73,7 +73,7 @@ def find_cust(search_string):
     for ind_cust in all_custs:
         cust_found = (set([search_string]) <= set(ind_cust))
         if(cust_found):
-            print(f"customer found, details are {ind_cust} index is \n")
+            # print(f"customer found, details are {ind_cust} \n")
             return ind_cust
     print("Existing customer not found.....")
     return False
@@ -85,11 +85,9 @@ def next_index(worksheet):
     it is calculated as last index + 1
     return this value
     """
-    print("Calculating next index... \n")
     all_repairs = SHEET.worksheet(worksheet).get_all_values()
     next_index=int(all_repairs[-1][0]) + 1
-    print(next_index)
-    time.sleep(2)
+    print(f"Calculated next index: {next_index}")
     return next_index
 
 def list_worksheet(worksheet):
@@ -127,13 +125,21 @@ def enter_repair(options):
     cust_index = find_cust(search_string)
     print(f"Returned value from find_cust: {cust_index}")
     if (cust_index):
-        cust_phone=cust_index[0]
-        cust_name=cust_index[1]
+        rep_phone=cust_index[0]
+        rep_cname=cust_index[1]
     else:
         print("No valid customer returned from find_cust")
-        cust_phone = search_string
-        cust_name = input("Customer name: \n")
-    repair_record = [next_index("repairs"), "R", cust_phone, cust_name, "Fix broken strap", 1, "W", 25, 10, '01/07/23', '08/07/23', '01/01/1900', '20']
+        rep_phone = search_string
+        rep_cname = input("Customer name: \n")
+    rep_item_type = input("Item type: (W)atch, (R)ing, (P)endant, (C)hain: ")
+    rep_material = input("Material type: 1 = silver; 2 = 9ctgold; 3=18ctgold: ")
+    rep_details = input("Repair details:")
+    rep_estimate = input("Estimated cost (if known): ")
+    rep_deposit = input("Deposit taken: ")
+    
+
+    
+    repair_record = [next_index("repairs"), "R", rep_phone, rep_cname,  rep_item_type, rep_material, rep_details,  25, 10, '01/07/23', '08/07/23', '01/01/1900', '20']
     print(f"repair record is: {repair_record}")
     update_worksheet(repair_record, 'repairs')
     time.sleep(5)
