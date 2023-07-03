@@ -84,7 +84,7 @@ def find_cust(search_string):
         if(cust_found):
             # print(f"customer found, details are {ind_cust} \n")
             return ind_cust
-    print("Existing customer not found.....")
+    # print("Existing customer not found.....")
     return False
 
 
@@ -104,7 +104,9 @@ def list_worksheet(worksheet):
     This is a utility function to print all data from a given worksheet
     """
     all_data = get_worksheet(worksheet)
-    print(f"Worksheet data: \n {all_data}")
+    table1 = tabulate(all_data, headers='firstrow', tablefmt='fancy_grid')
+    print(table1)
+    time.sleep(3)
 
 def get_worksheet(worksheet):
     """
@@ -154,9 +156,10 @@ def enter_repair(options):
         print(f"\nEnter repair with options {options}\n" )
     search_string = input("Customer phone #: \n").upper()
     cust_index = find_cust(search_string)
-    print(f"Found customer: {cust_index}")
+    
 
     if (cust_index) and (input("Correct Customer? (N if not) ")!='N'):
+        print(f"Found customer: {cust_index}")
         rep_phone=cust_index[0]
         rep_cname=cust_index[1]
     else:
@@ -174,7 +177,7 @@ def enter_repair(options):
 
     
     repair_record = [next_index("repairs"), "R", rep_phone, rep_cname,  rep_item_type, rep_material, rep_details,  25, 10, '01/07/23', '08/07/23', '01/01/1900', '20']
-    print(f"repair record is: {repair_record}")
+#    print(f"repair record is: {repair_record}")
     update_worksheet(repair_record, 'repairs')
     time.sleep(5)
     
@@ -195,7 +198,7 @@ def find_repair(options):
 def notify_customer(repair_num):
     """ 
     this will:
-    accept none, one, or more repair number(s)s separated by commas
+    @repair_num:  accept none, one, or more repair number(s)s separated by commas
     allow status update from in-progress to complete
     update the spreadsheet row completed status and notified date
     activate a trigger to send a customer notification (email or text)

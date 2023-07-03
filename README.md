@@ -498,6 +498,7 @@ The following sites were used for research and improving  understanding while cr
 * https://tkdocs.com/
 * Ulrike Riemenschneider for hints re background image 
 * https://devcenter.heroku.com/articles/config-vars for details of how to map environment variables onto the runtime environment
+* https://www.askpython.com/python-modules/tabulate-tables-in-python
 
 
 
