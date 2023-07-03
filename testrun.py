@@ -78,11 +78,12 @@ def find_cust(search_string):
     print("Existing customer not found.....")
     return False
 
-
-def next_index(worksheet):
+def next_index(worksheet, col):
     """
-    This function calculates the next index number in column 0 of repairs spreadsheet
-    it is calculated as last index + 1
+    This function calculates the next index number in column 1 of spreadsheet
+    it is calculated as max index + 1
+    logic is get all entries from worksheet column as per parameters
+    then increment by 1
     return this value
     """
     print("Calculating next index... \n")
@@ -127,14 +128,15 @@ def enter_repair(options):
     cust_index = find_cust(search_string)
     print(f"Returned value from find_cust: {cust_index}")
     if (cust_index):
-        cust_phone=cust_index[0]
-        cust_name=cust_index[1]
+        print("Valid customer returned")
+        print(f"Customer name: {cust_index[1]}")
+        repair_record = [15006, "R", cust_index[0], cust_index[1], "Add spangly diamonds", 1, "W", 25, 10, '01/07/23', '08/07/23', '01/01/1900', '20']
     else:
         print("No valid customer returned from find_cust")
-        cust_phone = search_string
         cust_name = input("Customer name: \n")
-    repair_record = [next_index("repairs"), "R", cust_phone, cust_name, "Fix broken strap", 1, "W", 25, 10, '01/07/23', '08/07/23', '01/01/1900', '20']
+        repair_record = [15006, "R", search_string, cust_name, "Fix broken strap", 1, "W", 25, 10, '01/07/23', '08/07/23', '01/01/1900', '20']
     print(f"repair record is: {repair_record}")
+    #update_worksheet([15004, "R", cust_index[0], cust_index[1], "Fix broken strap", 1, "W", 25, 10, '03/07/23', '10/07/23', '01/01/1900', 10], 'repairs')
     update_worksheet(repair_record, 'repairs')
     time.sleep(5)
     
@@ -309,6 +311,8 @@ def main():
     """
     # set_wallpaper("../assets/images/jewellery_bench.jpg")
     print("Welcome to RepairTracker")
+    fred = next_index("repairs", 1)
+    print(f"fred is {fred}")
     user_name = input("Please enter username:\n")
     password = input("password:\n")
     # note that valid_user returns a value of 0(False) 1(user-level security) 2(super-user level security)
