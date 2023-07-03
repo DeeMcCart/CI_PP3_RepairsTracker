@@ -123,7 +123,7 @@ def nice_list_worksheet(worksheet):
     all_data.pop(0)
     stringy=""
     for data in all_data:
-        stringy=stringy+ "("+data[0]+")"+data[1]+";"
+        stringy=stringy+ "("+data[0]+")"+data[1]+" "
     return stringy
 
 
@@ -164,9 +164,9 @@ def enter_repair(options):
         rep_phone = search_string
         rep_cname = input("Customer name: \n")
     item_types=nice_list_worksheet("sys_item")
-    rep_item_type = input(f"Item type: {item_types} ")
+    rep_item_type = input(f"Type: {item_types}")
     mat_types=nice_list_worksheet("sys_mat")
-    rep_material = input(f"Material type: {mat_types} ")
+    rep_material = input(f"Material: {mat_types}")
     rep_details = input("Repair details: ") 
     rep_estimate = input("Estimated cost (if known): ")
     rep_deposit = input("Deposit taken: ")
