@@ -100,9 +100,31 @@ def next_index(worksheet):
     return next_index
 
 def list_worksheet(worksheet):
-    worksheet_to_list=SHEET.worksheet(worksheet)
-    all_data = worksheet_to_list.get_all_values()
+    """
+    This is a utility function to print all data from a given worksheet
+    """
+    all_data = get_worksheet(worksheet)
     print(f"Worksheet data: \n {all_data}")
+
+def get_worksheet(worksheet):
+    """
+    This is a utility function to return all data from a given worksheet
+    """
+    worksheet_to_return=SHEET.worksheet(worksheet)
+    all_data = worksheet_to_return.get_all_values()
+    return all_data
+
+def nice_list_worksheet(worksheet):
+    """ 
+    This is a utility function to return a concatenated string in 'nice' format
+    showing all entries in a system list as '(col[0]) col[1]'
+    """
+    all_data = get_worksheet(worksheet) 
+    all_data.pop(0)
+    stringy=""
+    for data in all_data:
+        stringy=stringy+ " ("+data[0]+") "+data[1]+";"
+    return stringy
 
 
 def update_worksheet(data, worksheet):
@@ -132,17 +154,20 @@ def enter_repair(options):
         print(f"\nEnter repair with options {options}\n" )
     search_string = input("Customer phone #: \n").upper()
     cust_index = find_cust(search_string)
-    print(f"Returned value from find_cust: {cust_index}")
-    if (cust_index):
+    print(f"Found customer: {cust_index}")
+
+    if (cust_index) and (input("Correct Customer? (N if not) ")!='N'):
         rep_phone=cust_index[0]
         rep_cname=cust_index[1]
     else:
-        print("No valid customer returned from find_cust")
+        print("Existing customer not found")
         rep_phone = search_string
         rep_cname = input("Customer name: \n")
-    rep_item_type = input("Item type: (W)atch, (R)ing, (P)endant, (C)hain: ")
-    rep_material = input("Material type: 1 = silver; 2 = 9ctgold; 3=18ctgold: ")
-    rep_details = input("Repair details:")
+    item_types=nice_list_worksheet("sys_item")
+    rep_item_type = input(f"Item type: {item_types} ")
+    mat_types=nice_list_worksheet("sys_mat")
+    rep_material = input(f"Material type: {mat_types} ")
+    rep_details = input("Repair details: ") 
     rep_estimate = input("Estimated cost (if known): ")
     rep_deposit = input("Deposit taken: ")
 
