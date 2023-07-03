@@ -80,13 +80,19 @@ def find_cust(search_string):
     print("Existing customer not found.....")
     return False
 
+def list_worksheet(worksheet):
+    worksheet_to_list=SHEET.worksheet(worksheet)
+    all_data = worksheet_to_list.get_all_values()
+    printf("Worksheet data: \n {all_data}")
+
+
 def update_worksheet(data, worksheet):
     """
     This function taken from love sandwiches
     Update any worksheet, add new row with the list data provided
     """
     print(f"Updating {worksheet} worksheet...\n")
-    print(f"data to update: {data}")
+#    print(f"data to update: {data}")
     worksheet_to_update = SHEET.worksheet(worksheet)
     worksheet_to_update.append_row(data)
     print(f"{worksheet} worksheet updated successfully.\n")
@@ -161,7 +167,7 @@ def maintain_sys(options):
     print("\n\n\n\n------------------------------")
     print("-- MAINTAIN REPAIRS SYSTEM  --")
     print("------------------------------")
-    print(f"\nMaintain repairs tracking system with options {options}\n" )
+    print(f"\nMaintain system tables {options}\n" )
     print("Adding value to sys_status sheet")
     sys_record=[]
     sys_record.append(["60", "Repair - Archived"])
@@ -201,7 +207,7 @@ def show_help(options):
     print("")
     input("Press any key to return to main menu....\n")
 
-def menu_manager():
+def menu_manager(valid_user):
     print("\n\n\n\n---------------------------------")
     print("- REPAIRS TRACKER - OPTIONS (main menu):")
     print("    (E)nter new estimate/repair") 
@@ -232,7 +238,14 @@ def menu_manager():
         elif (user_option=="N"):
             notify_customer(further_options) 
         elif (user_option=="M"):
-            maintain_sys(further_options)
+            print(f"Valid user value is {valid_user}")
+            # note that valid_user holds a value of 0(False) 1(user-level security) 2(super-user level security)
+            if (valid_user=='2'):
+                maintain_sys(further_options)
+            else:
+                print("You do not have security priviledges to access this option")
+                time.sleep(2)
+
         elif (user_option=="H"):
             show_help(further_options)
         else:
@@ -253,7 +266,7 @@ def main():
     # note that valid_user returns a value of 0(False) 1(user-level security) 2(super-user level security)
     valid_user = authenticate_user(user_name, password)
     while valid_user:
-        valid_user=menu_manager()
+        valid_user=menu_manager(valid_user)
     print("Exiting... Thank you for using RepairTracker...\n")
 
 main()
