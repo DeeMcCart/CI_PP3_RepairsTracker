@@ -86,6 +86,7 @@ def update_worksheet(data, worksheet):
     Update any worksheet, add new row with the list data provided
     """
     print(f"Updating {worksheet} worksheet...\n")
+    print(f"data to update: {data}")
     worksheet_to_update = SHEET.worksheet(worksheet)
     worksheet_to_update.append_row(data)
     print(f"{worksheet} worksheet updated successfully.\n")
@@ -105,19 +106,19 @@ def enter_repair(options):
     if options !="":
         print(f"\nEnter repair with options {options}\n" )
     search_string = input("Customer phone #: \n").upper()
-    repair_record=[]   
     cust_index = find_cust(search_string)
     print(f"Returned value from find_cust: {cust_index}")
     if (cust_index):
         print("Valid customer returned")
         print(f"Customer name: {cust_index[1]}")
-        repair_record.append([15000, "R", cust_index[0], cust_index[1], "Add spangly diamonds", 1, "W", 25, 10, "01/07/23", "08/07/23", "01/01/1900", "20"])
+        repair_record = [15006, "R", cust_index[0], cust_index[1], "Add spangly diamonds", 1, "W", 25, 10, '01/07/23', '08/07/23', '01/01/1900', '20']
     else:
         print("No valid customer returned from find_cust")
         cust_name = input("Customer name: \n")
-        repair_record.append([15001, "R", search_string, cust_name, "Fix broken strap", 1, "W", 25, 10, "01/07/23", "08/07/23", "01/01/1900", "20"])
+        repair_record = [15006, "R", search_string, cust_name, "Fix broken strap", 1, "W", 25, 10, '01/07/23', '08/07/23', '01/01/1900', '20']
     print(f"repair record is: {repair_record}")
-    update_worksheet(repair_record, "repairs")
+    #update_worksheet([15004, "R", cust_index[0], cust_index[1], "Fix broken strap", 1, "W", 25, 10, '03/07/23', '10/07/23', '01/01/1900', 10], 'repairs')
+    update_worksheet(repair_record, 'repairs')
     time.sleep(5)
     
 def find_repair(options):
