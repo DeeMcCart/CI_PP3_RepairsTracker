@@ -12,6 +12,11 @@ from tabulate import tabulate
 import tk
 # import tkinter
 #export DISPLAY=:0
+from twilio.rest import Client
+
+account_sid = 'AC83dacc66cbdf1b6f8a278daba6a47c06'
+auth_token = '[AuthToken]'
+client = Client(account_sid, auth_token)
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -136,7 +141,7 @@ def enter_repair(options):
     rep_details = input("Repair details:")
     rep_estimate = input("Estimated cost (if known): ")
     rep_deposit = input("Deposit taken: ")
-    
+
 
     
     repair_record = [next_index("repairs"), "R", rep_phone, rep_cname,  rep_item_type, rep_material, rep_details,  25, 10, '01/07/23', '08/07/23', '01/01/1900', '20']
@@ -157,6 +162,7 @@ def find_repair(options):
     print(f"\nFind repair with options {options}\n" )
     time.sleep(5)
 
+
 def notify_customer(options):
     """ 
     this will:
@@ -170,7 +176,13 @@ def notify_customer(options):
     print("--     NOTIFY CUSTOMER(s)   --")
     print("------------------------------")
     print(f"\nNotify customer(s) with options {options}\n" )
-    time.sleep(5)
+    message = client.messages.create(
+    from_='+14847423801',
+    body='HI Deirdre your repair from Goldmark jewellers is ready for collection, regards, Derek',
+    to='+353876203184'
+    )
+    print(message.sid)
+    time.sleep(2)
 
 def maintain_sys(options):
     """ 
