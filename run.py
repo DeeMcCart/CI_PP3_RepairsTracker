@@ -156,10 +156,11 @@ def enter_repair(options):
         print(f"\nEnter repair with options {options}\n" )
     search_string = input("Customer phone #: \n").upper()
     cust_index = find_cust(search_string)
-    
+    if (cust_index):
+        print(f"Found customer: {cust_index}")
 
     if (cust_index) and (input("Correct Customer? (N if not) ")!='N'):
-        print(f"Found customer: {cust_index}")
+        
         rep_phone=cust_index[0]
         rep_cname=cust_index[1]
     else:

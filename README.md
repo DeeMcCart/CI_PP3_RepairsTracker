@@ -506,6 +506,7 @@ The following sites were used for research and improving  understanding while cr
 * https://www.trendmicro.com/en_ie/research/22/h/analyzing-hidden-danger-of-environment-variables-for-keeping-secrets.html
 * https://www.askpython.com/python-modules/tabulate-tables-in-python
 * https://twilio.com/docs/libraries/reference/twilio-python/
+* https://www.youtube.com/watch?v=n2cF1e2tyhI What Is Twilio? SMS and Voice API's explained - Matt Kander
 
 
 
