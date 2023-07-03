@@ -83,7 +83,7 @@ def find_cust(search_string):
 def list_worksheet(worksheet):
     worksheet_to_list=SHEET.worksheet(worksheet)
     all_data = worksheet_to_list.get_all_values()
-    printf("Worksheet data: \n {all_data}")
+    print(f"Worksheet data: \n {all_data}")
 
 
 def update_worksheet(data, worksheet):
@@ -164,19 +164,58 @@ def maintain_sys(options):
     In each case maintain means find, list, edit based on index number
     (Note - need to deal with situation where options is blank or null)
     """
-    print("\n\n\n\n------------------------------")
-    print("-- MAINTAIN REPAIRS SYSTEM  --")
-    print("------------------------------")
-    print(f"\nMaintain system tables {options}\n" )
-    print("Adding value to sys_status sheet")
-    sys_record=[]
-    sys_record.append(["60", "Repair - Archived"])
-    print(f"sys record is: {sys_record}")
-    update_worksheet(sys_record, "sys_status")
-    print(f"Updating sys_status worksheet...\n")
-    worksheet_to_update = SHEET.worksheet("sys_status")
-    worksheet_to_update.append_row(["60", "Repair - Archived"])
-    print(f"{worksheet} worksheet updated successfully.\n")
+    
+    print(f"\nMaintain system tables, value passed is: {options}\n" )
+    if (options[0] !=""):
+        print(f"non-blank options[1:], has value {options[0]}")
+        user_option = options[0]
+        print(f"Option passed is {user_option}")
+    else:
+        print(f"blank options[1:] has value {options[0]}")
+        # present the user with a menu if an option not already selected
+        print("\n\n\n\n------------------------------")
+        print("-- MAINTAIN/ UPDATE: --")
+        print("------------------------------")
+        print("    (C)ustomer list") 
+        print("    (I)tem type")
+        print("    (M)aterials")
+        print("    (S)tatus Codes")
+        print("    (U)sers")
+        print("    (H)elp")
+        print("    e(X)it")  # if selected this will return a value of False
+    
+        input_string = input("Option:\n").upper()
+        if input_string!="":
+            user_option=input_string[0]
+        else:
+            print("Blank option, try again!")
+    
+    if (user_option=="X"):
+                return False
+    elif(user_option=="C"):
+        list_worksheet('sys_cust')
+    elif (user_option=="I"):
+        list_worksheet('sys_item')
+    elif (user_option=="M"):
+        list_worksheet('sys_mat') 
+    elif (user_option=="S"):
+        list_worksheet('sys_status')
+    elif (user_option=="U"):
+        list_worksheet('sys_users')
+    elif (user_option=="H"):
+        show_help("M")
+    else:
+         print("Invalid option, try again!")
+             
+    # print("Adding value to sys_status sheet")
+    # sys_record=[]
+    # sys_record.append(["60", "Repair - Archived"])
+    # print(f"sys record is: {sys_record}")
+    # update_worksheet(sys_record, "sys_status")
+    # print(f"Updating sys_status worksheet...\n")
+    # worksheet_to_update = SHEET.worksheet("sys_status")
+    # worksheet_to_update.append_row(["60", "Repair - Archived"])
+    # print(f"{worksheet} worksheet updated successfully.\n")
 
     time.sleep(5)
 
@@ -253,7 +292,7 @@ def menu_manager(valid_user):
     else:
        print("Blank option, try again!")
          
-    return True
+    return valid_user
 
 def main():
     """
