@@ -10,7 +10,7 @@ from termcolor import colored
 from tabulate import tabulate
 # from wallpaper import set_wallpaper, get_wallpaper
 import tk
-import tkinter
+# import tkinter
 #export DISPLAY=:0
 
 SCOPE = [
