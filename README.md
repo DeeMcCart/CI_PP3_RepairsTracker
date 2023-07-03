@@ -17,7 +17,7 @@
     3. [Returning User Goals](#returning-user-goals)
     4. [Other stakeholder Goals](#other-stakeholder-goals)
 5. [Further UX Design: ](#ux-design-decisions)
-    1. [Skeleton - Wireframes; ](#wireframes)
+    1. [Skeleton - Flowcharts; ](#flowcharts)
     2. [Surface - Fonts; ](#fonts-chosen)
     3. [Surface - Colours](#colour-scheme)
     4. [Surface - Imagery](#design-images)
@@ -49,216 +49,174 @@
 
 ## About
 ---------
-RepairTracker is a python-based database application designed to replace a manual (paper-based) system of jewellery repair tracking.  This is a real-world requirement, and while the version of RepairTracker presented is a demo version, the app is intended for live use in the near future.
+RepairTracker is a python- and google-sheets DBMS application intended to replace a manual (paper-based) system for tracking the lifecycle of jewellery repair.  This is a real-world requirement, and while the version of RepairTracker presented is a demo version, the app is aiming towards live use.
  
 <ul> <em>Help:</em>  
     <li>  </li>
     <li>  </li>
-(refer to 'Help' for more details - https://repairs-tracker-aa30320aef0e.herokuapp.com/
+refer to 'Help' for more details - https://repairs-tracker-aa30320aef0e.herokuapp.com/
 
 ### Responsive Mockup
-https://ui.dev/amiresponsive?url=https://deemccart.github.io/CI_PP2_HumbleNumble/
+A responsive mockup is given here,  although in practice the user interface is a 80-char x 24 line text display regardless of device:
+https://ui.dev/amiresponsive?url=https://repairs-tracker-aa30320aef0e.herokuapp.com/
 
 ### Live webpage link
-https://deemccart.github.io/CI_PP2_HumbleNumble
+https://repairs-tracker-aa30320aef0e.herokuapp.com/
 
 ## Project Goals
 ----------------
-1. To produce a 6-try numbers-based game. 
-2. Using a mobile-friendly development development approach.  
-3. Which uses the capabilities of HTML, CSS and Javascript.
-4. And is possible to play with a reasonable chance of success.
+1. To automate the existing manual steps for repair tracking, from initial entry through to in-progress, customer notification and collection/payment. 
+2. Using the integration capabilities of python (and associated libraries) to link to Google Sheets as a reasonaby basic DBMS, and bolt-on libraries for SMS notifications (and, in the future, label printing).  
+3. Which is not significantly slower than the current manual (handwritten) system.
+4. And which provides additional functionality for customer tracking, repairs status reporting.
+5. And which provides some capabilities for customisation/ configuration, ie access to maintain certain system parameters.
   
 ### UX Design Strategy
-Wordle (https://www.nytimes.com/games/wordle/index.html) is a game which began as a personal project for software engineer Josh Wardle.   As of Jan 2022 it had 2M weekend players (theguardian.com 'Wordle-creator-overwhelmed-by-global-success-of-his-puzzle') and was subsequently acquired by the New York Times.  The Guardian wrote that 'Wordle’s popularity is thought to be partly because, in an era of apps aggressively competing for your attention and time, the game was deliberately built to be played once a day, and without features designed to promote its growth such as push notifications and email sign ups.'  Current estimates are of 250K daily users, many of whom are repeat users, and 57% of whom play the game on their smartphone (blog.gitnux.com).
+As this program is delivered using Python, the emphasis is on functionality rather than appearance.
+However, in line with project goal #3, some features have been included to streamline data entry.  For example, on the main menu, the user can enter a single-character option (E)nter, (H)elp, etc.  When presented with a sub-menu, they can then enter a further single-character option, e.g. the 'Enter' sub-menu has options for (E)stimate, (R)epair, etc.
+To streamline data entry, a user familiar with the menu structure can directly enter a multi-character string to immediately access a sub-menu.  A typical example would be ER to choose Enter - Repair.   
 
-Humble Numble aims to piggyback on the Wordle philosophies of:
-* simple interface with uncluttered screen
-* clearly understood rules
-* scarcity - user can only access one game per day
-* reponsiveness - ability to play on small screens (convenient for user)
-* no time-out - can fit into small pockets of time as game remains on-screen until 6 guesses completed
-* feedback and interaction - user immediately gets feedback when they press ENTER on a guess
-* statistic tracking - user can track # of attempts to solve, number of days solved, success rates
-* peer-group communication - user can share their problem-solving pattern (without revealing any part of the solution) to friends who may also play
+Other UX design considerations include meaningful error messages and status messages.
+Status code is used track each repair lifecycle.  This makes current status, worklaod and throughput of estimates/repairs clearly visible.
+As per project goal #4, functionality within RepairTracker allows repairs status to be filtered and reported on.
 <br>
 <br>
-### UX Design Strategy Analysis - Existing Numble Games
-
-Using Google search, the following were identified as possible Numble websites -
-<br>
-https://thenumble.app/ <br>
-https://numble.wtf <br>
-https://numble.game <br>
-https://numble.win<br>
-https://numble.online<br>
-https://en.wikipedia.org/wiki/Numble (wikipedia)<br>
-Whilst these sites individually contain some good features, none is comparable to the range of functionality, and simplicity of design, available from the Wordle site.   
-
-<details><summary>Analysis of Existing Numble Websites</summary>
-<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/strategy_competitive_analysis.jpg"></details>
+### UX Design Strategy Analysis - Existing Repair Tracking Apps
+Commercially available repair tracking apps do exist, however, these often form part of a larger suite of business modules, integrated with payment and inventory systems. As such, implementation involves monthly subscription costs and an implementation effort.
+RepairTracker is a simple approach to meet the repair tracking aspects only.  It is sufficiently customisable for use in a small-medium sized business, and is quick to use 'out of the box'.
 
 ### UX Design Strategy Target Audience
-The aim of this specific website is develop a Numble game which can be played in simple form
-
-The target audience is:<br>
-a. People who enjoy puzzle-solving<br>
-b. People who already play Wordle and are familiar with the user interface (e.g. grey, orange, green guess-letter evaluation; 6 tries,  grid layout)<br>
-c. People who want to have a reliable consistent experience through out the game (in other words, they want an opportunity to finish the game by reaching the end, and they want to be able to trust the process (ie they can understand how they move forward or backwards, and they dont feel it is unfair or impossible to complete).<br>
-d. People who like to practice their mathematical skills<br>
-
-* Game players
-* who enjoy mathematical puzzles
-* and want to have a bit of fun doing it
+Target users are small-medium sized jewellery shops who perform repairs for inhouse (and possibly external) customers.
 
 ## UX Design Scope
 ----------------
 
 ### UX Design Scope User Requirements and Expectations
 <br>
-From the analysis of existing games, a set of possible requirements was identified for a new portal.
-<br><br>
-The basic requirement for users is to have access to a 'fair' game where they have a possibility of reaching the goal.
-Humble Numble is a fun way of applying simple mathematical principles
-    
 <ul>MVP Requirements:
 <li>Must be intuitive to use</li>
 <li>Must be easy to learn</li>
 <li>Good for first time or returning users</li>
-<li>Accessible - no ad display & no paywall</li>
-<li>Familiar interface for Wordle consumers</li>
 </ul>
 <br>
 <ul>Requirements - Desirable:
-<li>Would like to share results (graphic showing the pattern of result)</li>
-<li>Would like to be able to track user statistics (cookies)</li>
-<li>Would like to be able to auto-generate new equations</li>
-<li>Would like to be able to track equations already used</li>
-<li>Would like to be able to set difficulty levels</li>
+<li>Would like to track status of repairs</li>
+<li>Would like to be able to configure with system with new options, e.g. for item or metal types</li>
+<li>Would like to be able to maintain/ review a list of customers</li>
+<li>Would like to be able to automatically notify customers of repairs which are due for collection</li>
+<li>Would like to be able to track repairs which are (over)due for collection</li>
+<li>Would like to gather data for ad-hoc statistical analysis of repairs (average price, weekly throughput, etc) </li>
 </ul>
 <br>
-<ul>To incorporate as many of the Wordle characteristics below as possible:
-<li>Simple interface with uncluttered screen</li>
-<li>clearly understood rules</li>
-<li>scarcity - user can only access one game per day</li>
-<li>reponsiveness - ability to play on small screens (convenient for user)</li>
-<li>no time-out - can fit into small pockets of time as game will remain on-screen until 6 guesses completed</li>
-<li>feedback and interaction - user immediately gets feedback for each guess</li>
-<li>statistic tracking - user can track # of attempts to solve, number of days solved, success rates</li>
-<li>peer-group communication - user can share their problem-solving pattern (without revealing any part of the solution) to friends who may also play</li>
-</ul>
-
 ### UX Design Scope - Data
-A set of equations are pre-loaded which are consistent with game rules (e.g. operator numbers not > 20, calculations return an integer value)
-Currently Humble Numble will randomly select one of these equations for each game.
+A single Google spreadsheet is used to hold the DMBS.
+This is pre-populated with configuration data as follows:
+* sys_cust holds a list of the customers known to the system;
+* sys_mat holds the type of material/metals and is recorded when a repair is received;
+* sys_users holds a list of userids and passwords known to the system, and whether each has user or administrator access;
+* sys_item holds jewellery item types, e.g. (W)atch, (E)arrings;
+* sys_status holds the lifecycle of an estimate/ repair
+
 
 ## User Goals/ User Stories
 ----------------
     
 ### Site owner Goals
-* SO_01 As site owner I want to provide a fun, satisfying game which is visually engaging and highly interactive
-* SO_02 As site owner I want to provide a familiar interface for Wordle consumers (to assist in user learning and ease of adoption for a large pre-existing user base)
-* SO_03 As site owner I want to provide an interface which is uncluttered, free from ads, and not behind a paywall
-* SO_04 As site owner I want to include a mathematical learning experience in this game
-* SO_05 As site owner I want to provide straightforward, intuitive, consistent website navigation
-* SO_06 As site owner I want to provide a website, which meets current programming, performance and accessibility standards (html, css, javascript, responsive, accessibility, performance)
-* SO_07 As site owner I want to provide an opportunity for the user to provide feedback, including reporting issues, or suggesting improvements to the Humble Numble site
-* SO-08 As site owner I want to acknowledge to the user that their feedback has been received
-* SO-09 (FUTURE) As site owner I would like to implement scarcity - so that user can only access one game per day
-* SO-10 (FUTURE) As site owner, I would like to auto-generate new equations
-* SO_11 (FUTURE) As site owner, I would like to be able to track equations already used
-* SO_12 (FUTURE) As site owner, I would like to be able to set difficulty levels
-* SO_13 (FUTURE) As site owner, I would like to provide player stats - user can track # of attempts to solve, number of days solved, success rates
-* SO_14 (FUTURE) As site owner, I would like to facilitate users to share their problem-solving pattern (without revealing any part of the solution) 
+* SO_01 As site owner I want to provide a system which is intuitive and easy to learn 
+* SO_02 As site owner I want to provide shortcuts for experienced users, to speed up data entry
+* SO_03 As site owner I want to provide automated customer notification when repairs are complete
+* SO_04 As site owner I want to allow certain users the ability to configure and expand the system
+* SO_05 As site owner I want to streamline the existing manual processes
+* SO_06 As site owner I want to meet PEP8 standards
+* SO_07 As site owner I want to ensure that all data entry is validated and captured in the best possible format (e.g. mixed case or upper-case as appropriate) to allow for consistent reporting
+* SO-08 As site owner I want to provide immediate feedback on erroneous data entry 
+* SO-09 As site owner I want to provide basic authentication and security to prevent unauthorised usage
+* SO-10 (FUTURE) As site owner I want to implement label printing as each repair is entered
 
 ### First-time User Goals
-* FTU_01 As a first time user I am curious about what this site does, and may just want to quickly play a game
-* FTU_02 As a first time user I would like to be able to easily navigate the site and quickly learn its functionality (particularly if I am already a Wordle user)
-* FTU_03 As a first time user I would like to easily understand game rules
+* FTU_01 As a first time user I want to be able to enter repair details quickly and accurately
+* FTU_02 As a first time user I would like to be able to easily navigate the site and quickly learn its functionality 
+* FTU_03 As a first time user I would like to be able to access help for the various system functions
 * FTU_04 As a first-time user I want clear, timely and unambiguous feedback and interaction 
 * FTU_05 As a first-time user I expect links and functions that work as expected
-* FTU_06 As a first-time user who is curious about mathematical equations, I want to practice mental maths using a puzzle solving game
-* FTU_07 As a first time user I would like to see my score and receive feedback on my performance
-* FTU_08 As a first time user I would like to play on my device of choice (quite likely my mobile - reponsiveness)  
 
 ### Returning User Goals
-* RU_01 As a returning user I wish to play the game, just because I enjoy it
-* RU_02 As a returning user I want to 'beat the computer' by guessing the solution within 6 tries
-* RU_03 no time-out - can fit into small pockets of time as game will remain on-screen until 6 guesses completed
-* RU_04 As a returning user I definitely want to be able to see any equation which I didn't guess within 6 tries
-* RU_05 As a returning user I would like to receive a 'fresh' challenge each time I play (ie not an equation thats been used before)
-* RU_06 As a returning user I want to feel that the game is 'fair' and that I can apply my skills to playing it
-* RU_07 As a returning user I would like to be able to contact the developer and to provide suggestions for game enhancement
-* RU_08 (FUTURE) As a returning user I would like to be able to share my results with my friends (graphic showing the pattern of result)
-* RU_09 (FUTURE) As a returning user I would like to receive only one challenge per day (to avoid being sucked into a timewarp of endless gaming)
-* RU_10 (FUTURE) As a returning user I would like to be able to track my statistics and to track/ maintain/ improve my winning streak
+* RU_01 As a returning user I want to be able to perform speed-entry rather than menu-only navigation
+* RU_02 As a returning user (administrator) I want to be able to expand or customize the RepairTracker system
+* RU_03 As a returning user I want to be able to view data (e.g. customers) within the RepairTracker system
+* RU_04 As a returning user (administrator) I would like access to back-end data for adhoc analysis
+* RU_05 (FUTURE) As a returning user (administrator) I would like to be able to modify the status of a repair record
 
 ### Other stakeholder Goals
-* OT_01 As an educator I might wish to suggest new equations to be solved by Humble Numble players 
-* OT_02 As an educator I might promote the use of this game amongst my students to increase their mathematical skills
+* OT_01 As a shop customer I would like to receive prompt notification when my repair is completed
+* OT_02 (FUTURE) As a shop customer i would like to receive a reminder if I am overdue in collecting my repair
 
 
 ## UX Design Decisions
 ----------------
 
-### Wireframes
-<details><summary>Landing Page</summary>
-<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/wf1_hn_landing.png">
+### Flowcharts
+<details><summary>Main Menu</summary>
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/flowchart_overview_with_authentication.jpg">
 </details>
 
-<details><summary>How To Play</summary>
-<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/wf2_hn_howtoplay.png">
+<details><summary>Enter repair/estimate</summary>
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/flowchart_enter_repair.jpg">
 </details>
 
-<details><summary>Game screen</summary>
-<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/wf3_hn_game.png">
+<details><summary>Complete Repair - Notify Customer</summary>
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/flowchart_complete_notify.jpg">
 </details>
 
-<details><summary>Game screen in progress</summary>
-<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/wf4_hn_game_inprogress.png">
+<details><summary>Customer Collect/ Completion</summary>
+<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/flowchart_collect.jpg">
 </details>
 
   
 ### Fonts Chosen
-The fonts are deliberately chosen to mimic appearance of Wordle screen. 
-In real life, Wordle uses proprietary fonts (NYT Karnak Condensed), with Helventica Sans for the grid and button text.  A reasonably close match, which is widely available on a range of devices, was thought to be the Google bebas Neue font.
-
-However, when testing the site this did not present a good look, and so Roboto Slab was chosen as a better alternative.
-Fallback fronts are used in both cases
+n/a as quite limited..... however would ideally like to apply some colours to the text.
 
 ### Colour Scheme 
-The colour combinations mimic Wordle's game (for consistency and to ease the user learning experience).
-   
-The choice of colours for Humble Numble is very much in accordance with user stories S_02 (closely emulate the Wordle look & feel); FTU_02 (first-time user to easily navigate and learn the site) - consistent with Wordle so as to speed the learning process and encourage the focus on the game content, rather than on how to use it.
+Would like to have different colours for error messages, status messages etc.
 
-<details><summary>Colours- similar to Wordle</summary>
-<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/f07_game_grid_in_progress.jpg">
+<details><summary>Colours- used for prompt & feedback to user & to aid user learning</summary>
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/colour_examples.jpg">
 </details>
 
 ### Design Images
-This site has very few images as the focus is on the game content.
-A 'Wordle-type' logo is used on the Intro page.
-<details><summary>'Wordle-type' logo</summary>
-<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/numble_icon.jpg">
+Ideally would like to have a background or splash image which bounds the entry screen as the black and white text based screen drives me up the wall.
+<details><summary>Background image</summary>
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/background_image.jpg">
 </details>
 
 ### Design Images - Icons and Symbols
-
-Certain icons and symbols (again based on Wordle look & feel) are used for quicklinks e.g. ? for About page, graphy symbol for Stats page, cog symbol for settings page. 
-
+N/a to text-based display
 
 ## Features 
  
-### F01 Intro Screen
-<details><summary>Introduction screen</summary>
-<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/f01_intro.jpg"></details>
+### F01 Authentication
+The user must give a valid userid and password to gain entry to the system (this demo version is provided with u-u for user-level access and s-s for administrator/super-user access) 
+<details><summary>User password entry</summary>
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f01_password.jpg"></details>
+<details><summary>User failed access</summary>
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f01_kicked_out.jpg"></details>
+<details><summary>User must be administrator to access maintenance options</summary>
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f01_admin_needed.jpg"></details>
+
 <br>
-On first using the game an introduction window is shown, the user can choose 'Play' or 'How to Play' buttons.  The intro page shows the current date, the Humble Numble day number, and some copyright and acknowledgement notices.
-This addresses user stories SO_01, SO_02, FTU_01, FTU_02, FTU_03
-<br>
+The use of basic authentication satisfies user requirements SO-04, SO-09, FTU-02, FTU-05, RU-02<br>
 <br>
 
-### F02 'How To Play' Screen
+### F02 'MAIN MENU' 
+<details><summary>Main Menu options</summary>
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f02_main_menu.jpg"></details>
+<br>
+The main menu lists options each of which is linked to a different letter of the alphabet.  The user can enter an option (in upper or lower case) and will be brouhgt to the linked sub-menu.  If, from the main,menu, the user already knows the submenu option they can key this also, e.g. EE to take the (E)nter option from main menu then (E)stimate from sub-menu.
+<br>
+This meets user requirements ......<br>
+<br>      
+
+### F03 'Help' Screen
 <details><summary>How To Play screen</summary>
 <img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/f02_help.jpg"></details>
 <br>
@@ -539,7 +497,8 @@ The following sites were used for research and improving  understanding while cr
 * https://stackoverflow.com/questions/1977694/how-can-i-change-my-desktop-background-with-python?rq=4 
 * https://tkdocs.com/
 * Ulrike Riemenschneider for hints re background image 
-* 
+* https://devcenter.heroku.com/articles/config-vars for details of how to map environment variables onto the runtime environment
+
 
 
  
