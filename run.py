@@ -123,7 +123,7 @@ def nice_list_worksheet(worksheet):
     all_data.pop(0)
     stringy=""
     for data in all_data:
-        stringy=stringy+ " ("+data[0]+") "+data[1]+";"
+        stringy=stringy+ "("+data[0]+")"+data[1]+";"
     return stringy
 
 
