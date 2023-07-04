@@ -10,7 +10,7 @@ from termcolor import colored
 from tabulate import tabulate
 # from wallpaper import set_wallpaper, get_wallpaper
 import tk
-import tkinter
+# import tkinter
 #export DISPLAY=:0
 from twilio.rest import Client
 from dotenv import load_dotenv
@@ -370,6 +370,8 @@ def main():
     Run all program functions
     """
     # set_wallpaper("../assets/images/jewellery_bench.jpg")
+    # attempt to control the background using tkinter:
+    
     print("Welcome to RepairTracker")
     user_name = input("Please enter username:\n")
     password = input("password:\n")
