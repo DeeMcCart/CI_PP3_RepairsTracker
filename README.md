@@ -57,6 +57,7 @@ refer to 'Help' for more details - https://repairs-tracker-aa30320aef0e.herokuap
 ### Responsive Mockup
 A responsive mockup is given here,  although in practice the user interface is a 80-char x 24 line text display regardless of device:
 https://ui.dev/amiresponsive?url=https://repairs-tracker-aa30320aef0e.herokuapp.com/
+(and, in fact, the user interface when tested on a mobile device did not function correctly, and operated with anomolies when used on a Samsung Galaxy tablet)
 
 ### Live webpage link
 https://repairs-tracker-aa30320aef0e.herokuapp.com/
@@ -412,24 +413,26 @@ import tk
 
 ### Python Validation 
 - PEP8 validation
-  - No errors returned on the index html pages when checked in the W3C validator:
-  - [W3C validator - index page](https://validator.w3.org/nu/?doc=https%3A%2F%2Fdeemccart.github.io%2FCI_PP2_HumbleNumble%2Findex.html) 
-  - [W3C validator - 404 page](https://validator.w3.org/nu/?doc=https%3A%2F%2Fdeemccart.github.io%2FCI_PP2_HumbleNumble%2F404.html)
-  
-  - [W3C validator - settings page](https://validator.w3.org/nu/?doc=https%3A%2F%2Fdeemccart.github.io%2FCI_PP2_HumbleNumble%2Fsettings.html)
+- The pycodestyle validator within the GitPod environment was used on 04/07/23 and, after corrections, returned 0 errors.
+- Corrections required included over-long lines; whitespaces at end of lines - or on blank lines, missing spaces around operators
+- under- or over-indentation, incorrect # of blank lines between functions.  When first run there were over 50 PEP8 errors present, 
+- this was reduced to 0 by applying advised corrections, then verifying that the resulting code still functioned correctly.
+
+https://pep8ci.herokuapp.com/#
+The CI PEP8 validator was also used, by pasting my run.py code into here, and on 04/07/23 confirmed 0 linting issues.
+<details><summary>Validation: CI PEP8 validator</summary>
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/val_ci_pep8.jpg">
+</details>
 
 ### Accessibility
-The site was tested using the WAVE WebAIM accessibility evaluation tool.
-All pages pass with 0 errors 
-- [Accessibility: index page](https://wave.webaim.org/report#/https://deemccart.github.io/CI_PP2_HumbleNumble/)
-- [Accessibility: 404 page](https://wave.webaim.org/report#/https://deemccart.github.io/CI_PP2_HumbleNumble/404.html)
-
+N/A for Python project
 
 ### Performance
-Performance for all pages was tested using the Lighthouse tool within Google Chrome.  Performance was at 98% for the index page (intro modal).
+Performance  - N/A for Python project?
+Just in case - Ran Lighthouse over the heroku app and got 93% performance.
 
-<details><summary>Performance: Index page</summary>
-<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/performance_lighthouse_intro_page_230602.jpg">
+<details><summary>Performance: heroku deployed app</summary>
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/val_lighthouse_perf.jpg">
 </details>
 
 
