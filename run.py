@@ -10,7 +10,7 @@ from termcolor import colored
 from tabulate import tabulate
 # from wallpaper import set_wallpaper, get_wallpaper
 import tk
-# import tkinter
+import tkinter
 #export DISPLAY=:0
 from twilio.rest import Client
 from dotenv import load_dotenv
@@ -63,7 +63,16 @@ def all_upper(my_set):
     my_set = upper_set
     return my_set
 
-    
+def find_row(search_string, col):
+    """
+    Utility function to find a particlar value (usually a record ID) 
+    in a particular column(usually column 1)
+    """
+    cell = sh.find(search_string, col)
+    #get row number
+    row = cell.row
+    return row
+
 def find_cust(search_string):
     """ 
     This is a utility function which searches for matching customer record(s) 
@@ -174,9 +183,7 @@ def enter_repair(options):
     rep_details = input("Repair details: ") 
     rep_estimate = input("Estimated cost (if known): ")
     rep_deposit = input("Deposit taken: ")
-
-
-    
+  
     repair_record = [next_index("repairs"), "R", rep_phone, rep_cname,  rep_item_type, rep_material, rep_details,  25, 10, '01/07/23', '08/07/23', '01/01/1900', '20']
 #    print(f"repair record is: {repair_record}")
     update_worksheet(repair_record, 'repairs')
@@ -254,6 +261,8 @@ def maintain_sys(options):
                 return False
     elif(user_option=="C"):
         list_worksheet('sys_cust')
+  #      edit_mode= determine_edit_mode('sys_cust')
+  #      edit_row=input("enter cust # for ed)
     elif (user_option=="I"):
         list_worksheet('sys_item')
     elif (user_option=="M"):
