@@ -229,9 +229,9 @@ def notify_customer(repair_num):
     print("------------------------------")
     print(f"\nNotify customer(s) with options {repair_num}\n")
     message = client.messages.create(from_='+14847423801',
-                                     body="Hi Deirdre your repair from "
-                                     + "Goldmark jewellers is ready for "
-                                     + "collection, regards, Derek",
+                                     body='Hi Deirdre your repair from '
+                                     + 'Goldmark jewellers is ready for '
+                                     + 'collection, regards, Derek',
                                      to='+353876203184')
     if (message.sid != ""):
         print("Notification message sent")
