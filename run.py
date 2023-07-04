@@ -119,6 +119,12 @@ def list_worksheet(worksheet):
     This is a utility function to print all data from a given worksheet
     """
     all_data = get_worksheet(worksheet)
+    # DMcC 04/07/23:  need to just take a subset of fields here if repairs data or customer data
+    # as the tablulated display of all fields is too wide for screen
+    if worksheet=="repairs":
+        #reduce the number of columns to display
+    elif worksheet=="custs":
+      ## reduce the number of columns to display
     table1 = tabulate(all_data, headers='firstrow', tablefmt='fancy_grid')
     print(table1)
     time.sleep(3)
