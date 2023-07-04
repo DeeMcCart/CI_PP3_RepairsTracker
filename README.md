@@ -156,11 +156,12 @@ This is pre-populated with configuration data as follows:
 
 ### Flowcharts
 <details><summary>Main Menu</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/flowchart_overview_with_authentication.jpg">
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/assets/images/readme_images/flowchart_overview_with_authentication.jpg">
 </details>
 
 <details><summary>Enter repair/estimate</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/flowchart_enter_repair.jpg">
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/assets/images/readme_images/flowchart_enter_repair.jpg">
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/assets/images/readme_images/flowchart_enter_repair.jpg">
 </details>
 
 <details><summary>Complete Repair - Notify Customer</summary>
