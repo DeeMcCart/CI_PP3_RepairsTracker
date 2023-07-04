@@ -228,10 +228,11 @@ def notify_customer(repair_num):
     print("--     NOTIFY CUSTOMER(s)   --")
     print("------------------------------")
     print(f"\nNotify customer(s) with options {repair_num}\n")
-    body = 'Hi Deirdre your repair from Goldmark jewellers is ready
-    for collection, regards, Derek'
-    message = client.messages.create(
-        from_='+14847423801', body, to='+353876203184')
+    message = client.messages.create(from_='+14847423801',
+                                     body="Hi Deirdre your repair from "
+                                     + "Goldmark jewellers is ready for "
+                                     + "collection, regards, Derek",
+                                     to='+353876203184')
     if (message.sid != ""):
         print("Notification message sent")
     time.sleep(2)
@@ -314,7 +315,7 @@ def show_help(options):
     print("(For demo purposes u-u provides basic user level access")
     print("and s-s provides super-user access)")
     print("It is recommended that these userids are removed"
-          + "when moving from demo to live usage")
+          + " when moving from demo to live usage")
     print("OPTIONS (main menu) are below:")
     print("    (E)nter new estimate/repair")
     print("    (F)ind existing estimate/repair")
@@ -349,8 +350,8 @@ def menu_manager(valid_user):
 
         if (input_string[1:] != ""):
             further_options = input_string[1:]
-            print(f"Option selected is {user_option},
-                  further input options {further_options}")
+            print(f"Option selected is {user_option},"
+                  + "further input options {further_options}")
         else:
             further_options = ""
 
