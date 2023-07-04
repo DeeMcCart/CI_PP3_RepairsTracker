@@ -212,6 +212,7 @@ def find_repair(options):
     print("---    FIND REPAIR   ---------")
     print("------------------------------")
     print(f"\nFind repair with options {options}\n")
+    list_worksheet("repairs")
     time.sleep(5)
 
 
