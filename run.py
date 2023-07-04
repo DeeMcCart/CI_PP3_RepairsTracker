@@ -178,7 +178,7 @@ def enter_repair(options):
     if (cust_index):
         print(f"Found customer: {cust_index}")
 
-    if (cust_index) and (input("Correct Customer? (N if not) ") != 'N'):
+    if (cust_index) and (input("Correct Customer? (N if not) ").upper() != 'N'):
         rep_phone = cust_index[0]
         rep_cname = cust_index[1]
     else:
@@ -186,16 +186,16 @@ def enter_repair(options):
         rep_phone = search_string
         rep_cname = input("Customer name: \n")
     item_types = nice_list_worksheet("sys_item")
-    rep_item_type = input(f"Type: {item_types}")
+    rep_item_type = input(f"Type: {item_types}").upper()
     mat_types = nice_list_worksheet("sys_mat")
-    rep_material = input(f"Material: {mat_types}")
+    rep_material = input(f"Material: {mat_types}").upper()
     rep_details = input("Repair details: ")
     rep_estimate = input("Estimated cost (if known): ")
     rep_deposit = input("Deposit taken: ")
     repair_record = [next_index("repairs"), "R", rep_phone, rep_cname,
                      rep_item_type, rep_material, rep_details,  25, 10,
                      '01/07/23', '08/07/23', '01/01/1900', '20']
-#    print(f"repair record is: {repair_record}")
+    print(f"repair record is: {repair_record}")
     update_worksheet(repair_record, 'repairs')
     time.sleep(2)
 
