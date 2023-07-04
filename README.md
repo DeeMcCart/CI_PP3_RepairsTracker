@@ -156,20 +156,19 @@ This is pre-populated with configuration data as follows:
 
 ### Flowcharts
 <details><summary>Main Menu</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/assets/images/readme_images/flowchart_overview_with_authentication.jpg">
+<img src="https://github.com/DeeMcCart/CI_PP3_RepairsTracker/blob/main/assets/images/readme_images/flowchart_overview_with_authentication.jpg">
 </details>
 
 <details><summary>Enter repair/estimate</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/assets/images/readme_images/flowchart_enter_repair.jpg">
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/assets/images/readme_images/flowchart_enter_repair.jpg">
+<img src="https://github.com/DeeMcCart/CI_PP3_RepairsTracker/blob/main/assets/images/readme_images/flowchart_enter_repair.jpg">
 </details>
 
 <details><summary>Complete Repair - Notify Customer</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/flowchart_complete_notify.jpg">
+<img src="https://github.com/DeeMcCart/CI_PP3_RepairsTracker/blob/main/assets/images/readme_images/flowchart_complete_notify.jpg">
 </details>
 
 <details><summary>Customer Collect/ Completion</summary>
-<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/flowchart_collect.jpg">
+<img src="https://github.com/DeeMcCart/CI_PP3_RepairsTracker/blob/main/assets/images/readme_images/flowchart_collect.jpg">
 </details>
 
   
@@ -422,7 +421,7 @@ import tk
 https://pep8ci.herokuapp.com/#
 The CI PEP8 validator was also used, by pasting my run.py code into here, and on 04/07/23 confirmed 0 linting issues.
 <details><summary>Validation: CI PEP8 validator</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/val_ci_pep8.jpg">
+<img src="https://github.com/DeeMcCart/CI_PP3_RepairsTracker/blob/main/assets/images/readme_images/val_ci_pep8.jpg">
 </details>
 
 ### Accessibility
@@ -433,7 +432,7 @@ Performance  - N/A for Python project?
 Just in case - Ran Lighthouse over the heroku app and got 93% performance.
 
 <details><summary>Performance: heroku deployed app</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/val_lighthouse_perf.jpg">
+<img src="https://github.com/DeeMcCart/CI_PP3_RepairsTracker/blob/main/assets/images/readme_images/val_lighthouse_perf.jpg">
 </details>
 
 
