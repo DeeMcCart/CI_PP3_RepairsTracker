@@ -124,11 +124,10 @@ def list_worksheet(worksheet):
     if worksheet=="repairs":
         #reduce the number of columns to display
     elif worksheet=="custs":
-      ## reduce the number of columns to display
+        ## reduce the number of columns to display
     table1 = tabulate(all_data, headers='firstrow', tablefmt='fancy_grid')
     print(table1)
     time.sleep(3)
-
 
 def get_worksheet(worksheet):
     """
