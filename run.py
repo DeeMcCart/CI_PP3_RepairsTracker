@@ -9,6 +9,7 @@ import os
 import tk
 from termcolor import colored
 from tabulate import tabulate
+from colorama import Fore, Back, Style
 from google.oauth2.service_account import Credentials
 # from wallpaper import set_wallpaper, get_wallpaper
 from twilio.rest import Client
@@ -47,8 +48,10 @@ def authenticate_user(user_name, password):
         user_found = (set([user_name, password]) <= set(ind_user))
         if (user_found):
             print(f"Username & password verified, "
-                  + "security level {ind_user[2]}\n")
-            return ind_user[2]
+                  + f"security level {ind_user[3]}\n")
+            print(colored(f"Welcome back, {ind_user[1]}!", 'blue', 'on_white'))
+            time.sleep(1)
+            return ind_user[3]
     print("Invalid userid, please try again.....")
     return False
 
@@ -119,12 +122,19 @@ def list_worksheet(worksheet):
     This is a utility function to print all data from a given worksheet
     """
     all_data = get_worksheet(worksheet)
+    print_cols = []
     # DMcC 04/07/23:  need to just take a subset of fields here if repairs data or customer data
     # as the tablulated display of all fields is too wide for screen
-    if worksheet=="repairs":
+    if worksheet == "repairs":
         #reduce the number of columns to display
-    elif worksheet=="custs":
+        for data in all_data:
+            print_cols.append([data[0], data[2],data[3], data[6], data[10]])
+        all_data = print_cols
+    elif worksheet == "sys_cust":
         ## reduce the number of columns to display
+        for data in all_data:
+            print_cols.append([data[0], data[1],data[2]])
+        all_data = print_cols
     table1 = tabulate(all_data, headers='firstrow', tablefmt='fancy_grid')
     print(table1)
     time.sleep(3)
@@ -252,6 +262,8 @@ def maintain_sys(options):
     maintain customer list with last repair date
     In each case maintain means find, list, edit based on index number
     (Note - need to deal with situation where options is blank or null)
+    DMcC 05/07/23:  hmmm might need to change the role of this function to list rather
+    than maintain, really because i havent worked out the logic to apply to upate an existing list
     """
     if (options != ""):
         user_option = options[0]
@@ -308,35 +320,54 @@ def maintain_sys(options):
 
 def show_help(options):
     """
-    this (clears the screen and) prints a set of help text
-    (Note - need to deal with situation where options is blank or null)
+    this (05/07/23 DMcC clears the screen and) prints a set of help text.
+    It explains the type-ahead capabilities and how they can be used once
+    a person understands the sys navigation.
+    When RepairsTracker moves from demo to PROD the references to userids
+    will need to be removed.
     """
-    print(f"\nShow help screen with options {options}\n")
-    print("\n\n\n\n---------------------------------")
-    print("- REPAIRS TRACKER - HELP SCREEN -\n")
-    print("1. Security")
-    print("-----------")
-    print("To use the system, you must have a userid and password ")
-    print("This assigns access at user or super-user level")
-    print("(For demo purposes u-u provides basic user level access")
-    print("and s-s provides super-user access)")
-    print("It is recommended that these userids are removed"
-          + " when moving from demo to live usage")
-    print("OPTIONS (main menu) are below:")
-    print("    (E)nter new estimate/repair")
-    print("    (F)ind existing estimate/repair")
-    print("    (N)otify customers of repair completion")
-    print("    (M)aintain system")
-    print("    (H)elp")
-    print("    e(X)it")  # if selected this will return a value of False
-    print("(You can combine with submenu options ")
-    print("e.g. EE to enter estimate, ER to enter repair)")
+    print(colored("- REPAIRS TRACKER - HELP SCREEN -", 'red', 'on_cyan', attrs=['reverse', 'blink']))
+    print("---------------------------------")
+    print(colored("    Security", 'red', 'on_cyan',))
+    print(colored("To use the system, you must have a userid and password ",
+                  'blue', 'on_white'))
+    print(colored("Access provided at User or Administrator(superuser) level",
+                  'blue', 'on_white'))
+    print(colored("MAIN MENU OPTIONS:", 'blue', 'on_cyan',
+                  attrs=['reverse', 'blink']))
+    print(colored("Type-ahead is supported, if you know sub-menu opt, e.g.",
+                  'blue', 'on_white'))
+    print(colored("EE Enter Est, ER Enter Repair, F12345 find repair 12345)",
+                  'blue', 'on_white'))
+    print(colored("    (E)nter new estimate/repair:", 'blue', 'on_cyan'))
+    print(colored("Estimates: typically more complex, e.g. insurance claims",
+                  'blue', 'on_white'))
+    print(colored("jobs needing extra pricing, or needing ordered-in items.",
+                  'blue', 'on_white'))
+    print(colored("Repairs track phone#, name, item details, pricing, dates",
+                  'blue', 'on_white'))
+    print(colored("    (F)ind existing estimate/repair:", 'blue', 'on_cyan'))
+    print(colored("Use typeahead if repair# known, else lists all repairs",
+                  'blue', 'on_white'))
+    print(colored("Enter specific repair number to see just that record.",
+                  'blue', 'on_white'))
+    print(colored("    (N)otify customers of repair completion:",
+                  'blue', 'on_cyan'))
+    print(colored("This updates the repairs record to completed",
+                  'blue', 'on_white'))
+    print(colored(("and generates customised SMS for sending. "
+                   +"Typeahead e.g. N12345"), 'blue', 'on_white'))
+    print(colored("    (M)aintain system", 'blue', 'on_cyan'))
+    print(colored("For this demo version, M lists content of system files",
+                  'blue', 'on_white'))
+    print(colored("Typeahead to choose which file e.g. MC Maintain Customers",
+                  'blue', 'on_white'))
     print("")
     input("Press any key to return to main menu....\n")
 
 
 def menu_manager(valid_user):
-    print("\n\n\n\n----------------------------------------")
+    print("----------------------------------------")
     print("  REPAIRS TRACKER - OPTIONS (main menu):")
     print("----------------------------------------")
     print("    (E)nter new estimate/repair")
@@ -357,7 +388,7 @@ def menu_manager(valid_user):
         if (input_string[1:] != ""):
             further_options = input_string[1:]
             print(f"Option selected is {user_option},"
-                  + "further input options {further_options}")
+                  + f" further input options {further_options}")
         else:
             further_options = ""
 
@@ -394,12 +425,25 @@ def main():
     Run all program functions
     """
     # set_wallpaper("../assets/images/jewellery_bench.jpg")
-    print("Welcome to RepairTracker")
-    user_name = input("Please enter username:\n")
-    password = input("password:\n")
+    print(colored("          --------------------------          ", 
+                  'red', 'on_cyan', attrs=['reverse', 'blink']))
+    print(colored("          ----  RepairsTracker  ----          ", 
+                  'red', 'on_cyan', attrs=['reverse', 'blink']))
+    print(colored("          --------------------------          ", 
+                  'red', 'on_cyan', attrs=['reverse', 'blink']))
+    
+    print("")
+    print(colored("DEMO VERSION:", 'white', 'on_red', attrs=['reverse', 'blink']))
+    print(colored("user u, password u provides user-level access", 'black', 'on_white'))
+    print(colored("and s-s provides admin-level access)", 'black', 'on_white'))
+    print("")
+    user_name = input(colored("Please enter username: ", 'blue', 'on_white'))
+    password = input(colored("Password: ", 'blue', 'on_white'))
+    
     # note that valid_user returns a value of 0(False) 1(user-level security)
     # 2(super-user level security)
     valid_user = authenticate_user(user_name, password)
+        
     while valid_user:
         valid_user = menu_manager(valid_user)
     print("Exiting... Thank you for using RepairTracker...\n")
