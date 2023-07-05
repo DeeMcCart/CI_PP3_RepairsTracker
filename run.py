@@ -128,7 +128,7 @@ def list_worksheet(worksheet):
     if worksheet == "repairs":
         #reduce the number of columns to display
         for data in all_data:
-            print_cols.append([data[0], data[2],data[3], data[6], data[10]])
+            print_cols.append([data[0], data[2],data[3], data[10],data[12]])
         all_data = print_cols
     elif worksheet == "sys_cust":
         ## reduce the number of columns to display
@@ -358,6 +358,8 @@ def show_help(options):
     print(colored(("and generates customised SMS for sending. "
                    +"Typeahead e.g. N12345"), 'blue', 'on_white'))
     print(colored("    (M)aintain system", 'blue', 'on_cyan'))
+    print(colored("This option is only available to administrator-level users.",
+                  'blue', 'on_white'))
     print(colored("For this demo version, M lists content of system files",
                   'blue', 'on_white'))
     print(colored("Typeahead to choose which file e.g. MC Maintain Customers",
