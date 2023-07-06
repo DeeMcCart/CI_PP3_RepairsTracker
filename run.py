@@ -6,6 +6,7 @@ import matplotlib
 import gspread
 import time
 import os
+import sys
 import tk
 from termcolor import colored
 from tabulate import tabulate
@@ -244,14 +245,17 @@ def notify_customer(repair_num):
     print("--     NOTIFY CUSTOMER(s)   --")
     print("------------------------------")
     print(f"\nNotify customer(s) with options {repair_num}\n")
-    message = client.messages.create(from_='+14847423801',
+    try:
+        message = client.messages.create(from_='+14847423801',
                                      body='Hi Deirdre your repair from '
                                      + 'Goldmark jewellers is ready for '
                                      + 'collection, regards, Derek',
                                      to='+353876203184')
-    if (message.sid != ""):
-        print("Notification message sent")
-    time.sleep(2)
+    except Exception:
+        error_details = sys.exc_info()
+        print(f"Error occurred, details: {error_details[1]} ")
+       
+    time.sleep(3)
 
 
 def maintain_sys(options):
