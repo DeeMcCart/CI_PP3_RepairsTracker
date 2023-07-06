@@ -245,16 +245,19 @@ def notify_customer(repair_num):
     print("--     NOTIFY CUSTOMER(s)   --")
     print("------------------------------")
     print(f"\nNotify customer(s) with options {repair_num}\n")
+    message_body = ("Hi Deirdre your repair from Goldmark jewellers is ready"
+    + " for collection, regards, Derek")
+    to_number =  "+353" + "0876203184"[1:]             
+        
     try:
-        message = client.messages.create(from_='+14847423801',
-                                     body='Hi Deirdre your repair from '
-                                     + 'Goldmark jewellers is ready for '
-                                     + 'collection, regards, Derek',
-                                     to='+353876203184')
+        message = client.messages.create(from_ = '+14847423801',
+                                     body = message_body,
+                                     to = to_number)
     except Exception:
         error_details = sys.exc_info()
+        print(f"Error occurred in sending SMS message {message_body} to number {to_number}")
         print(f"Error occurred, details: {error_details[1]} ")
-       
+        
     time.sleep(3)
 
 
