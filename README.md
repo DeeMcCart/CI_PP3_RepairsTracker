@@ -121,16 +121,18 @@ This is pre-populated with configuration data as follows:
 ----------------
     
 ### Site owner Goals
-* SO_01 As site owner I want to provide a system which is intuitive and easy to learn 
-* SO_02 As site owner I want to provide shortcuts for experienced users, to speed up data entry
-* SO_03 As site owner I want to provide automated customer notification when repairs are complete
-* SO_04 As site owner I want to allow certain users the ability to configure and expand the system
-* SO_05 As site owner I want to streamline the existing manual processes
-* SO_06 As site owner I want to meet PEP8 standards
-* SO_07 As site owner I want to ensure that all data entry is validated and captured in the best possible format (e.g. mixed case or upper-case as appropriate) to allow for consistent reporting
-* SO-08 As site owner I want to provide immediate feedback on erroneous data entry 
-* SO-09 As site owner I want to provide basic authentication and security to prevent unauthorised usage
-* SO-10 (FUTURE) As site owner I want to implement label printing as each repair is entered
+* SO_01 As site owner I want to provide a jewellery repair tracking system which meets user requirements
+* SO_02 As site owner I want the jewellery repair tracking system to be more efficient than current manual processes
+* SO_03 As site owner I want to provide a system which is intuitive and easy to learn 
+* SO_04 As site owner I want to provide shortcuts for experienced users, to speed up data entry
+* SO_05 As site owner I want to provide automated customer notification when repairs are complete
+* SO_06 As site owner I want to ensure that all data entry is validated and captured in conistent format (e.g. mixed case or upper-case as appropriate) to allow for consistent reporting
+* SO-07 As site owner I want to provide immediate feedback on erroneous data entry 
+* SO-08 As site owner I want to provide basic authentication and security to prevent unauthorised usage
+* SO-09 As site owner I want to provide reporting capabilities e.g. for repair status tracking
+* SO_10 As site owner I want to develop code and documentation which meets industry (PEP8) standards
+* SO-11 (FUTURE) As site owner I want to implement label printing as each repair is entered
+* SO_12 (FUTURE) As site owner I want to allow authorised users the ability to configure and expand the system
 
 ### First-time User Goals
 * FTU_01 As a first time user I want to be able to enter repair details quickly and accurately
@@ -140,15 +142,26 @@ This is pre-populated with configuration data as follows:
 * FTU_05 As a first-time user I expect links and functions that work as expected
 
 ### Returning User Goals
-* RU_01 As a returning user I want to be able to perform speed-entry rather than menu-only navigation
-* RU_02 As a returning user (administrator) I want to be able to expand or customize the RepairTracker system
-* RU_03 As a returning user I want to be able to view data (e.g. customers) within the RepairTracker system
-* RU_04 As a returning user (administrator) I would like access to back-end data for adhoc analysis
-* RU_05 (FUTURE) As a returning user (administrator) I would like to be able to modify the status of a repair record
+* RU_01 As a returning user I want keyboard shortcuts to speed up data entry, rather than menu-only navigation
+* RU_02 As a returning user I want to enter estimates quickly and accurately
+* RU_03 As a returning user I want to enter repairs quickly and accurately
+* RU_04 As a returning user I want to convert an estimate to a repair 
+* RU_05 As a returning user I want to view status of repairs, on an individual or group basis
+* RU_06 As a returning user I want to notify customers that their repair is completed and awaiting collection
+* RU_07 As a returning user I want to update a repair to show that it has been collected
+* RU_08 As a returning user (administrator) I want visibility of system setup data
+* RU_09 (FUTURE) As a returning user (administrator) I want to amend RepairTracker system data
+* RU_10 As a returning user I want to be able to view data (e.g. customers) within the RepairTracker system
+* RU_11 (FUTURE) As a returning user I want to report on repairs by status (e.g. entered, awaiting parts, completed, awaiting collection)
+* RU_12 (FUTURE) As a returning user I want to report on repairs by due date (e.g. overdue) 
+* RU_13 (FUTURE) As a returning user (administrator) I want to modify the status of a repair record e.g. to 99 (closed by Administrator)
 
 ### Other stakeholder Goals
-* OT_01 As a shop customer I would like to receive prompt notification when my repair is completed
-* OT_02 (FUTURE) As a shop customer i would like to receive a reminder if I am overdue in collecting my repair
+* OT_01 As a customer I want to receive a repair docket with a unique repair # and accurate details when I submit my repair
+* OT_02 As a customer I want an initial estimate of when my repair will be ready to collect
+* OT_03 As a customer I want to receive prompt notification when my repair is completed
+* OT_04 As a cutomer I want to enquire as to the currents status of my repair
+* OT_05 (FUTURE) As a customer I would like to receive a reminder if I am overdue in collecting my repair
 
 
 ## UX Design Decisions
@@ -511,7 +524,7 @@ The following sites were used for research and improving  understanding while cr
 * https://www.askpython.com/python-modules/tabulate-tables-in-python
 * https://twilio.com/docs/libraries/reference/twilio-python/
 * https://www.youtube.com/watch?v=n2cF1e2tyhI What Is Twilio? SMS and Voice API's explained - Matt Kander
-
+* https://realpython.com/python-testing/#:~:text=Automated%20testing%20is%20the%20execution,automated%20tests%20for%20your%20application.
 
 
  
