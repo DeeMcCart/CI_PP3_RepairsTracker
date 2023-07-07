@@ -33,6 +33,29 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("RepairsTracker")
 
 
+def print_title(text_string):
+    print(colored(text_string, "white", "on_green", attrs=['reverse', 'blink'] ))
+    return True
+
+def print_subtitle(text_string):
+    print(colored(text_string, "white", "on_red", attrs=['reverse', 'blink'] ))
+    return True
+    
+def print_body(text_string):
+    print(colored(text_string, 'blue', 'on_white'))
+    return True
+
+def print_status(text_string):
+    print(colored(text_string, "white", "on_green"))
+    return True
+
+def print_message(text_string):
+    print(colored(text_string, 'black', 'on_white'))
+    return True
+
+def print_error(text_string):
+    print(colored(text_string, 'black', 'on_yellow'))
+
 def authenticate_user(user_name, password):
     """
     The autenticate_user function takes a user_name and password and compares
@@ -48,12 +71,14 @@ def authenticate_user(user_name, password):
     for ind_user in all_users:
         user_found = (set([user_name, password]) <= set(ind_user))
         if (user_found):
-            print(f"Username & password verified, "
-                  + f"security level {ind_user[3]}\n")
-            print(colored(f"Welcome back, {ind_user[1]}!", 'blue', 'on_white'))
+            print_body(f"Username & password verified, "
+                  + f"security level {ind_user[3]}")
+            print_status("")      
+            print_status(f"Welcome back, {ind_user[1]}!")
+            print_status("")
             time.sleep(1)
             return ind_user[3]
-    print("Invalid userid, please try again.....")
+    print_error("Invalid userid, please try again.....")
     return False
 
 
@@ -94,12 +119,12 @@ def find_cust(search_string):
     upper_custs = []
     upper_custs = all_upper(all_custs)
     all_custs = all_upper(all_custs)
-    # print(f"search string is {search_string}")
+    # print_message(f"search string is {search_string}")
 
     for ind_cust in all_custs:
         cust_found = (set([search_string]) <= set(ind_cust))
         if (cust_found):
-            # print(f"customer found, details are {ind_cust} \n")
+            # print_message(f"customer found, details are {ind_cust} \n")
             return ind_cust
     # print("Existing customer not found.....")
     return False
@@ -114,7 +139,7 @@ def next_index(worksheet):
     """
     all_repairs = SHEET.worksheet(worksheet).get_all_values()
     next_index = int(all_repairs[-1][0]) + 1
-    print(f"Calculated next index: {next_index}")
+    print_message(f"Calculated next index: {next_index}")
     return next_index
 
 
@@ -171,34 +196,58 @@ def update_worksheet(data, worksheet):
 #    print(f"data to update: {data}")
     worksheet_to_update = SHEET.worksheet(worksheet)
     worksheet_to_update.append_row(data)
-    print(f"{worksheet} worksheet updated successfully.\n")
+    print_status(f"{worksheet} worksheet updated successfully")
+    print("")
 
 
 def enter_repair(options):
-    """ # this should include tracking (hmm what did I mean by this???)
-    (Note - need to deal with situation where options is blank or null)
-    This function is designed to make input as quick as possible for the user
+    """ 
+    This option can be used to enter an estimate (which typically includes 
+    slightly different input fields.
+    The enter_repair function is designed to make input as quick as possible for the user
     Parameter 'options' is a string containing null or more characters,
     and it can be used for typeahead.
     """
-    print("\n\n\n\n------------------------------")
-    print("---   ENTER REPAIR   ---------")
-    print("------------------------------")
-    # greeting = tkinter.Label(text="Hello, Tkinter")
-    # window = tk.Tk()
+    print_title("------------------------------")
+    print_title("--- ENTER ESTIMATE/ REPAIR ---")
+    print_title("------------------------------")
+    
+    if (options != ""):
+        user_option = options[0] 
+        print_message(f"\nEnter estimate/repair option {options}")
+        print("")
+    else:
+        # present the user with a menu if an option not already selected
+        print_subtitle("    (E)stimate   ")
+        print_subtitle("    (R)epair     ")
+        print_subtitle("    e(X)it       ")  
+        input_string = input("Option:\n").upper()
+        if input_string != "":
+            user_option = input_string[0]
+        else:
+            print_error("Blank option, try again!")
 
-    if options != "":
-        print(f"\nEnter repair with options {options}\n")
+    if (user_option == "X"):
+        return False
+    elif (user_option == "E"):
+        record_type = "E"
+        record_status='10'
+        print_message("Enter estimate")
+    elif (user_option == "R"):
+        record_type = "R"
+        record_status='20'
+        print_message("Enter repair")
+
     search_string = input("Customer phone #: \n").upper()
     cust_index = find_cust(search_string)
     if (cust_index):
-        print(f"Found customer: {cust_index}")
+        print_status(f"Found customer: {cust_index}")
 
     if (cust_index) and (input("Correct Customer? (N if not) ").upper() != 'N'):
         rep_phone = cust_index[0]
         rep_cname = cust_index[1]
     else:
-        print("Existing customer not found")
+        print_message("Existing customer not found")
         rep_phone = search_string
         rep_cname = input("Customer name: \n")
     item_types = nice_list_worksheet("sys_item")
@@ -208,10 +257,10 @@ def enter_repair(options):
     rep_details = input("Repair details: ")
     rep_estimate = input("Estimated cost (if known): ")
     rep_deposit = input("Deposit taken: ")
-    repair_record = [next_index("repairs"), "R", rep_phone, rep_cname,
+    repair_record = [next_index("repairs"), record_type, rep_phone, rep_cname,
                      rep_item_type, rep_material, rep_details,  25, 10,
-                     '01/07/23', '08/07/23', '01/01/1900', '20']
-    print(f"repair record is: {repair_record}")
+                     '01/07/23', '08/07/23', '01/01/1900', record_status]
+    print_message(f"repair record is: {repair_record}")
     update_worksheet(repair_record, 'repairs')
     time.sleep(2)
 
@@ -224,15 +273,19 @@ def find_repair(options):
     (U)pdate status to in-progress->)
     (Note - need to deal with situation where options is blank or null)
     """
-    print("\n\n\n\n------------------------------")
-    print("---    FIND REPAIR   ---------")
-    print("------------------------------")
-    print(f"\nFind repair with options {options}\n")
+    print("")
+    print_title("------------------------------------")
+    print_title("---       FIND REPAIR            ---")
+    print_title("------------------------------------")
+    if options != "":
+        print_subtitle(f"Find repair with options {options}")
     list_worksheet("repairs")
-    time.sleep(5)
+    print("")
+    input("Press ENTER key to return to main menu....\n")
+    return True
 
 
-def notify_customer(repair_num):
+def notify_customer(options):
     """
     this will:
     @repair_num:  accept none, one, or more repair number(s)
@@ -241,10 +294,12 @@ def notify_customer(repair_num):
     activate a trigger to send a customer notification (email or text)
     (Note - need to deal with situation where options is blank or null)
     """
-    print("\n\n\n\n------------------------------")
-    print("--     NOTIFY CUSTOMER(s)   --")
-    print("------------------------------")
-    print(f"\nNotify customer(s) with options {repair_num}\n")
+    print("")
+    print_title("------------------------------")
+    print_title("--     NOTIFY CUSTOMER(s)   --")
+    print_title("------------------------------")
+    if options != "":
+        print_subtitle(f"\nNotify customer(s) with options {repair_num}\n")
     message_body = ("Hi Deirdre your repair from Goldmark jewellers is ready"
     + " for collection, regards, Derek")
     to_number =  "+353" + "0876203184"[1:]             
@@ -255,10 +310,11 @@ def notify_customer(repair_num):
                                      to = to_number)
     except Exception:
         error_details = sys.exc_info()
-        print(f"Error occurred in sending SMS message {message_body} to number {to_number}")
-        print(f"Error occurred, details: {error_details[1]} ")
-        
-    time.sleep(3)
+        print_error(f"Error occurred in sending SMS message {message_body} to number {to_number}")
+        print_error(f"Error occurred, details: {error_details[1]} ")
+    print("")
+    input("Press ENTER key to return to main menu....\n")
+    return True
 
 
 def maintain_sys(options):
@@ -272,27 +328,29 @@ def maintain_sys(options):
     DMcC 05/07/23:  hmmm might need to change the role of this function to list rather
     than maintain, really because i havent worked out the logic to apply to upate an existing list
     """
+    print_title("------------------------------")
+    print_title("--    MAINTAIN/ UPDATE:     --")
+    print_title("------------------------------")
+
     if (options != ""):
         user_option = options[0]
-        print(f"Option passed is {user_option}")
+        print_body(f"Option passed is {user_option}")
     else:
         # present the user with a menu if an option not already selected
-        print("\n\n\n\n------------------------------")
-        print("-- MAINTAIN/ UPDATE: --")
-        print("------------------------------")
-        print("    (C)ustomer list")
-        print("    (I)tem type")
-        print("    (M)aterials")
-        print("    (S)tatus Codes")
-        print("    (U)sers")
-        print("    (H)elp")
-        print("    e(X)it")  # if selected this will return a value of False
+        print_subtitle("    (C)ustomer list ")
+        print_subtitle("    (I)tem type     ")
+        print_subtitle("    (M)aterials     ")
+        print_subtitle("    (S)tatus Codes  ")
+        print_subtitle("    (U)sers         ")
+        print_subtitle("    (H)elp          ")
+        # if X selected this will return a value of False
+        print_subtitle("    e(X)it          ")  
 
         input_string = input("Option:\n").upper()
         if input_string != "":
             user_option = input_string[0]
         else:
-            print("Blank option, try again!")
+            print_error("Blank option, try again!")
 
     if (user_option == "X"):
         return False
@@ -311,18 +369,10 @@ def maintain_sys(options):
     elif (user_option == "H"):
         show_help("M")
     else:
-        print("Invalid option, try again!")
-    # print("Adding value to sys_status sheet")
-    # sys_record=[]
-    # sys_record.append(["60", "Repair - Archived"])
-    # print(f"sys record is: {sys_record}")
-    # update_worksheet(sys_record, "sys_status")
-    # print(f"Updating sys_status worksheet...\n")
-    # worksheet_to_update = SHEET.worksheet("sys_status")
-    # worksheet_to_update.append_row(["60", "Repair - Archived"])
-    # print(f"{worksheet} worksheet updated successfully.\n")
-
-    time.sleep(2)
+        print_error("Invalid option, try again!")
+    print("")
+    input("Press ENTER key to return to main menu....\n")
+    return True
 
 
 def show_help(options):
@@ -333,60 +383,50 @@ def show_help(options):
     When RepairsTracker moves from demo to PROD the references to userids
     will need to be removed.
     """
-    print(colored("- REPAIRS TRACKER - HELP SCREEN -", 'red', 'on_cyan', attrs=['reverse', 'blink']))
-    print("---------------------------------")
-    print(colored("    Security", 'red', 'on_cyan',))
-    print(colored("To use the system, you must have a userid and password ",
-                  'blue', 'on_white'))
-    print(colored("Access provided at User or Administrator(superuser) level",
-                  'blue', 'on_white'))
-    print(colored("MAIN MENU OPTIONS:", 'blue', 'on_cyan',
-                  attrs=['reverse', 'blink']))
-    print(colored("Type-ahead is supported, if you know sub-menu opt, e.g.",
-                  'blue', 'on_white'))
-    print(colored("EE Enter Est, ER Enter Repair, F12345 find repair 12345)",
-                  'blue', 'on_white'))
-    print(colored("    (E)nter new estimate/repair:", 'blue', 'on_cyan'))
-    print(colored("Estimates: typically more complex, e.g. insurance claims",
-                  'blue', 'on_white'))
-    print(colored("jobs needing extra pricing, or needing ordered-in items.",
-                  'blue', 'on_white'))
-    print(colored("Repairs track phone#, name, item details, pricing, dates",
-                  'blue', 'on_white'))
-    print(colored("    (F)ind existing estimate/repair:", 'blue', 'on_cyan'))
-    print(colored("Use typeahead if repair# known, else lists all repairs",
-                  'blue', 'on_white'))
-    print(colored("Enter specific repair number to see just that record.",
-                  'blue', 'on_white'))
-    print(colored("    (N)otify customers of repair completion:",
-                  'blue', 'on_cyan'))
-    print(colored("This updates the repairs record to completed",
-                  'blue', 'on_white'))
-    print(colored(("and generates customised SMS for sending. "
-                   +"Typeahead e.g. N12345"), 'blue', 'on_white'))
-    print(colored("    (M)aintain system", 'blue', 'on_cyan'))
-    print(colored("This option is only available to administrator-level users.",
-                  'blue', 'on_white'))
-    print(colored("For this demo version, M lists content of system files",
-                  'blue', 'on_white'))
-    print(colored("Typeahead to choose which file e.g. MC Maintain Customers",
-                  'blue', 'on_white'))
+    print_title("---------------------------------")
+    print_title("- REPAIRS TRACKER - HELP SCREEN -")
+    print_title("---------------------------------")
+    print_body("")
+    print_subtitle("    SECURITY                     ")
+    print_body("To use the system, you must have a userid and password      ")
+    print_body("Access is provided at User or Administrator(superuser) level")
+    print_body("")
+    print_subtitle("     MAIN MENU OPTIONS:                                 ")
+    print_body("Type-ahead is supported, if you know sub-menu opt, e.g. ")
+    print_body("EE Enter Est, ER Enter Repair, F12345 find repair 12345)")
+    print_subtitle("    (E)nter new estimate/repair:                        ")
+    print_body("Estimates: typically more complex, e.g. insurance claims")
+    print_body("jobs needing extra pricing, or needing ordered-in items.")
+    print_body("Repairs track phone#, name, item details, pricing, dates")
+    print_subtitle("    (F)ind existing estimate/repair:                    ")
+    print_body("Use typeahead if repair# known, else lists all repairs  "),
+    print_body("Enter specific repair number to see just that record.   ")
+    print_subtitle("    (N)otify customers of repair completion:            ")
+    print_body("This updates the repairs record to completed and generates  ")
+    print_body("customised SMS for sending. Typeahead w/repair # e.g. N12345")
+    print_subtitle("    (M)aintain system:                                  ")
+    print_body("This option is only available to administrator-level users.")
+    print_body("For this demo version, M lists content of system files     ")
+    print_body("Typeahead to choose which file e.g. MC Maintain Customers  ")
+    print_subtitle("    (H)elp:                                            ")
+    print_body("This text currently showing on-screen is the help text     ")
     print("")
     input("Press any key to return to main menu....\n")
 
 
 def menu_manager(valid_user):
-    print("----------------------------------------")
-    print("  REPAIRS TRACKER - OPTIONS (main menu):")
-    print("----------------------------------------")
-    print("    (E)nter new estimate/repair")
-    print("    (F)ind existing estimate/repair")
-    print("    (N)otify customers of repair completion")
-    print("    (M)aintain system")
-    print("    (H)elp")
-    print("    e(X)it")  # if selected this will return a value of False
-    print("(You can combine with submenu options ")
-    print("e.g. EE to enter estimate, ER to enter repair)")
+    print_title("----------------------------------------")
+    print_title("  REPAIRS TRACKER - MAIN MENU:          ")
+    print_title("----------------------------------------")
+    print_subtitle("    (E)nter new estimate/repair            ")
+    print_subtitle("    (F)ind existing estimate/repair        ")
+    print_subtitle("    (N)otify customers of repair completion")
+    print_subtitle("    (M)aintain system                      ")
+    print_subtitle("    (H)elp                                 ")
+    print_subtitle("    e(X)it                                 ")  # if selected this will return a value of False
+    print("")
+    print_message("(You can combine with submenu options ")
+    print_message("e.g. EE to enter estimate, ER to enter repair)")
 
     input_string = input("Option:\n").upper()
     if input_string != "":
@@ -396,7 +436,7 @@ def menu_manager(valid_user):
 
         if (input_string[1:] != ""):
             further_options = input_string[1:]
-            print(f"Option selected is {user_option},"
+            print_message(f"Option selected is {user_option},"
                   + f" further input options {further_options}")
         else:
             further_options = ""
@@ -417,15 +457,15 @@ def menu_manager(valid_user):
             if (valid_user == '2'):
                 maintain_sys(further_options)
             else:
-                print("Insufficient security privileges")
+                print_error("Insufficient security privileges")
                 time.sleep(2)
 
         elif (user_option == "H"):
             show_help(further_options)
         else:
-            print("Invalid option, try again!")
+            print_error("Invalid option, try again!")
     else:
-        print("Blank option, try again!")
+        print_error("Blank option, try again!")
     return valid_user
 
 
@@ -434,17 +474,14 @@ def main():
     Run all program functions
     """
     # set_wallpaper("../assets/images/jewellery_bench.jpg")
-    print(colored("          --------------------------          ", 
-                  'red', 'on_cyan', attrs=['reverse', 'blink']))
-    print(colored("          ----  RepairsTracker  ----          ", 
-                  'red', 'on_cyan', attrs=['reverse', 'blink']))
-    print(colored("          --------------------------          ", 
-                  'red', 'on_cyan', attrs=['reverse', 'blink']))
+    print_title("          ---------------------------          ")
+    print_title("          ----  REPAIRS TRACKER  ----          ")
+    print_title("          ---------------------------          ")
     
     print("")
-    print(colored("DEMO VERSION:", 'white', 'on_red', attrs=['reverse', 'blink']))
-    print(colored("user u, password u provides user-level access", 'black', 'on_white'))
-    print(colored("and s-s provides admin-level access)", 'black', 'on_white'))
+    print_subtitle("DEMO VERSION:")
+    print_body("user u, password u provides user-level  access")
+    print_body("user s, password s provides admin-level access")
     print("")
     user_name = input(colored("Please enter username: ", 'blue', 'on_white'))
     password = input(colored("Password: ", 'blue', 'on_white'))
