@@ -150,8 +150,8 @@ This is pre-populated with configuration data as follows:
 * RU_06 As a returning user I want to notify customers that their repair is completed and awaiting collection
 * RU_07 As a returning user I want to update a repair to show that it has been collected
 * RU_08 As a returning user (administrator) I want visibility of system setup data
-* RU_09 (FUTURE) As a returning user (administrator) I want to amend RepairTracker system data
-* RU_10 As a returning user I want to be able to view data (e.g. customers) within the RepairTracker system
+* RU_09 As a returning user I want to be able to view data (e.g. customers) within the RepairTracker system
+* RU_10 (FUTURE) As a returning user (administrator) I want to amend RepairTracker system data
 * RU_11 (FUTURE) As a returning user I want to report on repairs by status (e.g. entered, awaiting parts, completed, awaiting collection)
 * RU_12 (FUTURE) As a returning user I want to report on repairs by due date (e.g. overdue) 
 * RU_13 (FUTURE) As a returning user (administrator) I want to modify the status of a repair record e.g. to 99 (closed by Administrator)
@@ -208,29 +208,33 @@ N/a to text-based display
  
 ### F01 Authentication
 The user must give a valid userid and password to gain entry to the system (this demo version is provided with u-u for user-level access and s-s for administrator/super-user access) 
-<details><summary>User password entry</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f01_password.jpg"></details>
-<details><summary>User failed access</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f01_kicked_out.jpg"></details>
-<details><summary>User must be administrator to access maintenance options</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f01_admin_needed.jpg"></details>
-
+These userids and passwords are stored within Google sheets
 <br>
-The use of basic authentication satisfies user requirements SO-04, SO-09, FTU-02, FTU-05, RU-02<br>
+The use of basic authentication satisfies user requirements SO-01, SO-08, SO-12, FTU-04, RU-08, RU-09, RU-13<br>
 <br>
 
-### F02 'MAIN MENU' 
+### F02 'MAIN MENU' & Navigation
 <details><summary>Main Menu options</summary>
 <img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f02_main_menu.jpg"></details>
 <br>
-The main menu lists options each of which is linked to a different letter of the alphabet.  The user can enter an option (in upper or lower case) and will be brouhgt to the linked sub-menu.  If, from the main,menu, the user already knows the submenu option they can key this also, e.g. EE to take the (E)nter option from main menu then (E)stimate from sub-menu.
+The main menu lists options each of which is identified by a letter of the alphabet.  The user can enter an option (in upper or lower case) and will be brought to the linked sub-menu.
+Heading title., subtitle and content are presented with consistent appearance and colours.  
 <br>
-This meets user requirements ......<br>
+This meets user requirements SO03, FTU02, FTU05.
 <br>      
 
-### F03 'Help' Screen
-<details><summary>How To Play screen</summary>
-<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/f02_help.jpg"></details>
+### F03 Typeahead
+<details><summary>typeahead</summary>
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f03 Typeahead.jpg"></details>
+If, from the main,menu, the user already knows the submenu option they can key this also, e.g. EE to take the (E)nter option from main menu then (E)stimate from sub-menu.<br>
+For more complex processes which may involve updates/searching for a number of repair records, the user can typeahead giving multiple repair numbers, separated by a comma:
+e.g. F12345,13456,15567 opens the find option and asks it to process 3 specific repairs records.
+<br>
+This satisfies user stories SO_02, SO_04, RU_01.
+<br>
+### F04 'Help' Screen
+<details><summary>Help screen</summary>
+<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/f04_help.jpg"></details>
 <br>
 A modal 'How to Play' explains how to play and some of the subtleties of the calculations.  Available from the 'how to play' button on the Intro screen, or from the navbar help icon on all screens.   The 'How to Play' window can be scrolled to see full text, and is closed by clicking on the X in top right hand corner, at which point it disappears from screen.
 <br>
