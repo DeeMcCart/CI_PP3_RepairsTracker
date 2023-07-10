@@ -169,19 +169,19 @@ This is pre-populated with configuration data as follows:
 
 ### Flowcharts
 <details><summary>Main Menu</summary>
-<img src="https://github.com/DeeMcCart/CI_PP3_RepairsTracker/blob/main/assets/images/readme_images/flowchart_overview_with_authentication.jpg">
+<img src=".docs/readme_images/flowchart_overview_with_authentication.jpg">
 </details>
 
 <details><summary>Enter repair/estimate</summary>
-<img src="https://github.com/DeeMcCart/CI_PP3_RepairsTracker/blob/main/assets/images/readme_images/flowchart_enter_repair.jpg">
+<img src=".docs/readme_images/flowchart_enter_repair.jpg">
 </details>
 
 <details><summary>Complete Repair - Notify Customer</summary>
-<img src="https://github.com/DeeMcCart/CI_PP3_RepairsTracker/blob/main/assets/images/readme_images/flowchart_complete_notify.jpg">
+<img src=".docs/readme_images/flowchart_complete_notify.jpg">
 </details>
 
 <details><summary>Customer Collect/ Completion</summary>
-<img src="https://github.com/DeeMcCart/CI_PP3_RepairsTracker/blob/main/assets/images/readme_images/flowchart_collect.jpg">
+<img src=".docs/readme_images/flowchart_collect.jpg">
 </details>
 
   
@@ -192,13 +192,13 @@ n/a as quite limited..... however would ideally like to apply some colours to th
 Would like to have different colours for error messages, status messages etc.
 
 <details><summary>Colours- used for prompt & feedback to user & to aid user learning</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/colour_examples.jpg">
+<img src="./docs/readme_images/colour_examples.jpg">
 </details>
 
 ### Design Images
 Ideally would like to have a background or splash image which bounds the entry screen as the black and white text based screen drives me up the wall.
 <details><summary>Background image</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/background_image.jpg">
+<img src="./docs/readme_images/background_image.jpg">
 </details>
 
 ### Design Images - Icons and Symbols
@@ -230,7 +230,7 @@ This meets user requirements SO01, SO03, FTU01, FTU02, FTU05, RU01.
 
 ### F03 Typeahead
 <details><summary>typeahead</summary>
-<img src="./docs/readme_images/f03 typeahead.jpg"></details>
+<img src="./docs/readme_images/f03_typeahead.jpg"></details>
 If, from the main,menu, the user already knows the submenu option they can key this also, e.g. EE to take the (E)nter option from main menu then (E)stimate from sub-menu.<br>
 <br>
 This satisfies user stories SO02, SO03, SO04, FTU01, FTU02, FTU05, RU01, RU02.
@@ -264,7 +264,7 @@ This feature addresses user stories S03, S06, S07, S10, FTU01, FTU02, FTU04, FTU
 
 ### F07 Database held in Google Sheets:
 <details><summary>RepairsTracker in Google Sheets</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f07_google_sheets.jpg"></details>
+<img src="./docs/readme_images/f07_google_sheets.jpg"></details>
 The RepairsTracker underlying database is represented using Google Sheets as an approximation of an RDBMS.
 This has the advantage of allowing non-routine data updates (e.g. of system tables) to be done within Google Sheets rather
 than by developing a customised Python solution for each type of update.
@@ -274,7 +274,7 @@ This addresses user stories S01, S02, S04, S12, RU05, RU10, RU11, RU12.
 
 ### F08 Repairs/ Estimate Entry
 <details><summary>Repairs/ estimate entry</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f08_repair_vs_estimate.jpg"></details>
+<img src="./docs/readme_images/f08_repair_vs_estimate.jpg"></details>
 Enter a repair/ estimate - each captures slightly different fields, although some fields are common to both.  
 Each new entry is assigned a record type - (R)epair or (E)stimate
 Drop-in date - assigned to today, due date - assigned to today +7 days.
@@ -286,7 +286,7 @@ This addresses user stories S01, S02, S03, S04, S06, S07, FTU01, FTU02, FTU04, F
 
 ### F09 Prompted keying of customer data
 <details><summary>phone# checked for existing & retrieves customer name</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f09_customer_retrieval.jpg"></details>
+<img src="./docs/readme_images/f09_customer_retrieval.jpg"></details>
 When entering a repairs record, the user is first asked for the customers phone number, this is checked against the customer database
 to see if customer is already known to RepairsTracker, if so it prompts with the customers name and address and asks the user to verify
 this is the correct customer.
@@ -302,14 +302,14 @@ This is a desired feature to address RU04.
 
 ### F11 Find a repair - including repair status
 <details><summary>Find repair - tabulated output</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f11_find_repair.jpg"></details>The (F)ind option is available from the main menu.  This shows summary information per repair in tabulated form.
+<img src="./docs/readme_images/f11_find_repair.jpg"></details>The (F)ind option is available from the main menu.  This shows summary information per repair in tabulated form.
 <br>
 This meets user requirement FTU02, RU05, RU10, OT04  
 <br>
 
 ### F12  Notify Customers
 <details><summary>Notify cutomers via SMS</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f12_customer_notify.jpg"></details>
+<img src="./docs/readme_images/f12_customer_notify.jpg"></details>
 Use of a third-party SMS management service (Twilio) was tested and successfully generated messages to represent repairs completion.
 While this particular SMS mangement service may not be the final solution adopted, the RepairsTracker system has proven capable of
 generating a customer notification and sending it to a specified mobile phone #.
@@ -329,11 +329,11 @@ copy is attached to the repairs envelope, and one is given to the customer. This
 
 ### F14 Maintain System Configuration data
 <details><summary>Menu</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f14_maintain_menu.jpg"></details>
+<img src="./docs/readme_images/f14_maintain_menu.jpg"></details>
 <details><summary>Example - item type</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f14_maintain_item.jpg"></details>
+<img src="./docs/readme_images/f14_maintain_item.jpg"></details>
 <details><summary>Example - lifecycle</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f14_maintain_status.jpg"></details>
+<img src="./docs/readme_images/f14_maintain_status.jpg"></details>
 
 This is a desired feature to address S12 - configure and maintain system.  The requirement is partially met with the (M)aintain option 
 from the main menu.  Implementation at this time has been to provide an option to select each of the system files, and see a tabulated
@@ -349,7 +349,7 @@ needed once the system is to progress to live implementation.
 ### Features in Scope 
 
 <details><summary>Mapping of user stories to features</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/user_stories_vs_features.jpg"></details>
+<img src="./docs/readme_images/user_stories_vs_features.jpg"></details>
 
 As this website is a python project, effectively this runs in a python emulator which is built using html and javascript.
 The presentation is 'terminal mode' ie text-based on a dark background.
@@ -430,7 +430,7 @@ import tk
 https://pep8ci.herokuapp.com/#
 The CI PEP8 validator was also used, by pasting my run.py code into here, and on 04/07/23 confirmed 0 linting issues.
 <details><summary>Validation: CI PEP8 validator</summary>
-<img src="https://github.com/DeeMcCart/CI_PP3_RepairsTracker/blob/main/assets/images/readme_images/val_ci_pep8.jpg">
+<img src=".docs/readme_images/val_ci_pep8.jpg">
 </details>
 
 ### Accessibility
@@ -441,7 +441,7 @@ Performance  - N/A for Python project?
 Just in case - Ran Lighthouse over the heroku app and got 93% performance.
 
 <details><summary>Performance: heroku deployed app</summary>
-<img src="https://github.com/DeeMcCart/CI_PP3_RepairsTracker/blob/main/assets/images/readme_images/val_lighthouse_perf.jpg">
+<img src=".docs/readme_images/val_lighthouse_perf.jpg">
 </details>
 
 
