@@ -32,33 +32,52 @@ SHEET = GSPREAD_CLIENT.open("RepairsTracker")
 
 
 def print_title(text_string):
+    """
+    The print_title function displays text with consistent appearance 
+    """
     print(colored(text_string, "white", "on_green",
                   attrs=['reverse', 'blink']))
     return True
 
 
 def print_subtitle(text_string):
+    """
+    The print_subtitle function displays text with consistent appearance 
+    """
     print(colored(text_string, "white", "on_red", attrs=['reverse', 'blink']))
     return True
 
 
 def print_body(text_string):
+    """
+    The print_body function displays text with consistent appearance 
+    """
     print(colored(text_string, 'blue', 'on_white'))
     return True
 
 
 def print_status(text_string):
+    """
+    The print_text function displays text with consistent appearance 
+    """
     print(colored(text_string, "white", "on_green"))
     return True
 
 
 def print_message(text_string):
+    """
+    The print_message function displays text with consistent appearance 
+    """
     print(colored(text_string, 'black', 'on_white'))
     return True
 
 
 def print_error(text_string):
+    """
+    The print_error function displays text with consistent appearance 
+    """
     print(colored(text_string, 'black', 'on_yellow'))
+    return True
 
 
 def authenticate_user(user_name, password):
@@ -71,7 +90,6 @@ def authenticate_user(user_name, password):
     return 0 (false)
     """
     all_users = SHEET.worksheet("sys_users").get_all_values()
-    # remove the title row
     all_users.pop(0)
     for ind_user in all_users:
         user_found = (set([user_name, password]) <= set(ind_user))
@@ -106,7 +124,6 @@ def find_row(search_string, col):
     in a particular column(usually column 1)
     """
     cell = sh.find(search_string, col)
-    # get row number
     row = cell.row
     return row
 
@@ -118,20 +135,14 @@ def find_cust(search_string):
     It returns the customer index within the spreadsheet, or 0 if not found
     """
     all_custs = SHEET.worksheet("sys_cust").get_all_values()
-    # remove the title row
     all_custs.pop(0)
-    # change all fields to uppercase
-    upper_custs = []
-    upper_custs = all_upper(all_custs)
+ #   upper_custs = []
+ #   upper_custs = all_upper(all_custs)
     all_custs = all_upper(all_custs)
-    # print_message(f"search string is {search_string}")
-
     for ind_cust in all_custs:
         cust_found = (set([search_string]) <= set(ind_cust))
         if (cust_found):
-            # print_message(f"customer found, details are {ind_cust} \n")
             return ind_cust
-    # print("Existing customer not found.....")
     return False
 
 
@@ -150,24 +161,22 @@ def next_index(worksheet):
 
 def list_worksheet(worksheet):
     """
-    This is a utility function to print all data from a given worksheet
+    This is a utility function to print all data from a given worksheet.
+    Note that some tables have been customised to reduce displayed columns
+    and title fields have been reduced in width to avoid text wrapping
+    as this does not display well using Tabulate
     """
     all_data = get_worksheet(worksheet)
     print_cols = []
-    # DMcC 04/07/23:  some tables show just a subset of fields
-    # as the tablulated display of all fields is too wide for screen
     if worksheet == "repairs":
-        # reduce the number of columns to display
         for data in all_data:
             print_cols.append([data[0], data[2], data[3], data[10], data[12]])
         all_data = print_cols
     elif worksheet == "sys_cust":
-        # reduce the number of columns to display
         for data in all_data:
             print_cols.append([data[0], data[1], data[2]])
         all_data = print_cols
     elif worksheet == "sys_users":
-        # reduce the number of columns - dont show passwords
         for data in all_data:
             print_cols.append([data[0], data[1], data[3]])
         all_data = print_cols
@@ -203,8 +212,6 @@ def update_worksheet(data, worksheet):
     This function taken from love sandwiches
     Update any worksheet, add new row with the list data provided
     """
-#    print(f"Updating {worksheet} worksheet...\n")
-#    print(f"data to update: {data}")
     worksheet_to_update = SHEET.worksheet(worksheet)
     worksheet_to_update.append_row(data)
     print_status(f"{worksheet} worksheet updated successfully")
@@ -218,6 +225,7 @@ def enter_repair(options):
     The enter_repair function is designed to make input as quick for the user
     Parameter 'options' is a string containing null or more characters,
     and it can be used for typeahead.
+    If an option is not pre-selected, the user is offered a menu
     """
     print_title("------------------------------")
     print_title("--- ENTER ESTIMATE/ REPAIR ---")
@@ -227,7 +235,6 @@ def enter_repair(options):
         print_message(f"\nEnter estimate/repair option {options}")
         print("")
     else:
-        # present the user with a menu if an option not already selected
         print_subtitle("    (E)stimate   ")
         print_subtitle("    (R)epair     ")
         print_subtitle("    e(X)it       ")
@@ -272,8 +279,9 @@ def enter_repair(options):
                      '01/07/23', '08/07/23', '01/01/1900', record_status]
     print_message(f"repair record is: {repair_record}")
     update_worksheet(repair_record, 'repairs')
-    time.sleep(2)
-
+    print("")
+    input("Press any key to return to main menu....\n")
+    return True
 
 def find_repair(options):
     """
@@ -340,14 +348,12 @@ def maintain_sys(options):
         user_option = options[0]
         print_body(f"Option passed is {user_option}")
     else:
-        # present the user with a menu if an option not already selected
         print_subtitle("    (C)ustomer list ")
         print_subtitle("    (I)tem type     ")
         print_subtitle("    (M)aterials     ")
         print_subtitle("    (S)tatus Codes  ")
         print_subtitle("    (U)sers         ")
         print_subtitle("    (H)elp          ")
-        # if X selected this will return a value of False
         print_subtitle("    e(X)it          ")
 
         input_string = input("Option:\n").upper()
@@ -379,7 +385,7 @@ def maintain_sys(options):
 
 def show_help(options):
     """
-    this (05/07/23 DMcC clears the screen and) prints a set of help text.
+    This function show_help() prints a set of help text.
     It explains the type-ahead capabilities and how they can be used once
     a person understands the sys navigation.
     When RepairsTracker moves from demo to PROD the references to userids
@@ -417,6 +423,11 @@ def show_help(options):
 
 
 def menu_manager(valid_user):
+    """
+    The menu_manager() function displays the main menu options.
+    This is designed to continue running until the user selects
+    option X to exit
+    """
     print_title("----------------------------------------")
     print_title("  REPAIRS TRACKER - MAIN MENU:          ")
     print_title("----------------------------------------")
@@ -449,19 +460,12 @@ def menu_manager(valid_user):
             find_repair(further_options)
         elif (user_option == "N"):
             notify_customer(further_options)
-            # future:  allow for multiple repair numbers separated by commas
         elif (user_option == "M"):
-            # print(f"Valid user value is {valid_user}")
-            # Note that valid_user holds a value of
-            # 0(False)
-            # 1(user-level security)
-            # 2(super-user level security)
             if (valid_user == '2'):
                 maintain_sys(further_options)
             else:
                 print_error("Insufficient security privileges")
                 time.sleep(2)
-
         elif (user_option == "H"):
             show_help(further_options)
         else:
@@ -473,9 +477,14 @@ def menu_manager(valid_user):
 
 def main():
     """
-    Run all program functions
+    Function main() runs all program functions.
+    It begins with a call to valid_user() to establish if a user is authorised 
+    to access the system.
+    valid_user() returns a value of:
+    * 0(False) 
+    * 1(user-level security)
+    *  2(super-user level security)
     """
-    # set_wallpaper("../assets/images/jewellery_bench.jpg")
     print_title("          ---------------------------          ")
     print_title("          ----  REPAIRS TRACKER  ----          ")
     print_title("          ---------------------------          ")
@@ -486,8 +495,6 @@ def main():
     print("")
     user_name = input(colored("Please enter username: ", 'blue', 'on_white'))
     password = input(colored("Password: ", 'blue', 'on_white'))
-    # note that valid_user returns a value of 0(False) 1(user-level security)
-    # 2(super-user level security)
     valid_user = authenticate_user(user_name, password)
     while valid_user:
         valid_user = menu_manager(valid_user)
