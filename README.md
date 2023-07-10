@@ -371,6 +371,11 @@ needed once the system is to progress to live implementation.
 
 ### Features in Scope 
 
+A checklist of the user stories showing which features address each is given here:
+![page 1 cross-check user stories](./docs/readme_images/user_stories_vs_features_p1.jpg?raw=true "page1")
+![page 2 cross-check user stories](./docs/readme_images/user_stories_vs_features_p2.jpg?raw=true "page2")
+
+And a reverse-checklist showing of features, showing which user story each addresses is given here: 
 <details><summary>Mapping of user stories to features</summary>
 <img src="./docs/readme_images/user_stories_vs_features.jpg"></details>
 
@@ -380,7 +385,7 @@ RepairsTracker contains:
 * two entry options (estimates and repair) 
 * various supporting options to manage the lifecycle of an estimate or repair.
 
-This version of RepairsTracker system is a demo version. Some of the features are marked as 'future'.  This recognises that, while the RepairsTracker app contains a lot of the core functionality, it doesn't include the full set of features which would be required to meet real-world requirements.
+This version of RepairsTracker system is a demo version. Some features are marked as 'future'.  This recognises that, while the RepairsTracker app contains a lot of the core functionality, it doesn't include the full set of features which would be required to meet real-world requirements.
 
 ### Implementation Decisions
 
@@ -456,23 +461,26 @@ The following were used to extend the functionality of python.  Each required an
 ### Python Validation 
 - PEP8 validation
 - The pycodestyle validator is available within the CI GitPod development environment.  It is invoked using pycodestyle run.py.
-It was used on 04/07/23 and 10/07/23 and, after corrections, returned 0 errors.
+It was used on 04/07/23 and 10/07/23 and, after corrections on each occasion, returned 0 errors.
+<br>
 ![pycodestyle dev environment validation](./docs/readme_images/val_pycodestyle_dev_env.jpg?raw=true "pycodestyle 0 errors")
 <br>
+The CI PEP8 validator was also used, by pasting my run.py code into https://pep8ci.herokuapp.com/#
+, and on 04/07/23 and 10/07/23 confirmed 0 linting issues.
+<details><summary>Validation: CI PEP8 validator</summary>
+<img src="./docs/readme_images/val_ci_pep8.jpg">
+</details>
+
 - Corrections included:
 
 * over-long lines; 
 * whitespaces at end of lines - or on blank lines, 
 * missing spaces around operators
 * under- or over-indentation, 
-* incorrect # of blank lines between functions.  When first run there were over 50 PEP8 errors present, 
+* incorrect # of blank lines between functions.  
+<br>
+When first run (on each occasion!) there were over 50 PEP8 errors present. 
 Advised corrections were applied, then the code was re-verified to ensure still working correctly.
-
-https://pep8ci.herokuapp.com/#
-The CI PEP8 validator was also used, by pasting my run.py code into here, and on 04/07/23 confirmed 0 linting issues.
-<details><summary>Validation: CI PEP8 validator</summary>
-<img src="./docs/readme_images/val_ci_pep8.jpg">
-</details>
 
 ### Accessibility
 N/A for Python project
