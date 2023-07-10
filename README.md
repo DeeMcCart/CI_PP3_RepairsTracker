@@ -211,7 +211,7 @@ The user must give a valid userid and password to gain entry to the system (this
 These userids and passwords are stored within Google sheets
 <br>
 <details><summary>Username and password are required to access RepairTracker</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f01_user_authentication.jpg"></details>
+<img src="./docs/readme_images/f01_user_authentication.jpg"></details>
 <br>
 Unauthorised (non-administrator) users cannot access certain functions e.g. system maintenance.
 The implementation of basic authentication satisfies user requirements SO01, SO07, SO08, SO12, FTU02, FTU04, RU08, RU13<br>
@@ -220,7 +220,7 @@ The implementation of basic authentication satisfies user requirements SO01, SO0
 
 ### F02 Structured Navigation Menus
 <details><summary>Main Menu options</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f02_main_menu.jpg"></details>
+<img src="./docs/readme_images/f02_main_menu.jpg"></details>
 <br>
 The main menu lists options each of which is identified by a letter of the alphabet.  The user can enter an option (in upper or lower case) and will be brought to the linked sub-menu.
 Heading title., subtitle and content are presented with consistent appearance and colours.  
@@ -230,7 +230,7 @@ This meets user requirements SO01, SO03, FTU01, FTU02, FTU05, RU01.
 
 ### F03 Typeahead
 <details><summary>typeahead</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f03 typeahead.jpg"></details>
+<img src="./docs/readme_images/f03 typeahead.jpg"></details>
 If, from the main,menu, the user already knows the submenu option they can key this also, e.g. EE to take the (E)nter option from main menu then (E)stimate from sub-menu.<br>
 <br>
 This satisfies user stories SO02, SO03, SO04, FTU01, FTU02, FTU05, RU01, RU02.
@@ -238,7 +238,7 @@ This satisfies user stories SO02, SO03, SO04, FTU01, FTU02, FTU05, RU01, RU02.
 
 ### F04 'Help' Screen
 <details><summary>Help screen</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f04_help_screen.jpg"></details>
+<img src="./docs/readme_images/f04_help_screen.jpg"></details>
 <br>
 A help text screen is available from main menu option 'H'.  This gives more details for each menu option<br>
 This satisfies user stories S03, S10, FTU02, FTU03, FTU05. <br>      
@@ -247,7 +247,7 @@ This satisfies user stories S03, S10, FTU02, FTU03, FTU05. <br>
 
 ### F05 Dynamic Prompts
 <details><summary>Value list in prompt is built from system table</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f05_dynamic_prompts.jpg"></details>
+<img src="./docs/readme_images/f05_dynamic_prompts.jpg"></details>
 The value list offered for item type and item material, within the repairs entry processes, is built from the contents of tables
 sys_type and sys_material, held within the Google Shhet.  Modifying the values within the google sheets will modify 
 the entry prompts shown to the user.
