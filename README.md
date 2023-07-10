@@ -210,198 +210,190 @@ N/a to text-based display
 The user must give a valid userid and password to gain entry to the system (this demo version is provided with u-u for user-level access and s-s for administrator/super-user access) 
 These userids and passwords are stored within Google sheets
 <br>
-The use of basic authentication satisfies user requirements SO-01, SO-08, SO-12, FTU-04, RU-08, RU-09, RU-13<br>
+<details><summary>Username and password are required to access RepairTracker</summary>
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f01_user_authentication.jpg"></details>
+<br>
+Unauthorised (non-administrator) users cannot access certain functions e.g. system maintenance.
+The implementation of basic authentication satisfies user requirements SO01, SO07, SO08, SO12, FTU02, FTU04, RU08, RU13<br>
 <br>
 
-### F02 'MAIN MENU' & Navigation
+
+### F02 Structured Navigation Menus
 <details><summary>Main Menu options</summary>
 <img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f02_main_menu.jpg"></details>
 <br>
 The main menu lists options each of which is identified by a letter of the alphabet.  The user can enter an option (in upper or lower case) and will be brought to the linked sub-menu.
 Heading title., subtitle and content are presented with consistent appearance and colours.  
 <br>
-This meets user requirements SO03, FTU02, FTU05.
+This meets user requirements SO01, SO03, FTU01, FTU02, FTU05, RU01.
 <br>      
 
 ### F03 Typeahead
 <details><summary>typeahead</summary>
-<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f03 Typeahead.jpg"></details>
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f03 typeahead.jpg"></details>
 If, from the main,menu, the user already knows the submenu option they can key this also, e.g. EE to take the (E)nter option from main menu then (E)stimate from sub-menu.<br>
-For more complex processes which may involve updates/searching for a number of repair records, the user can typeahead giving multiple repair numbers, separated by a comma:
-e.g. F12345,13456,15567 opens the find option and asks it to process 3 specific repairs records.
 <br>
-This satisfies user stories SO_02, SO_04, RU_01.
+This satisfies user stories SO02, SO03, SO04, FTU01, FTU02, FTU05, RU01, RU02.
 <br>
+
 ### F04 'Help' Screen
 <details><summary>Help screen</summary>
-<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/f04_help.jpg"></details>
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f04_help_screen.jpg"></details>
 <br>
-A modal 'How to Play' explains how to play and some of the subtleties of the calculations.  Available from the 'how to play' button on the Intro screen, or from the navbar help icon on all screens.   The 'How to Play' window can be scrolled to see full text, and is closed by clicking on the X in top right hand corner, at which point it disappears from screen.
-<br>
-<br>      
-
-### F03 Play button
-The Play button ![Play button](./docs/readme_images/f03_play_button.jpg?raw=true "Image of Play button") allows the user to go directly to a game screen, and immediately play a game ('call to action').
+A help text screen is available from main menu option 'H'.  This gives more details for each menu option<br>
+This satisfies user stories S03, S10, FTU02, FTU03, FTU05. <br>      
 <br>
 <br>
 
-### F04 Randomly selected solution
-<details><summary>Array of potential solutions</summary>
-<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/f04_solution_array.jpg"></details>
-(Dont look too closely or you will ruin the surprise of playing the game!)<br>
-An array of solutions is maintained, and, when the game starts, an entry is randomly chosen from this array.  At the time of development this array contained approx 20 entries, which is sufficient for demo purposes, it is envisioned that this will be extended in the future.
+### F05 Dynamic Prompts
+<details><summary>Value list in prompt is built from system table</summary>
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f05_dynamic_prompts.jpg"></details>
+The value list offered for item type and item material, within the repairs entry processes, is built from the contents of tables
+sys_type and sys_material, held within the Google Shhet.  Modifying the values within the google sheets will modify 
+the entry prompts shown to the user.
+<br>
+This satisfies user stories S02, S06, FTU01, FTU03, FTU05<br>
+
+### F06 Colour coded messages<br>
+Colour coded messages provide consistent and learnable user interface, and assist the user in navigating the system.
+![success message](./docs/readme_images/f06_success_message.jpg?raw=true "Success")
+![error message](./docs/readme_images/f06_error_message.jpg?raw=true "Success")
+<br>
+This feature addresses user stories S03, S06, S07, S10, FTU01, FTU02, FTU04, FTU05, RU02.  
+<br>
+
+### F07 Database held in Google Sheets:
+<details><summary>RepairsTracker in Google Sheets</summary>
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f07_google_sheets.jpg"></details>
+The RepairsTracker underlying database is represented using Google Sheets as an approximation of an RDBMS.
+This has the advantage of allowing non-routine data updates (e.g. of system tables) to be done within Google Sheets rather
+than by developing a customised Python solution for each type of update.
+Ad hoc reporting can also be done from within Google sheets rather than python, e.g. checking for overdue repairs or items outstanding for collection. <br>
+This addresses user stories S01, S02, S04, S12, RU05, RU10, RU11, RU12. 
+<br>
+
+### F08 Repairs/ Estimate Entry
+<details><summary>Repairs/ estimate entry</summary>
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f08_repair_vs_estimate.jpg"></details>
+Enter a repair/ estimate - each captures slightly different fields, although some fields are common to both.  
+Each new entry is assigned a record type - (R)epair or (E)stimate
+Drop-in date - assigned to today, due date - assigned to today +7 days.
+Customer details and item details are recorded, as well as free-text to describe the repair type.
+Status is assigned as 10: estimate; 20: repair ; this indicates the stage in the repair 'lifecycle'.
+Each new repair/estimate is assigned a 'next number' repair # (based on incrementing the previous repair #).
+<br>
+This addresses user stories S01, S02, S03, S04, S06, S07, FTU01, FTU02, FTU04, FTU05, RU01, RU02, RU03, OT01, OT02<br>
+
+### F09 Prompted keying of customer data
+<details><summary>phone# checked for existing & retrieves customer name</summary>
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f09_customer_retrieval.jpg"></details>
+When entering a repairs record, the user is first asked for the customers phone number, this is checked against the customer database
+to see if customer is already known to RepairsTracker, if so it prompts with the customers name and address and asks the user to verify
+this is the correct customer.
+Pressing <Enter> accepts the suggested customer, entering <N> causes a 'customer name' input prompt to display and the entered value 
+is then used for the new repair record.  
+<br>
+This is another aspect of addressing user stories S01, S02, S03, S04, S06, FTU01, FTU02, FTU04, FTU05, RU01, RU02, RU03<br>
+
+### F10 Convert estimate -> Repair (FUTURE)
+This is a desired feature to address RU04. 
 <br>
 <br>
 
-### F05 Uncluttered game screen
-<details><summary>Initialised game screen</summary>
-<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/f05_uncluttered_game_screen.jpg"></details>
-The game screen is presented to the user fully initialised (ie a target value has been set and populated to each grid row).  The screen is free of ads and supplemental displays, which allows the user to focus on the game.
+### F11 Find a repair - including repair status
+<details><summary>Find repair - tabulated output</summary>
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f11_find_repair.jpg"></details>The (F)ind option is available from the main menu.  This shows summary information per repair in tabulated form.
+<br>
+This meets user requirement FTU02, RU05, RU10, OT04  
+<br>
+
+### F12  Notify Customers
+<details><summary>Notify cutomers via SMS</summary>
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f12_customer_notify.jpg"></details>
+Use of a third-party SMS management service (Twilio) was tested and successfully generated messages to represent repairs completion.
+While this particular SMS mangement service may not be the final solution adopted, the RepairsTracker system has proven capable of
+generating a customer notification and sending it to a specified mobile phone #.
+(Note that all SMS messages from RepairsTracker are currently sent to a single mobile phone number, which has been declared to the 3rd party 
+SMS messaging provider) 
+<br>
+This addresses user stories S01, S02, S05, S09 (partially), FTU05, RU06, OT03<br>
+<br>
+
+### F13 Label/ Docket Printing per Repair (FUTURE)
+This is a desired feature to address S11, FTU01, RU02, RU03.
+This requirement is currently under clarification with the end user, as initially it was understood that label printing was needed, in order to 
+attach a label to the envelope holding the item to be repaired, however it has emerged that what is actually needed is a 2-part docket, one 
+copy is attached to the repairs envelope, and one is given to the customer. This requirement will be addressed in the near future.  
 <br>
 <br>
 
-### F06 Consistent Navbar<br>
-The Navbar is consistent throughout the website, 404 and feedback pages.  (modals/pop-ups are used to show intro and help pages, which don't show the navbar but when they are closed, the navbar can be seen on the underlying page)  Contains icons for Help, Stats and Settings.
-![Navbar](./docs/readme_images/f06_navbar.jpg?raw=true "Navbar image")
-<br>
-<br>
+### F14 Maintain System Configuration data
+<details><summary>Menu</summary>
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f14_maintain_menu.jpg"></details>
+<details><summary>Example - item type</summary>
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f14_maintain_item.jpg"></details>
+<details><summary>Example - lifecycle</summary>
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/f14_maintain_status.jpg"></details>
 
-### F07 Game grid
-<details><summary>Game panel</summary>
-<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/f07_game_grid_in_progress.jpg"></details>
-Interactive and responsive game panel which allows the user to record one set of guess tiles per attempt (the current attempt # is shown at top of screen).  The game grid is initially blank, and will be populated with successive user guesses.
-Interactivity/feedback:  when the user presses ENTER to submit a guess, the guessed tiles update as green(correct); orange(present) or grey(absent).
-<br>
-<br>
+This is a desired feature to address S12 - configure and maintain system.  The requirement is partially met with the (M)aintain option 
+from the main menu.  Implementation at this time has been to provide an option to select each of the system files, and see a tabulated
+presentation of its contents.  It is possible to amend these tables directly within Google Sheets.
+Note: the (M)aintain menu also supports typeahead, so, for example, selecting MI from the main menu, will take the user to (M)aintain (I)tem.
+Note: only users with administrative rights can access the maintain menu.
 
-### F08 Keyboard display
-<details><summary>Keyboard</summary>
-<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/f08_keyboard_grid.jpg"></details>
-A pseudo-keyboard shows the permitted entries.  The user must click on the keys using a mouse pointer to select an entry.  When a keyboard key is pressed, its colour flickers to light blue, and the key value is loaded to the current guess row on the game grid.  So the keyboard is the main user control for the game, and each press of a keyboard key triggers an action.   (keys 1-20, */-+ populate the game grid).<br>
-When the user presses ENTER to submit a guess, the keyboard elements used within the guess also update as green(correct); orange(present) or grey(absent).
-<br>
-<br>
-
-### F09 DEL key
-A backspace key is provided which allows the user to remove the last keyed entry on the current grid row.
-<br>
-<br>
-
-### F10 ENTER key
-The ENTER key submits the current guess row for validation. 
-<br>
-<br>
-
-### F11 Equation validation
-When a guess is submitted, the equation which the user has submitted is parsed and validated as follows - the entries at the second and fourth columns are assessed to ensure these contain an operator (plus minus multiply divide); the guessed equation is then validated to check if it equates to the target value.  If not, an error message is shown, however the game (at this version) will still progress to individual element valuation.
-![If equation has wrong total](./assets/readme_images/f11_wrong_total.jpg?raw=true "Equation calculates to incorrect total")
-<br>
-<br>
-
-### F12  Individual guess element validation
-<details><summary>Feedback on keyboard re guessed solution</summary>
-<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/f12_keyboard_interaction_feeback.jpg"></details>
-Each element of the guess is compared to the solution, and its tile colour amended according to whether the guessed tile is:
-* correct (green)- tile value is at this position in the solution;
-* present (orange)- tile value is at a different position in the solution;
-* absent (grey) - tile value is not in the solution.
-![Feedback on game panel re guessed solution](./docs/readme_images/f12_game_interaction_feeback.jpg?raw=true "Image of guessed tiles changing colour")
-
-The corresponding keyboard grid value is coloured on the lower part of the screen, e.g. '5' guessed correct; will colour both the row tile and the keyboard key green.  A (hidden) count of the number of correct elements is maintained.
-<br>
-<br>
-
-### F13 Success message
-<details><summary>Appropriate success message, content varies by # of attempts</summary>
-<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/f13_attempt4_result.jpg"></details>
- This displays when all elements correctly guessed.  A pop-up message with the appropriate text appears.  This text mimics the Wordle site, so depending on the  number of attempts the successful user can get (Genius, Magnificent, Impressive, Splendid, Great, Phew).
-<br>
-<br>
-
-### F14 Solution display if exceeded 6 attempts
-<details><summary>Solution display if 6 unsuccessful guesses</summary>
-<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/f14_exceeded_6attempts.jpg"></details>
-A pop-up message with the appropriate text appears if the user has matched the entire solution equation.  This text mimics the Wordle site, so depending on the  number of attempts the user can get (Genius, Magnificent, Impressive, Splendid, Great, Phew)
-<br>
-<br>
-
-### F15 User Statistics 
-<details><summary>User statistics</summary>
-<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/f15_user_statistics.jpg"></details>
-
-This screen is really a placeholder for future functionality as would like to display some of the statistics for a player over a number of games<br>
-<br>
-
-### F16 Settings and Feedback
-<details><summary>User settings</summary>
-<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/f16_settings_feedback.jpg"></details>
-
-This allows the user to provide feedback and to choose to join a daily reminder mailing list.  There are placeholder questions here for future Limit to one game daily (preset to 'no limit');
-Difficulty levels: easy or difficult (preset to 'difficult').
-Share image of solution to clipboard (future)
-<br>
-<br>
-
-### F17 Responsiveness
-The site is designed to be fully responsive so it can be played on a range of convenient devices.
+### F15 Update repair from status 'notified' (50) to 'collected' (60) (FUTURE)
+To address user stories RU07 (update status from customer notified -> customer collected) and OT05 (reminder for customer to collect)
+a feature is needed to update the status of selected repairs.  This has not been included in this RepairsTracker version however it will be
+needed once the system is to progress to live implementation.
 
 ### Features in Scope 
 
 <details><summary>Mapping of user stories to features</summary>
-<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/user_stories_vs_features.jpg"></details>
+<img src="https://deemccart.github.io/CI_PP3_RepairsTracker/docs/readme_images/user_stories_vs_features.jpg"></details>
 
-This website includes 3 pages and 16 features 
-The pages - which effectively bring the features lited in the previous section together - are:
-* Landing Page (see feature F01 Intro Screen)
-* Settings page (see feature F16 Feedback and settings )
-* 404 error page 
+As this website is a python project, effectively this runs in a python emulator which is built using html and javascript.
+The presentation is 'terminal mode' ie text-based on a dark background.
+So RepairsTracker does not contain 'pages' as such, rather it contains:
+3 menus (main, enter, maintain)
+a help page
+two entry options (estimates and repair) 
+and various supporting options to manage the lifecycle of an estimate or repair.
 
-- __404 Error Page__ 
-This allows graceful failure, where the header and footer are preserved, allowing the user to navigate away from an error page using the site navigation (rather than the back button).
-
-<details><summary>404 error page</summary>
-<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/p03_error_404_page.jpg"></details>
+Note that some of the features are shown as 'future', the RepairsTracker system as delivered can be considered a demo version, it does not include
+all the functionality that is needed in a real-world application, however it does include essential functions and a lot of the back-end features to
+support these, and to support a wider system. 
 
 ### Implementation Decisions
-Pre-defined calculations are stored in a multi-dimensional array as follows:
-Solution [
-[ 3, *,_ 7 * 2, 41_], // ie 3 * 7 * 2 = 41
-[2, + , 5 * 7, 41] //ie 2 + 5 * 7 = (7) * 7 = 41
-]
-Each day's equation can therefore be referenced as Solution[day#]
-Each days' elements can be referenced as solution[day#, element#]
-This is useful when comparing a user entry for a match.
+The use of a third party SMS notification sevice (Twilio), invoked from within the RepairsTracker python code was a real eye-opener.  Once the use of environment variables (and the necessity to keep them hidden) was understood, and that these could be represented in Heroku as configuration/credential  variables, this opened up a whole world of possibilities.
+However, once I had assigned my mobile number as an authorised recipient of SMS messages within the service, I observed several spam calls to my number, therefore decided not to use the 'customer mobile phone' number tracked on the RepairsTracker record, and any SMS messages generated are sent only to one mobile number (mine).
+I also extended the error handling as at one point I inadvertently mistyped the credentials into the Heroku server (I retained the surrounding "" double quotes) and could not understand why the production version had stopped working.... a meaningful error message from the Twilio service now shows when an SMS fails to send.
 
-Daily user entries are stored in an array of 7 x 6 rows as follows:
-Attempt [(undef, green, orange), (undef/green/orange), (undef/green/orange), (underf/green/orange), (undef/green/orange), (success)]
-Attempt attempt#, element# can be compared to each of the entries in solution [day#, element#y] to search for a match - if found then if attempt.element# matches solution.element# then green, else orange.
+Google spreadsheets update, as first seen in the 'love sandwiches' project, is enormously powerful and I really enjoyed working with this as I could immediately see how a practical, real-world application could be quickly built, and presented as a low-cost, easily used system with a quick learning curve.
+However on first making a connection to the RepairsTracker google sheet, I made a mistake and added the google credentials to the creds.json file in my repository and committed, before adding to the gitignore file...... this caused Google to send me numerous notifications that credentials had been possibly exposed on a public site.  After resisting for some time, I eventually closed out the first service account I had created for the Google link, and recreated with a new set of credentials.
 
-Break out of loop when success, or when 6 tries reached.
 <br>
 
 ### Features Left to Implement
-While Humble Numble, at the current version, provides the 'engine' for pattern matching and calculation, there are a number of desirable features which exist in the current version of Wordle and which would greatly add to the user experience for Numble.
-
-Choose difficulty level
-* Allow the user to choose difficulty level EASY (all numbers <= 10) or DIFFICULT (numbers <=20 included).  Note that this has been allowed for in the array of solutions, these are classified according to difficulty, so this may be an 'easy win' future feature.
-
-Allow the user to limit to one game daily
-* One of the beautiful features of wordle is its limited-release mode whereby only one puzzle is released daily ... this creates a sense of anticipation and the user wants more, they don't get the chance to become bored or tired with the game.  
-* Humble Numble at the current version, allows the user to play continuously by refreshing the browser.  This is useful when in testing and demonstration mode, but ideally the default would be one game per day.
-
-Preserve user statistics from one game to the next
-* This has been allowed for within the user interface by providing a statistics page, however the stats currently only relate to the latest game played.   Tracking of # of days 'winning streak' is very motivating to the user.
-
-Share results
-* Wordle has a feature whereby a user can share their pattern matching results without revealing the underlying solution.
+The following features are described in the previous section, and an explanation is given of each requirement.
+F10 Convert estimate -> Repair (FUTURE)
+F13 Label/ Docket Printing per Repair (FUTURE)
+F15 Update repair from status 'notified' (50) to 'collected' (60) (FUTURE)
 <br>
+In general, improved searching and retrieval of records, as well as specific record updates would improve the RepairTracker capabilities and
+make it more usable in a real-world environment.   
+
+I would also like to extend the typeahead feature (F03) as follows:
+In the future, for more complex processes which may involve updates/searching for a number of repair records, the user could typeahead giving multiple repair numbers, separated by a comma:
+e.g. F12345,13456,15567 opens the find option and asks it to process 3 specific repairs records.
+
+I would very much like to show a display screen (with a picture of a jewellers bench) as a splash screen behind the black terminal window.  I attempted to do this using html (as I saw other PP3 project such as the american pizza system had accomplished it) but without success....I will continue to work on this challenge as I think it would greatly improve the visual appearance....
 <br>
-               
+<br>               
 ## Technologies
 
 ### Langugages
-- HTML 
-- CSS
+- HTML (small bit for attempting splash screen)
+- Python V3.1.3
 - Javascript
 
 ### Frameworks & Tools
