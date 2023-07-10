@@ -71,8 +71,9 @@ However, in line with project goal #3, some features have been included to strea
 To streamline data entry, a user familiar with the menu structure can directly enter a multi-character string to immediately access a sub-menu.  A typical example would be ER to choose Enter - Repair.   
 
 Other UX design considerations include meaningful error messages and status messages.
-Status code is used track each repair lifecycle.  This makes current status, worklaod and throughput of estimates/repairs clearly visible.
-As per project goal #4, functionality within RepairTracker allows repairs status to be filtered and reported on.
+Status code is used to track each repair through its lifecycle.  
+This makes current status, workload and throughput of estimates/repairs clearly visible.
+As per project goal #4, functionality within RepairTracker allows repairs status to be seen within inquiries and datalists.
 <br>
 <br>
 ### UX Design Strategy Analysis - Existing Repair Tracking Apps
@@ -102,6 +103,7 @@ Target users are small-medium sized jewellery shops who perform repairs for inho
 <li>Would like to gather data for ad-hoc statistical analysis of repairs (average price, weekly throughput, etc) </li>
 </ul>
 <br>
+
 ### UX Design Scope - Data
 A single Google spreadsheet is used to hold the DMBS.
 This is pre-populated with configuration data as follows:
@@ -110,7 +112,7 @@ This is pre-populated with configuration data as follows:
 * sys_users holds a list of userids and passwords known to the system, and whether each has user or administrator access;
 * sys_item holds jewellery item types, e.g. (W)atch, (E)arrings;
 * sys_status holds the lifecycle of an estimate/ repair
-
+<br>
 
 ## User Goals/ User Stories
 ----------------
@@ -164,27 +166,28 @@ This is pre-populated with configuration data as follows:
 
 ### Flowcharts
 <details><summary>Main Menu</summary>
-<img src=".docs/readme_images/flowchart_overview_with_authentication.jpg">
+<img src="./docs/readme_images/flowchart_overview_with_authentication.jpg">
 </details>
 
 <details><summary>Enter repair/estimate</summary>
-<img src=".docs/readme_images/flowchart_enter_repair.jpg">
+<img src="./docs/readme_images/flowchart_enter_repair.jpg">
 </details>
 
 <details><summary>Complete Repair - Notify Customer</summary>
-<img src=".docs/readme_images/flowchart_complete_notify.jpg">
+<img src="./docs/readme_images/flowchart_complete_notify.jpg">
 </details>
 
 <details><summary>Customer Collect/ Completion</summary>
-<img src=".docs/readme_images/flowchart_collect.jpg">
+<img src="./docs/readme_images/flowchart_collect.jpg">
 </details>
 
   
 ### Fonts Chosen
-n/a as quite limited..... however would ideally like to apply some colours to the text.
+n/a as this is presented as a 'termina' style window and is therefore quite limited.....
+however using the 'colorama' python library gave the ability to apply some colours and properties (bold, blink, etc) to the text.
 
 ### Colour Scheme 
-Would like to have different colours for error messages, status messages etc.
+Colours & backgrounds are applied consistently to text blocks within RepairsTracker e.g. for error messages, status messages etc.
 
 <details><summary>Colours- used for prompt & feedback to user & to aid user learning</summary>
 <img src="./docs/readme_images/colour_examples.jpg">
@@ -208,7 +211,13 @@ These userids and passwords are stored within Google sheets
 <details><summary>Username and password are required to access RepairTracker</summary>
 <img src="./docs/readme_images/f01_user_authentication.jpg"></details>
 <br>
+If the user presents with an invalid userid/password they receive an error message and cannot access RepairsTracker.
+
+![cannot login](./docs/readme_images/f01_invalid_credentials.jpg?raw=true "invalid login")
+
 Unauthorised (non-administrator) users cannot access certain functions e.g. system maintenance.
+![unsucccessful attempt to access (M)aintain](./docs/readme_images/f01_insufficient_security.jpg?raw=true "security breach")
+
 The implementation of basic authentication satisfies user requirements SO01, SO07, SO08, SO12, FTU02, FTU04, RU08, RU13<br>
 <br>
 
