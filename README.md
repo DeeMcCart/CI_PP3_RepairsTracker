@@ -47,7 +47,7 @@
 
 ## About
 ---------
-RepairTracker is a python- and google-sheets DBMS application intended to replace a manual (paper-based) system for tracking the lifecycle of jewellery repair.  This is a real-world requirement, and while the version of RepairTracker presented is a demo version, the app is presently intended for live use.
+RepairTracker is a python- and google-sheets DBMS application intended to replace a manual (paper-based) system for tracking the lifecycle of jewellery repair.  This is a real-world requirement, and while the version of RepairTracker presented is a demo version, the app is presently intended for live use.<br>
 
 ### Responsive Mockup
 A responsive mockup is given here,  although in practice the user interface is a 80-char x 24 line text display regardless of device:
@@ -67,21 +67,26 @@ https://repairs-tracker-aa30320aef0e.herokuapp.com/
   
 ### UX Design Strategy
 As this program is delivered using Python, the emphasis is on functionality rather than appearance.
-However, in line with project goal #3, some features have been included to streamline data entry.  For example, on the main menu, the user can enter a single-character option (E)nter, (H)elp, etc.  When presented with a sub-menu, they can then enter a further single-character option, e.g. the 'Enter' sub-menu has options for (E)stimate, (R)epair, etc.
-To streamline data entry, a user familiar with the menu structure can directly enter a multi-character string to immediately access a sub-menu.  A typical example would be ER to choose Enter - Repair.   
+So the options for customising appearance are somewhat restricted.   RepairsTracker appears in 'terminal-mode' display of 24 lines x 80 chars.
+<br>
+The elements which can be customised to improve UX in this context are:
 
-Other UX design considerations include meaningful error messages and status messages.
-Status code is used to track each repair through its lifecycle.  
-This makes current status, workload and throughput of estimates/repairs clearly visible.
-As per project goal #4, functionality within RepairTracker allows repairs status to be seen within inquiries and datalists.
+* Overall program flow:  ensure a 'natural' flow of activities reflecting the tasks needed to process jewellery repairs (addressing project goal #1). 
+Each estimate/repair is assigned a unique number, and status code is used to track each repair through its lifecycle.  
+This makes current status, workload and throughput of estimates/repairs clearly visible (partly addressing goal #4 via the underlying data structures).
+<br>
+ - RepairsTracker also offers some 'type-ahead' capabilities whereby a user familiar with the menu structure can enter an option from the main menu and submenu in one entry, and be taken directly to that option, e.g. ER to enter an repair (E from main menu, then R from submenu); or MI to Maintain (from main menu) Items (from sub-menu).  Typeahead partially addresses project goal #3.
+* Appearance:  use the text-presentation options of the Colorama library to present on-screen text consistently, so the user learns to recognise error/ success/ info/ background messages by their appearance.  This helps to achieve goals #2 and #3 above.
+* Automation: use a 3rd party messaging service to automate the (currently manual) task of texting to customer when repairs are completed (project goal #s 1, 2, 3, 4)
+* Use of widely available, familiar database backend - Google sheets.  Ideally project goals #4 (reporting) and #5 (ability to configure/customise) would be met via the front-end (Python) interface, however, as a workaround, these goals can be achieved for a user who understands spreadsheets and can manipulate the spreadsheet data and even add macros to generate tracking reports. This is an improvement on the current manual system which sometimes requires a physical search through the repairs to ascertain repair status.
 <br>
 <br>
 ### UX Design Strategy Analysis - Existing Repair Tracking Apps
-Commercially available repair tracking apps do exist, however, these often form part of a larger suite of business modules, integrated with payment and inventory systems. As such, implementation involves monthly subscription costs and an implementation effort.
-RepairTracker is a simple approach to meet the repair tracking aspects only.  It is sufficiently customisable for use in a small-medium sized business, and is quick to use 'out of the box'.
+Commercially available Repair Tracking apps do exist, generally forming part of a wider cloud-based offering.   However, these often form part of a larger suite of business modules, for example integrated with payment and inventory systems. As such, implementation involves monthly subscription costs and an implementation effort.
+RepairsTracker is a simple approach to meet the repair tracking aspects only.  It is sufficiently customisable for use in a small-medium sized business, and is quick to use 'out of the box'.
 
 ### UX Design Strategy Target Audience
-Target users are small-medium sized jewellery shops who perform repairs for inhouse (and possibly external) customers.
+Target users are small-medium sized jewellery shops who perform repairs for direct customers (and possibly for other trade customers).
 
 ## UX Design Scope
 ----------------
