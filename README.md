@@ -75,7 +75,7 @@ The elements which can be customised to improve UX in this context are:
 * Overall program flow:  ensure a 'natural' flow of activities reflecting the tasks needed to process jewellery repairs (addressing project goal #1). 
 Each estimate/repair is assigned a unique number, and status code is used to track each repair through its lifecycle.  This makes current status, workload and throughput of estimates/repairs clearly visible (partly addressing goal #4 via the underlying data structures).
 
-* RepairsTracker also offers some 'type-ahead' capabilities whereby a user familiar with the menu structure can enter an option from the main menu and submenu in one entry, and be taken directly to that option, e.g. ER to enter an repair (E from main menu, then R from submenu); or MI to Maintain (from main menu) Items (from sub-menu).  Typeahead partially addresses project goal #3.
+* RepairsTracker also offers some 'type-ahead' capabilities whereby a user familiar with the menu structure can enter an option from the main menu and submenu in one entry, and be taken directly to that option, e.g. ER to enter an repair (E from main menu, then R from submenu); or MI to Maintain (from main menu) Items (from sub-menu).  Type-ahead partially addresses project goal #3.
 
 * Appearance:  use the text-presentation options of the Colorama library to present on-screen text consistently, so the user learns to recognise error/ success/ info/ background messages by their appearance.  This helps to achieve goals #2 and #3 above.
 
@@ -244,7 +244,7 @@ This meets user requirements SO01, SO03, FTU01, FTU02, FTU05, RU01.
 <br>      
 
 ### F03 Typeahead
-<details><summary>typeahead</summary>
+<details><summary>type-ahead</summary>
 <img src="./docs/readme_images/f03_typeahead.jpg"></details>
 If, from the main,menu, the user already knows the submenu option they can key this also, e.g. EE to take the (E)nter option from main menu then (E)stimate from sub-menu.<br>
 <br>
@@ -331,7 +331,7 @@ This meets user requirement FTU02, RU05, RU10, OT04
 ### F12  Notify Customers
 <details><summary>Notify cutomers via SMS</summary>
 <img src="./docs/readme_images/f12_customer_notify.jpg"></details>
-Use of a third-party SMS management service (Twilio) was tested and successfully generated messages to represent repairs completion.
+Use of a third-party SMS management service (Twilio) was tested successfully.  It generated messages to a mobile phone number, with a standardised message to represent repairs completion.  This is invoked through the 'notify customers' option.
 While this particular SMS mangement service may not be the final solution adopted, the RepairsTracker system has proven capable of
 generating a customer notification and sending it to a specified mobile phone #.
 (Note that all SMS messages from RepairsTracker are currently sent to a single mobile phone number, which has been declared to the 3rd party 
@@ -358,7 +358,7 @@ The 'maintain' feature partially addresses user story S12 - configure and mainta
 <img src="./docs/readme_images/f14_maintain_status.jpg"></details>
 
 Note:  These tables can be amended, if necessary, by an authorised user directly within Google Sheets.
-Note: the (M)aintain menu also supports typeahead, so, for example, selecting MI from the main menu, will take the user to (M)aintain (I)tem.
+Note: the (M)aintain menu also supports type-ahead, so, for example, selecting MI from the main menu, will take the user to (M)aintain (I)tem.
 Note: only users with administrative rights can access the maintain menu, other users will receive an error
 
 ![unsucccessful attempt to access (M)aintain](./docs/readme_images/f01_insufficient_security.jpg?raw=true "security breach")
@@ -383,31 +383,39 @@ RepairsTracker contains:
 This version of RepairsTracker system is a demo version. Some of the features are marked as 'future'.  This recognises that, while the RepairsTracker app contains a lot of the core functionality, it doesn't include the full set of features which would be required to meet real-world requirements.
 
 ### Implementation Decisions
-The use of a third party SMS notification sevice (Twilio), invoked from within the RepairsTracker python code was a real eye-opener.  Once the use of environment variables (and the necessity to keep them hidden) was understood, and that these could be represented in Heroku as configuration/credential  variables, this opened up a whole world of possibilities.
 
-However, once I had assigned my mobile number as an authorised recipient of SMS messages within the service, I observed several spam calls to my number, therefore decided not to use the 'customer mobile phone' number tracked on the RepairsTracker record, and any SMS messages generated are sent only to one mobile number (mine).
-
-I also extended the error handling as at one point I inadvertently mistyped the credentials into the Heroku server (I retained the surrounding "" double quotes) and could not understand why the production version had stopped working.... a meaningful error message from the Twilio service now shows when an SMS fails to send.
-
-Google spreadsheets update, as first seen in the 'love sandwiches' project, is enormously powerful and I really enjoyed working with this as I could immediately see how a practical, real-world application could be quickly built, and presented as a low-cost, easily used system with a quick learning curve.
-
-However on first making a connection to the RepairsTracker google sheet, I made a mistake and added the google credentials to the creds.json file in my repository and committed, before adding to the gitignore file...... this caused Google to send me numerous notifications that credentials had been possibly exposed on a public site.  After resisting for some time, I eventually closed out the first service account I had created for the Google link, and recreated with a new set of credentials.
-
+* Integrated SMS messaging:  The use of a third party SMS notification sevice (Twilio), invoked from within the RepairsTracker python code was a real eye-opener.  Once the use of environment variables (and the necessity to keep them hidden) was understood, and that these could be represented in Heroku as configuration/credential  variables, this opened up a whole world of possibilities.
 <br>
 
-### Features Left to Implement
+* Spam in SMS messaging:  When I configured my Twilio a/c and assigned my mobile number as an authorised recipient of SMS messages within the service, I observed several spam calls to my number.  I therefore decided not to use the entered 'customer mobile phone' number on the RepairsTracker record as was cautious that I might expose other mobile users to unwanted SMS messages or calls.  SMS messages generated from RepairsTracker are now sent to a single mobile number (mine).
+
+* Configuring the Twilio SMS messaging service:  The use of the Twilio service requires a .env (dotenv) varaible within the development environment, this is represented by a configuration variable within the deployed environment. Having got the SMS service working, I was surprised to see the following day, that the deployed version was failing authentication with little information returned to the app.  Eventually I realised that, when double checking the credentials, I had configured the Heroku configuration variable with surrounding "" double quotes, causing it to fail.
+The frustration of troubleshooting this error led me to improve the error management by using a try/ except clause for SMS sending and returning a detailed error message (the Twilio error message) when unsuccessful.
+
+* Google spreadsheets API links:  These were first seen in the 'love sandwiches' project.  These features are enormously powerful and really enjoyable to work with.  I could immediately see how a practical, real-world application could be quickly built, and presented as a low-cost, easily used system with a quick learning curve.
+
+* Inadventent security error with Google links:  However on first making a connection to the RepairsTracker google sheet, I made a mistake and added the google credentials to the creds.json file in my repository and committed, before adding to the gitignore file...... this caused Google to send me numerous notifications that credentials had been possibly exposed on a public site.  After resisting for some time, I eventually closed out the first service account I had created for the Google link, and recreated with a new set of credentials, ensuring that the gitignore file had been first set to ignore the json entries.
+This involved some rework which was frustrating but also a good lesson in security!
+<br>
+
+* Use of Tabulate to nicely display spreadsheet data:  The python library 'tabulate' was used to present tabular data in a readable manner, organised into rows and columns.  However I found the 80-character line width quite restrictive as often I wished to display longer field values but tabulate does not wrap well, the data becomes unreadable once wrapped.  I employed two workarounds - rename the column headings to prevent them from forcing a particular column e.g. with single-character data, to take up extra width, and reduced the number of columns on display for some items (e.g. repairs).     
+
+### Features Left to Implement 
 The following features are described in the previous section, and an explanation is given of each requirement.
 * F10 Convert Estimate to Repair (FUTURE)
 * F13 Label/ Docket Printing per Repair (FUTURE)
 * F15 Update repair from status 'notified' (50) to 'collected' (60) (FUTURE)
+* Improved search and retrieval of records
+* Extend type-ahead functionality
+* Improve terminal display screen
 <br>
 
 In general, improved searching and retrieval of records, as well as specific record updates would improve the RepairTracker capabilities and
 make it more usable in a real-world environment.   
 <br>
 
-I would also like to extend the typeahead feature (F03) as follows:
-In the future, for more complex processes which may involve updates/searching for a number of repair records, the user could typeahead giving multiple repair numbers, separated by a comma:
+I would also like to extend the type-ahead feature (F03) as follows:
+In the future, for more complex processes which may involve updates/searching for a number of repair records, the user could type-ahead giving multiple repair numbers, separated by a comma:
 e.g. F12345,13456,15567 would the find option and ask it to find 3 specific repairs records.
 N12345,13456,15567 would invoke the 'notify' option and perform updates for 3 individual repair records.
 <br>
@@ -429,34 +437,41 @@ I would very much like to show a display screen (with a picture of a jewellers b
 * Balsamiq:  used for wireframing
 * Google Fonts: used to locate suitable fonts for website
 
-### Libraries
-* Twilio Client - used to generate SMS for customer notification once repair is completed
-* gspread - used to access google worksheets/ spreadsheets 
-* google.oauth2.service_account used for Credentials/ permissions management
-* os - used to pickup environment variable(s)
-* dotenv - used to picup environment variables
-* time - used for sleep function
-from termcolor import colored
-from tabulate import tabulate
-matplotlib.use('Agg')
-* # from wallpaper import set_wallpaper, get_wallpaper
-import tk
-# import tkinter
+### Python Libraries
+The following were used to extend the functionality of python.  Each required an install in the development environment, and an update to the requirements.txt file with the package name and version.  The requirements.txt file is then carried through and its contents installed when the CI terminal is built in the Production/ Heroku environment. As variety of libaries were tried when developing RepairsTracker, I needed to prune requirements.txt back to just those libraries required for the delivered version.
+<br>
 
+* google.oauth2.service_account used for Credentials/ permissions management
+* gspread - used to access google worksheets/ spreadsheets 
+* Twilio Client - used to generate SMS for customer notification once repair is completed
+* os - used to pickup environment variable(s) (required for Twilio use)
+* dotenv - used to pickup environment variables
+* time - used for sleep function
+* tabulate - used to present column/row from google sheets in 'nice' format
+* Colorama - used to colour messages for most of the on-screen user interaction
+* sys - used for ??
 
 ## Validation 
 
 ### Python Validation 
 - PEP8 validation
-- The pycodestyle validator within the GitPod environment was used on 04/07/23 and, after corrections, returned 0 errors.
-- Corrections required included over-long lines; whitespaces at end of lines - or on blank lines, missing spaces around operators
-- under- or over-indentation, incorrect # of blank lines between functions.  When first run there were over 50 PEP8 errors present, 
-- this was reduced to 0 by applying advised corrections, then verifying that the resulting code still functioned correctly.
+- The pycodestyle validator is available within the CI GitPod development environment.  It is invoked using pycodestyle run.py.
+It was used on 04/07/23 and 10/07/23 and, after corrections, returned 0 errors.
+![pycodestyle dev environment validation](./docs/readme_images/val_pycodestyle_dev_env.jpg?raw=true "pycodestyle 0 errors")
+<br>
+- Corrections included:
+
+* over-long lines; 
+* whitespaces at end of lines - or on blank lines, 
+* missing spaces around operators
+* under- or over-indentation, 
+* incorrect # of blank lines between functions.  When first run there were over 50 PEP8 errors present, 
+Advised corrections were applied, then the code was re-verified to ensure still working correctly.
 
 https://pep8ci.herokuapp.com/#
 The CI PEP8 validator was also used, by pasting my run.py code into here, and on 04/07/23 confirmed 0 linting issues.
 <details><summary>Validation: CI PEP8 validator</summary>
-<img src=".docs/readme_images/val_ci_pep8.jpg">
+<img src="./docs/readme_images/val_ci_pep8.jpg">
 </details>
 
 ### Accessibility
@@ -467,15 +482,22 @@ Performance  - N/A for Python project?
 Just in case - Ran Lighthouse over the heroku app and got 93% performance.
 
 <details><summary>Performance: heroku deployed app</summary>
-<img src=".docs/readme_images/val_lighthouse_perf.jpg">
+<img src="./docs/readme_images/val_lighthouse_perf.jpg">
 </details>
 
 
 ### Device Testing
 The website was tested on the following devices:
-* HP laptop
-* Samsung Galaxy S10 tablet
+* HP laptop 
+* Samsung Galaxy S10 tablet (the desired final device)
 * Motorola G(7) android phone
+
+Testing on the HP laptop performed as expected with no additional errors.
+Testing on the Samsung Galaxy tablet, which is the desired end-user device (under Google Chrome), showed a strange anomaly wherby the text the user is entering displays as superscript.  However the user-entered input was processed successfully and the system operated as expected, so it is close-to-functional with a small anomaly.
+
+Testing on the Motorola android phone in a FireFox browser was unsuccessful, the display screen doesn't show correctly in portrait mode, it chops off the first 10 or so characters so menus and prompts cannot be read correctly.  If the screen is put into landscape mode the user cannot access on the on-screen keyboard so cannot make any entries.  It also seemed during one test to have difficulty processing the user input, and doubled up the entries, e.g. 's' becames 'ss'.  This system is totally unusable on the android phone.
+(As the python terminal is in fact delivered via a html emulator, it might be possible to modify the CI terminal emulation software to include responsiveness, however such work  is definitely outside the scope of this project!)
+
 
 ### Multi-browser Testing
 The website was tested on the following browsers:

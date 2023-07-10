@@ -14,7 +14,7 @@ from twilio.rest import Client
 from dotenv import load_dotenv
 load_dotenv()
 
-# credentials for twilio SMS client authorisation 
+# credentials for twilio SMS client authorisation
 account_sid = 'AC83dacc66cbdf1b6f8a278daba6a47c06'
 auth_token = os.environ.get("auth_token")
 client = Client(account_sid, auth_token)
@@ -32,27 +32,34 @@ SHEET = GSPREAD_CLIENT.open("RepairsTracker")
 
 
 def print_title(text_string):
-    print(colored(text_string, "white", "on_green", attrs=['reverse', 'blink'] ))
+    print(colored(text_string, "white", "on_green",
+                  attrs=['reverse', 'blink']))
     return True
 
+
 def print_subtitle(text_string):
-    print(colored(text_string, "white", "on_red", attrs=['reverse', 'blink'] ))
+    print(colored(text_string, "white", "on_red", attrs=['reverse', 'blink']))
     return True
-    
+
+
 def print_body(text_string):
     print(colored(text_string, 'blue', 'on_white'))
     return True
+
 
 def print_status(text_string):
     print(colored(text_string, "white", "on_green"))
     return True
 
+
 def print_message(text_string):
     print(colored(text_string, 'black', 'on_white'))
     return True
 
+
 def print_error(text_string):
     print(colored(text_string, 'black', 'on_yellow'))
+
 
 def authenticate_user(user_name, password):
     """
@@ -70,8 +77,8 @@ def authenticate_user(user_name, password):
         user_found = (set([user_name, password]) <= set(ind_user))
         if (user_found):
             print_body(f"Username & password verified, "
-                  + f"security level {ind_user[3]}")
-            print_status("")      
+                       + f"security level {ind_user[3]}")
+            print_status("")
             print_status(f"Welcome back, {ind_user[1]}!")
             print_status("")
             time.sleep(1)
@@ -147,21 +154,27 @@ def list_worksheet(worksheet):
     """
     all_data = get_worksheet(worksheet)
     print_cols = []
-    # DMcC 04/07/23:  need to just take a subset of fields here if repairs data or customer data
+    # DMcC 04/07/23:  some tables show just a subset of fields
     # as the tablulated display of all fields is too wide for screen
     if worksheet == "repairs":
-        #reduce the number of columns to display
+        # reduce the number of columns to display
         for data in all_data:
-            print_cols.append([data[0], data[2],data[3], data[10],data[12]])
+            print_cols.append([data[0], data[2], data[3], data[10], data[12]])
         all_data = print_cols
     elif worksheet == "sys_cust":
-        ## reduce the number of columns to display
+        # reduce the number of columns to display
         for data in all_data:
-            print_cols.append([data[0], data[1],data[2]])
+            print_cols.append([data[0], data[1], data[2]])
+        all_data = print_cols
+    elif worksheet == "sys_users":
+        # reduce the number of columns - dont show passwords
+        for data in all_data:
+            print_cols.append([data[0], data[1], data[3]])
         all_data = print_cols
     table1 = tabulate(all_data, headers='firstrow', tablefmt='fancy_grid')
     print(table1)
     time.sleep(3)
+
 
 def get_worksheet(worksheet):
     """
@@ -199,26 +212,25 @@ def update_worksheet(data, worksheet):
 
 
 def enter_repair(options):
-    """ 
-    This option can be used to enter an estimate (which typically includes 
+    """
+    This option can be used to enter an estimate which typically includes
     slightly different input fields.
-    The enter_repair function is designed to make input as quick as possible for the user
+    The enter_repair function is designed to make input as quick for the user
     Parameter 'options' is a string containing null or more characters,
     and it can be used for typeahead.
     """
     print_title("------------------------------")
     print_title("--- ENTER ESTIMATE/ REPAIR ---")
     print_title("------------------------------")
-    
     if (options != ""):
-        user_option = options[0] 
+        user_option = options[0]
         print_message(f"\nEnter estimate/repair option {options}")
         print("")
     else:
         # present the user with a menu if an option not already selected
         print_subtitle("    (E)stimate   ")
         print_subtitle("    (R)epair     ")
-        print_subtitle("    e(X)it       ")  
+        print_subtitle("    e(X)it       ")
         input_string = input("Option:\n").upper()
         if input_string != "":
             user_option = input_string[0]
@@ -229,11 +241,11 @@ def enter_repair(options):
         return False
     elif (user_option == "E"):
         record_type = "E"
-        record_status='10'
+        record_status = '10'
         print_message("Enter estimate")
     elif (user_option == "R"):
         record_type = "R"
-        record_status='20'
+        record_status = '20'
         print_message("Enter repair")
 
     search_string = input("Customer phone #: \n").upper()
@@ -241,7 +253,8 @@ def enter_repair(options):
     if (cust_index):
         print_status(f"Found customer: {cust_index}")
 
-    if (cust_index) and (input("Correct Customer? (N if not) ").upper() != 'N'):
+    if (cust_index) and
+    (input("Correct Customer? (N if not) ").upper() != 'N'):
         rep_phone = cust_index[0]
         rep_cname = cust_index[1]
     else:
@@ -299,16 +312,16 @@ def notify_customer(options):
     if options != "":
         print_subtitle(f"\nNotify customer(s) with options {repair_num}\n")
     message_body = ("Hi Deirdre your repair from Goldmark jewellers is ready"
-    + " for collection, regards, Derek")
-    to_number =  "+353" + "0876203184"[1:]             
-        
+                    + " for collection, regards, Derek")
+    to_number = "+353" + "0876203184"[1:]
     try:
-        message = client.messages.create(from_ = '+14847423801',
-                                     body = message_body,
-                                     to = to_number)
+        message = client.messages.create(from_='+14847423801',
+                                         body=message_body,
+                                         to=to_number)
     except Exception:
         error_details = sys.exc_info()
-        print_error(f"Error occurred in sending SMS message {message_body} to number {to_number}")
+        print_error(f"Error occurred sending SMS message {message_body}"
+                    + f" to number {to_number}")
         print_error(f"Error occurred, details: {error_details[1]} ")
     print("")
     input("Press ENTER key to return to main menu....\n")
@@ -318,13 +331,7 @@ def notify_customer(options):
 def maintain_sys(options):
     """
     this will:
-    maintain users
-    maintain other sys tables
-    maintain customer list with last repair date
-    In each case maintain means find, list, edit based on index number
-    (Note - need to deal with situation where options is blank or null)
-    DMcC 05/07/23:  hmmm might need to change the role of this function to list rather
-    than maintain, really because i havent worked out the logic to apply to upate an existing list
+    list contents of sys tables (user can choose from a menu)
     """
     print_title("------------------------------")
     print_title("--    MAINTAIN/ UPDATE:     --")
@@ -342,7 +349,7 @@ def maintain_sys(options):
         print_subtitle("    (U)sers         ")
         print_subtitle("    (H)elp          ")
         # if X selected this will return a value of False
-        print_subtitle("    e(X)it          ")  
+        print_subtitle("    e(X)it          ")
 
         input_string = input("Option:\n").upper()
         if input_string != "":
@@ -354,8 +361,6 @@ def maintain_sys(options):
         return False
     elif (user_option == "C"):
         list_worksheet('sys_cust')
-        # edit_mode= determine_edit_mode('sys_cust')
-        # edit_row=input("enter cust # for ed)
     elif (user_option == "I"):
         list_worksheet('sys_item')
     elif (user_option == "M"):
@@ -421,7 +426,7 @@ def menu_manager(valid_user):
     print_subtitle("    (N)otify customers of repair completion")
     print_subtitle("    (M)aintain system                      ")
     print_subtitle("    (H)elp                                 ")
-    print_subtitle("    e(X)it                                 ")  # if selected this will return a value of False
+    print_subtitle("    e(X)it                                 ")
     print("")
     print_message("(You can combine with submenu options ")
     print_message("e.g. EE to enter estimate, ER to enter repair)")
@@ -435,7 +440,7 @@ def menu_manager(valid_user):
         if (input_string[1:] != ""):
             further_options = input_string[1:]
             print_message(f"Option selected is {user_option},"
-                  + f" further input options {further_options}")
+                          + f" further input options {further_options}")
         else:
             further_options = ""
 
@@ -475,7 +480,6 @@ def main():
     print_title("          ---------------------------          ")
     print_title("          ----  REPAIRS TRACKER  ----          ")
     print_title("          ---------------------------          ")
-    
     print("")
     print_subtitle("DEMO VERSION:")
     print_body("user u, password u provides user-level  access")
@@ -483,11 +487,9 @@ def main():
     print("")
     user_name = input(colored("Please enter username: ", 'blue', 'on_white'))
     password = input(colored("Password: ", 'blue', 'on_white'))
-    
     # note that valid_user returns a value of 0(False) 1(user-level security)
     # 2(super-user level security)
     valid_user = authenticate_user(user_name, password)
-        
     while valid_user:
         valid_user = menu_manager(valid_user)
     print("Exiting... Thank you for using RepairTracker...\n")
