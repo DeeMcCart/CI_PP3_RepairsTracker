@@ -71,23 +71,22 @@ So the options for customising appearance are somewhat restricted.   RepairsTrac
 <br>
 The elements which can be customised to improve UX in this context are:
 <br>
+
 * Overall program flow:  ensure a 'natural' flow of activities reflecting the tasks needed to process jewellery repairs (addressing project goal #1). 
-Each estimate/repair is assigned a unique number, and status code is used to track each repair through its lifecycle.  
-This makes current status, workload and throughput of estimates/repairs clearly visible (partly addressing goal #4 via the underlying data structures).
-<br>
-RepairsTracker also offers some 'type-ahead' capabilities whereby a user familiar with the menu structure can enter an option from the main menu and submenu in one entry, and be taken directly to that option, e.g. ER to enter an repair (E from main menu, then R from submenu); or MI to Maintain (from main menu) Items (from sub-menu).  Typeahead partially addresses project goal #3.
-<br>
+Each estimate/repair is assigned a unique number, and status code is used to track each repair through its lifecycle.  This makes current status, workload and throughput of estimates/repairs clearly visible (partly addressing goal #4 via the underlying data structures).
+
+* RepairsTracker also offers some 'type-ahead' capabilities whereby a user familiar with the menu structure can enter an option from the main menu and submenu in one entry, and be taken directly to that option, e.g. ER to enter an repair (E from main menu, then R from submenu); or MI to Maintain (from main menu) Items (from sub-menu).  Typeahead partially addresses project goal #3.
 
 * Appearance:  use the text-presentation options of the Colorama library to present on-screen text consistently, so the user learns to recognise error/ success/ info/ background messages by their appearance.  This helps to achieve goals #2 and #3 above.
 
 * Automation: use a 3rd party messaging service to automate the (currently manual) task of texting to customer when repairs are completed (project goal #s 1, 2, 3, 4)
 
-* Use of widely available, familiar database backend - Google sheets.  Ideally project goals #4 (reporting) and #5 (ability to configure/customise) would be met via the front-end (Python) interface, however, as a workaround, these goals can be achieved for a user who understands spreadsheets and can manipulate the spreadsheet data and even add macros to generate tracking reports. This is an improvement on the current manual system which sometimes requires a physical search through the repairs to ascertain repair status.
+* Use of widely available, familiar database backend - Google sheets.  Project goals #4 (reporting) and #5 (ability to configure/customise) would ideally be achieved via the front-end (Python) interface.  While the RepairsTracker solution delivers demo-level functionality for reporting and data customisation, a lot more can be achieved by using standard Google Sheets functionality.  User familar with spreadsheets can update the spreadsheet data, add tracking view and reports. This is an improvement on the current manual system which sometimes requires a physical search through the repairs to ascertain repair status.
 <br>
 <br>
 
 ### UX Design Strategy Analysis - Existing Repair Tracking Apps
-Commercially available Repair Tracking apps do exist, generally forming part of a wider cloud-based offering.   However, these often form part of a larger suite of business modules, for example integrated with payment and inventory systems. As such, implementation involves monthly subscription costs and an implementation effort.
+Repair Tracking apps do exist, generally forming part of a wider cloud-based offering for a given software supplier. However, these apps are often  part of larger suites of business modules, for example integrated with payment and inventory systems. As such, implementation involves monthly subscription costs and an implementation effort.
 RepairsTracker is a simple approach to meet the repair tracking aspects only.  It is sufficiently customisable for use in a small-medium sized business, and is quick to use 'out of the box'.
 
 ### UX Design Strategy Target Audience
@@ -115,11 +114,10 @@ Target users are small-medium sized jewellery shops who perform repairs for dire
 <br>
 
 ### UX Design Scope - Data
-A single Google spreadsheet is used to hold the DMBS. 
-<details><summary>Google spreadsheet</summary>
-<url src="https://docs.google.com/spreadsheets/d/1LO_TXPpBZc0xiq5VD1iwtj9MSVeEOlm6eYSkbnScdUQ/edit?usp=sharing">
-</details> 
+A single [Google spreadsheet](https://docs.google.com/spreadsheets/d/1LO_TXPpBZc0xiq5VD1iwtj9MSVeEOlm6eYSkbnScdUQ/edit?usp=sharing) is used to hold the DMBS.
+
 This is pre-populated with configuration data as follows:
+
 * sys_cust holds a list of the customers known to the system;
 * sys_mat holds the type of material/metals and is recorded when a repair is received;
 * sys_users holds a list of userids known to the system, and whether each has user or administrator access;
