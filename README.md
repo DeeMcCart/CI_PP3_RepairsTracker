@@ -47,12 +47,7 @@
 
 ## About
 ---------
-RepairTracker is a python- and google-sheets DBMS application intended to replace a manual (paper-based) system for tracking the lifecycle of jewellery repair.  This is a real-world requirement, and while the version of RepairTracker presented is a demo version, the app is aiming towards live use.
- 
-<ul> <em>Help:</em>  
-    <li>  </li>
-    <li>  </li>
-refer to 'Help' for more details - https://repairs-tracker-aa30320aef0e.herokuapp.com/
+RepairTracker is a python- and google-sheets DBMS application intended to replace a manual (paper-based) system for tracking the lifecycle of jewellery repair.  This is a real-world requirement, and while the version of RepairTracker presented is a demo version, the app is presently intended for live use.
 
 ### Responsive Mockup
 A responsive mockup is given here,  although in practice the user interface is a 80-char x 24 line text display regardless of device:
