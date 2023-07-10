@@ -253,12 +253,11 @@ def enter_repair(options):
     if (cust_index):
         print_status(f"Found customer: {cust_index}")
 
-    if (cust_index) and
-    (input("Correct Customer? (N if not) ").upper() != 'N'):
+    if (cust_index) and (input("Correct Customer? (N if not) ").upper() != 'N'):
         rep_phone = cust_index[0]
         rep_cname = cust_index[1]
     else:
-        print_message("Existing customer not found")
+        print_error("Existing customer not found")
         rep_phone = search_string
         rep_cname = input("Customer name: \n")
     item_types = nice_list_worksheet("sys_item")
