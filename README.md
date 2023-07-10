@@ -183,7 +183,7 @@ This is pre-populated with configuration data as follows:
 
   
 ### Fonts Chosen
-n/a as this is presented as a 'termina' style window and is therefore quite limited.....
+n/a as this is presented as a 'terminal' style window and is therefore quite limited.....
 however using the 'colorama' python library gave the ability to apply some colours and properties (bold, blink, etc) to the text.
 
 ### Colour Scheme 
@@ -253,7 +253,7 @@ This satisfies user stories S03, S10, FTU02, FTU03, FTU05. <br>
 <details><summary>Value list in prompt is built from system table</summary>
 <img src="./docs/readme_images/f05_dynamic_prompts.jpg"></details>
 The value list offered for item type and item material, within the repairs entry processes, is built from the contents of tables
-sys_type and sys_material, held within the Google Shhet.  Modifying the values within the google sheets will modify 
+sys_type and sys_material, held within the Google Sheet.  Modifying the values within the google sheets will modify 
 the entry prompts shown to the user.
 <br>
 This satisfies user stories S02, S06, FTU01, FTU03, FTU05<br>
@@ -269,6 +269,7 @@ This feature addresses user stories S03, S06, S07, S10, FTU01, FTU02, FTU04, FTU
 ### F07 Database held in Google Sheets:
 <details><summary>RepairsTracker in Google Sheets</summary>
 <img src="./docs/readme_images/f07_google_sheets.jpg"></details>
+
 The RepairsTracker underlying database is represented using Google Sheets as an approximation of an RDBMS.
 This has the advantage of allowing non-routine data updates (e.g. of system tables) to be done within Google Sheets rather
 than by developing a customised Python solution for each type of update.
@@ -279,14 +280,16 @@ This addresses user stories S01, S02, S04, S12, RU05, RU10, RU11, RU12.
 ### F08 Repairs/ Estimate Entry
 <details><summary>Repairs/ estimate entry</summary>
 <img src="./docs/readme_images/f08_repair_vs_estimate.jpg"></details>
-Enter a repair/ estimate - each captures slightly different fields, although some fields are common to both.  
-Each new entry is assigned a record type - (R)epair or (E)stimate
-Drop-in date - assigned to today, due date - assigned to today +7 days.
-Customer details and item details are recorded, as well as free-text to describe the repair type.
-Status is assigned as 10: estimate; 20: repair ; this indicates the stage in the repair 'lifecycle'.
-Each new repair/estimate is assigned a 'next number' repair # (based on incrementing the previous repair #).
+Enter a repair/ estimate - each captures slightly different fields, although some fields are common to both.<br>  
+
+* Each new entry is assigned a record type - (R)epair or (E)stimate
+* Drop-in date - assigned to today, due date - assigned to today +7 days.
+* Customer details and item details are recorded, as well as free-text to describe the repair type.
+* Status is assigned as 10: estimate; 20: repair ; this indicates the stage in the repair 'lifecycle'.
+* Each new repair/estimate is assigned a 'next number' repair # (based on incrementing the previous repair #).
 <br>
 This addresses user stories S01, S02, S03, S04, S06, S07, FTU01, FTU02, FTU04, FTU05, RU01, RU02, RU03, OT01, OT02<br>
+<br>
 
 ### F09 Prompted keying of customer data
 <details><summary>phone# checked for existing & retrieves customer name</summary>
@@ -300,7 +303,10 @@ is then used for the new repair record.
 This is another aspect of addressing user stories S01, S02, S03, S04, S06, FTU01, FTU02, FTU04, FTU05, RU01, RU02, RU03<br>
 
 ### F10 Convert estimate -> Repair (FUTURE)
-This is a desired feature to address RU04. 
+This is a desired feature to address user story 04 for returning users - convert estimate to repair.  This reflects the business process
+whereby an estimate is created (the item of jewellery might be left in for the duration of the estimate, as possibly stones or metal may need to be priced from external suppliers).  Once the estimate is priced, the customer is contacted and makes a decision whether to proceed with a repair.  In this case it would be useful to be able to convert the estimate to a repair, and to perform the additional functions needed for a repair, such as 
+taking deposit money and assigning a due date.<br>
+Internally the system would need to change record type from E to R, and to set the status code from 10 (estimate) to 20 (repair - in progress).
 <br>
 <br>
 
