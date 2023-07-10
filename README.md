@@ -436,38 +436,90 @@ I would very much like to show a display screen (with a picture of a jewellers b
 - Javascript
 
 ### Frameworks & Tools
-* Github:  used to maintain the code repository, and for some readme edits and commits
-* Git
-* Gitpod:  used for editing and for tracking code commits back to Github
-* Balsamiq:  used for wireframing
-* Google Fonts: used to locate suitable fonts for website
+* LucidChart was used to draw the systgem flowcharts
+* Github was used to hold the project repository and implement versioning
+* Gitpod was used for code and readme maintenance
+* Google Cloud Platform was used to manage access and permissions to the Google Drive and Google Sheets
+* Google Sheets was used to hold the underlying database
+* Code Institutes's PEP8 checker was used to check the python code against PEP8 standards
+* Heroku was used for deployment of the RepairsTracker demo version 
 
 ### Python Libraries
 The following were used to extend the functionality of python.  Each required an install in the development environment, and an update to the requirements.txt file with the package name and version.  The requirements.txt file is then carried through and its contents installed when the CI terminal is built in the Production/ Heroku environment. As variety of libaries were tried when developing RepairsTracker, I needed to prune requirements.txt back to just those libraries required for the delivered version.
 <br>
 
-* google.oauth2.service_account used for Credentials/ permissions management
-* gspread - used to access google worksheets/ spreadsheets 
-* Twilio Client - used to generate SMS for customer notification once repair is completed
 * os - used to pickup environment variable(s) (required for Twilio use)
-* dotenv - used to pickup environment variables
+* dotenv - used to define and retrieve environment variables (required for Twilio use)
 * time - used for sleep function
+
+### Third Party Libraries
+* google.oauth2.service_account used for Credentials/ permissions management to access the Google API and connect my Service Account with the Credentials function
+* gspread - used to access google worksheets/ spreadsheets and to interact with Google APIs to manipulate data within these spreadsheets 
+* Twilio Client - used to generate SMS for customer notification once repair is completed
 * tabulate - used to present column/row from google sheets in 'nice' format
 * Colorama - used to colour messages for most of the on-screen user interaction
-* sys - used for ??
 
 ## Validation 
 <br>The validation is described in separate markdown document [validation.md](./validation.md)
 
-## Deployment
+## Setup and Deployment
+### Setting up a new Python project using Google Sheets:
+1. Create the python github repository using template 
+https://github.com/Code-Institute-Org/p3-template
+2. Create google sheets spreadsheet with appropriate tabs/data
+3. Google cloud services - create an account (if you dont have one already)
+4. Google cloud services - create project & assign it a name e.g. RepairsTracker
+5. Enable Google drive API within the APIs and Services - Library
+6. Create a service account and give it a name, e.g. RepairsTracker
+7. Create a JSON file for the service account
+8. Enable Google sheets API
+9. Add json file as creds.json to github repository (note it is a good idea to promptly add this file name to gitignore!)
+10. Open the creds.json file and copy out the client_email value (without the surrounding quotes)
+11. Share the google spreadsheet with the client email
+12.  Connect project to worksheet by installing gspread google-auth
+13.  Add import/scope statements to run.py  
 
-* The site was deployed to GitHub pages. The steps to deploy are as follows: 
-  - In the GitHub repository, navigate to the Settings tab - pages 
-  - From the source section drop-down menu, select the Master Branch
-  - Once the master branch has been selected, the page will be automatically refreshed with a detailed ribbon display to indicate the successful deployment. 
-_Humble_Numble/index.html
+### Heroku
 
-* To fork the repository:
+This application is deployed from GitHub using Heroku in following steps:
+
+1. Create an account at [Heroku](https://id.heroku.com/).
+2. Ensure you have cpatured dependencies used within the workspacein the rquirements.txt file
+2. Create & configure Heroku app as follows:
+* Sign in to Heroku
+* Use the ‘new’ button at top right hand side – select ‘create new app’
+* App name :  enter a unique app name e.g. ‘repairs-tracker’ (no uppercase characters permitted)
+* Choose a region: Europe
+* Click on ‘create app’.
+3.	Apply config variables to this app
+* Click on settings – Reveal config vars – there are no config vars for this app yet
+* Over type ‘KEY’ with CREDS
+* Overtype VALUE with the contents of the cred.json file
+* Click ADD
+* Add a second key as follows:
+* Key: PORT
+* Value: 8000
+4. Add buidpacks
+* Click on ‘Add buildpack’
+* Click on ‘python’ icon, then ‘add buildpack’…. 
+* This brings you back to main menu, but there are a couple more needed.  Click on ‘Add buildpack’ again
+* Click on NodeJS, then ‘add buildpack’
+* A message is displayed on screen ‘Your new buildpack configuration will be used when this app is next deployed’.
+5.	Go to the ‘Deploy’ tab
+* Choose deployment method ‘GitHub’,
+* Use the Search button to find your repository on github, then confirm you wish to connect to your repository on github, 
+* and click on ‘Connect’ button beside that repo.  This links the Heroku app to the github repo.
+* Select auto redeploy or manual deploy (auto redeploy suits better as the app is rebuild on each commit)
+
+### GitHub
+
+The program was built using GitHub repository. 
+Repository may be forked in the following steps:
+1. Go to GitHub repository,
+2. Click Fork button (top right).
+
+
+To fork the repository:
 - Go to the GitHub repository
 - Click on Fork button in the upper right hand corner
 
