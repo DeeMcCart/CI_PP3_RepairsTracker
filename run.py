@@ -1,6 +1,3 @@
-# Your code goes here.
-# You can delete these comments, but do not change the name of this file
-# Write your code to expect a terminal of 80 characters wide and 24 rows high
 import matplotlib
 # matplotlib.use('Agg')
 import gspread
@@ -17,11 +14,12 @@ from twilio.rest import Client
 from dotenv import load_dotenv
 load_dotenv()
 
-
+# credentials for twilio SMS client authorisation 
 account_sid = 'AC83dacc66cbdf1b6f8a278daba6a47c06'
 auth_token = os.environ.get("auth_token")
 client = Client(account_sid, auth_token)
 
+# credentials for linking to google drive/ google sheets
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",

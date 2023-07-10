@@ -313,7 +313,7 @@ is then used for the new repair record.
 <br>
 This is another aspect of addressing user stories S01, S02, S03, S04, S06, FTU01, FTU02, FTU04, FTU05, RU01, RU02, RU03<br>
 
-### F10 Convert estimate -> Repair (FUTURE)
+### F10 Convert Estimate to Repair (FUTURE)
 This is a desired feature to address user story 04 for returning users - convert estimate to repair.  This reflects the business process
 whereby an estimate is created (the item of jewellery might be left in for the duration of the estimate, as possibly stones or metal may need to be priced from external suppliers).  Once the estimate is priced, the customer is contacted and makes a decision whether to proceed with a repair.  In this case it would be useful to be able to convert the estimate to a repair, and to perform the additional functions needed for a repair, such as 
 taking deposit money and assigning a due date.<br>
@@ -346,74 +346,79 @@ This requirement is currently under clarification with the end user, as initiall
 attach a label to the envelope holding the item to be repaired, however it has emerged that what is actually needed is a 2-part docket, one 
 copy is attached to the repairs envelope, and one is given to the customer. This requirement will be addressed in the near future.  
 <br>
-<br>
 
 ### F14 Maintain System Configuration data
 <details><summary>Menu</summary>
 <img src="./docs/readme_images/f14_maintain_menu.jpg"></details>
 
-The 'maintain' feature partially addresses user story S12 - configure and maintain system.  This currently provides an view-only option to list each of the system files.  The output is presented in 'nice' tabular format, which is readable on the 24 x 80 character screen.  
+The 'maintain' feature partially addresses user story S12 - configure and maintain system.  This menu provides an option to list each of the system files.  The output is presented in 'nice' tabular format, which is readable on the 24 x 80 character screen.  
 <details><summary>Example - item type</summary>
 <img src="./docs/readme_images/f14_maintain_item.jpg"></details>
 <details><summary>Example - lifecycle</summary>
 <img src="./docs/readme_images/f14_maintain_status.jpg"></details>
-It is possible to amend these tables directly within Google Sheets.
+
+Note:  These tables can be amended, if necessary, by an authorised user directly within Google Sheets.
 Note: the (M)aintain menu also supports typeahead, so, for example, selecting MI from the main menu, will take the user to (M)aintain (I)tem.
-Note: only users with administrative rights can access the maintain menu, other users will receive 
+Note: only users with administrative rights can access the maintain menu, other users will receive an error
+
 ![unsucccessful attempt to access (M)aintain](./docs/readme_images/f01_insufficient_security.jpg?raw=true "security breach")
 
 ### F15 Update repair from status 'notified' (50) to 'collected' (60) (FUTURE)
 To address user stories RU07 (update status from customer notified -> customer collected) and OT05 (reminder for customer to collect)
 a feature is needed to update the status of selected repairs.  This has not been included in this RepairsTracker version however it will be
 needed once the system is to progress to live implementation.
+<br>
 
 ### Features in Scope 
 
 <details><summary>Mapping of user stories to features</summary>
 <img src="./docs/readme_images/user_stories_vs_features.jpg"></details>
 
-As this website is a python project, effectively this runs in a python emulator which is built using html and javascript.
-The presentation is 'terminal mode' ie text-based on a dark background.
-So RepairsTracker does not contain 'pages' as such, rather it contains:
-3 menus (main, enter, maintain)
-a help page
-two entry options (estimates and repair) 
-and various supporting options to manage the lifecycle of an estimate or repair.
+RepairsTracker contains:
+* 3 menus (main, enter, maintain)
+* help page
+* two entry options (estimates and repair) 
+* various supporting options to manage the lifecycle of an estimate or repair.
 
-Note that some of the features are shown as 'future', the RepairsTracker system as delivered can be considered a demo version, it does not include
-all the functionality that is needed in a real-world application, however it does include essential functions and a lot of the back-end features to
-support these, and to support a wider system. 
+This version of RepairsTracker system is a demo version. Some of the features are marked as 'future'.  This recognises that, while the RepairsTracker app contains a lot of the core functionality, it doesn't include the full set of features which would be required to meet real-world requirements.
 
 ### Implementation Decisions
 The use of a third party SMS notification sevice (Twilio), invoked from within the RepairsTracker python code was a real eye-opener.  Once the use of environment variables (and the necessity to keep them hidden) was understood, and that these could be represented in Heroku as configuration/credential  variables, this opened up a whole world of possibilities.
+
 However, once I had assigned my mobile number as an authorised recipient of SMS messages within the service, I observed several spam calls to my number, therefore decided not to use the 'customer mobile phone' number tracked on the RepairsTracker record, and any SMS messages generated are sent only to one mobile number (mine).
+
 I also extended the error handling as at one point I inadvertently mistyped the credentials into the Heroku server (I retained the surrounding "" double quotes) and could not understand why the production version had stopped working.... a meaningful error message from the Twilio service now shows when an SMS fails to send.
 
 Google spreadsheets update, as first seen in the 'love sandwiches' project, is enormously powerful and I really enjoyed working with this as I could immediately see how a practical, real-world application could be quickly built, and presented as a low-cost, easily used system with a quick learning curve.
+
 However on first making a connection to the RepairsTracker google sheet, I made a mistake and added the google credentials to the creds.json file in my repository and committed, before adding to the gitignore file...... this caused Google to send me numerous notifications that credentials had been possibly exposed on a public site.  After resisting for some time, I eventually closed out the first service account I had created for the Google link, and recreated with a new set of credentials.
 
 <br>
 
 ### Features Left to Implement
 The following features are described in the previous section, and an explanation is given of each requirement.
-F10 Convert estimate -> Repair (FUTURE)
-F13 Label/ Docket Printing per Repair (FUTURE)
-F15 Update repair from status 'notified' (50) to 'collected' (60) (FUTURE)
+* F10 Convert Estimate to Repair (FUTURE)
+* F13 Label/ Docket Printing per Repair (FUTURE)
+* F15 Update repair from status 'notified' (50) to 'collected' (60) (FUTURE)
 <br>
+
 In general, improved searching and retrieval of records, as well as specific record updates would improve the RepairTracker capabilities and
 make it more usable in a real-world environment.   
+<br>
 
 I would also like to extend the typeahead feature (F03) as follows:
 In the future, for more complex processes which may involve updates/searching for a number of repair records, the user could typeahead giving multiple repair numbers, separated by a comma:
-e.g. F12345,13456,15567 opens the find option and asks it to process 3 specific repairs records.
+e.g. F12345,13456,15567 would the find option and ask it to find 3 specific repairs records.
+N12345,13456,15567 would invoke the 'notify' option and perform updates for 3 individual repair records.
+<br>
 
-I would very much like to show a display screen (with a picture of a jewellers bench) as a splash screen behind the black terminal window.  I attempted to do this using html (as I saw other PP3 project such as the american pizza system had accomplished it) but without success....I will continue to work on this challenge as I think it would greatly improve the visual appearance....
+I would very much like to show a display screen (with a picture of a jewellers bench) as a splash screen behind the black terminal window.  I attempted to do this using html (as I saw other PP3 project such as the american pizza system had accomplished it) but without success....In my view this would greatly improve the the visual appearance....
 <br>
 <br>               
 ## Technologies
 
 ### Langugages
-- HTML (small bit for attempting splash screen)
+- HTML (for background image splash screen)
 - Python V3.1.3
 - Javascript
 
