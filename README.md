@@ -217,7 +217,7 @@ N/a to text-based display
  
 ### F01 Authentication
 The user must give a valid userid and password to gain entry to the system (this demo version is provided with u-u for user-level access and s-s for administrator/super-user access) 
-These userids and passwords are stored within Google sheets
+These userids are stored within Google sheets
 <br>
 <details><summary>Username and password are required to access RepairTracker</summary>
 <img src="./docs/readme_images/f01_user_authentication.jpg"></details>
@@ -337,7 +337,7 @@ generating a customer notification and sending it to a specified mobile phone #.
 (Note that all SMS messages from RepairsTracker are currently sent to a single mobile phone number, which has been declared to the 3rd party 
 SMS messaging provider) 
 <br>
-This addresses user stories S01, S02, S05, S09 (partially), FTU05, RU06, OT03<br>
+This addresses user stories S01, S02, S05, S09 (partially), FTU05, RU06, OT03
 <br>
 
 ### F13 Label/ Docket Printing per Repair (FUTURE)
@@ -351,16 +351,16 @@ copy is attached to the repairs envelope, and one is given to the customer. This
 ### F14 Maintain System Configuration data
 <details><summary>Menu</summary>
 <img src="./docs/readme_images/f14_maintain_menu.jpg"></details>
+
+The 'maintain' feature partially addresses user story S12 - configure and maintain system.  This currently provides an view-only option to list each of the system files.  The output is presented in 'nice' tabular format, which is readable on the 24 x 80 character screen.  
 <details><summary>Example - item type</summary>
 <img src="./docs/readme_images/f14_maintain_item.jpg"></details>
 <details><summary>Example - lifecycle</summary>
 <img src="./docs/readme_images/f14_maintain_status.jpg"></details>
-
-This is a desired feature to address S12 - configure and maintain system.  The requirement is partially met with the (M)aintain option 
-from the main menu.  Implementation at this time has been to provide an option to select each of the system files, and see a tabulated
-presentation of its contents.  It is possible to amend these tables directly within Google Sheets.
+It is possible to amend these tables directly within Google Sheets.
 Note: the (M)aintain menu also supports typeahead, so, for example, selecting MI from the main menu, will take the user to (M)aintain (I)tem.
-Note: only users with administrative rights can access the maintain menu.
+Note: only users with administrative rights can access the maintain menu, other users will receive 
+![unsucccessful attempt to access (M)aintain](./docs/readme_images/f01_insufficient_security.jpg?raw=true "security breach")
 
 ### F15 Update repair from status 'notified' (50) to 'collected' (60) (FUTURE)
 To address user stories RU07 (update status from customer notified -> customer collected) and OT05 (reminder for customer to collect)
