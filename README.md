@@ -457,7 +457,7 @@ The following were used to extend the functionality of python.  Each required an
 * sys - used for ??
 
 ## Validation 
-<br>The validation is described in separate markdown document validation.md
+<br>The validation is described in separate markdown document [validation.md](./validation.md)
 
 ## Deployment
 
@@ -465,8 +465,7 @@ The following were used to extend the functionality of python.  Each required an
   - In the GitHub repository, navigate to the Settings tab - pages 
   - From the source section drop-down menu, select the Master Branch
   - Once the master branch has been selected, the page will be automatically refreshed with a detailed ribbon display to indicate the successful deployment. 
-
-The live link can be found here - https://deemccart.github.io/CI_PP2_Humble_Numble/index.html
+_Humble_Numble/index.html
 
 * To fork the repository:
 - Go to the GitHub repository
@@ -481,6 +480,18 @@ The live link can be found here - https://deemccart.github.io/CI_PP2_Humble_Numb
 - Type git clone and paste the URL from the clipboard($ git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY)
 - Press Enter to create your local clone
 
+## Creating the Heroku app
+
+When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+
+1. `heroku/python`
+2. `heroku/nodejs`
+
+You must then create a _Config Var_ called `PORT`. Set this to `8000`
+
+If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+
+Connect your GitHub repository and deploy as normal.
 
 ## Credits 
 Multiple sources were used in assembling this site.
@@ -491,9 +502,7 @@ Multiple sources were used in assembling this site.
 ### Content - Humble Numble
 * Inspiration taken from wordle.com
  
-### Code - Humble Numble
-* https://laracasts.com/series/wordle-workshop/episodes/2 for tips on building a wordle-like grid (using HTML or JS)
-* https://www.youtube.com/watch?v=j7OhcuZQ-q8 Build a Wordle clone using HTML, CSS & Javascript! : used for tips on keyboard panel building (but thereafter preferred to code independently as found that coding shortcuts proposed were not always comprehensible to a new JS developer!)
+### Code - RepairsTracker
 
 ### References
 The following sites were used for research and improving  understanding while creating this website: 
@@ -519,30 +528,5 @@ The following sites were used for research and improving  understanding while cr
  
 ### Acknowledgements
 * I would like to sincerely thank my mentor, Mo Shami for his excellent guidance and support.
+* I would like to thank Goldmark jewellers for their patience in explaining requirements to me
 * I would also like to thank Derek and my family for their personal support.
-
-
-
-
-# Reminders
-
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
-
-## Creating the Heroku app
-
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
-
-1. `heroku/python`
-2. `heroku/nodejs`
-
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
-
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
-
-## Constraints
-
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
