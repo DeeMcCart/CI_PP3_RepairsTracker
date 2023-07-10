@@ -115,11 +115,14 @@ Target users are small-medium sized jewellery shops who perform repairs for dire
 <br>
 
 ### UX Design Scope - Data
-A single Google spreadsheet is used to hold the DMBS.
+A single Google spreadsheet is used to hold the DMBS. 
+<details><summary>Google spreadsheet</summary>
+<url src="https://docs.google.com/spreadsheets/d/1LO_TXPpBZc0xiq5VD1iwtj9MSVeEOlm6eYSkbnScdUQ/edit?usp=sharing">
+</details> 
 This is pre-populated with configuration data as follows:
 * sys_cust holds a list of the customers known to the system;
 * sys_mat holds the type of material/metals and is recorded when a repair is received;
-* sys_users holds a list of userids and passwords known to the system, and whether each has user or administrator access;
+* sys_users holds a list of userids known to the system, and whether each has user or administrator access;
 * sys_item holds jewellery item types, e.g. (W)atch, (E)arrings;
 * sys_status holds the lifecycle of an estimate/ repair
 <br>
