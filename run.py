@@ -322,7 +322,7 @@ def find_repair(options):
     print_title("---       FIND REPAIR            ---")
     print_title("------------------------------------")
     if options != "":
-        print_subtitle(f"Find repair with options {options}")
+        print_subtitle(f"Find repair {options}")
     else:
         options = input("Repair #: ")
     row_num = find_repair_index(options)
@@ -350,16 +350,16 @@ def notify_customer(options):
     print_title("--     NOTIFY CUSTOMER(s)   --")
     print_title("------------------------------")
     if options != "":
-        print_subtitle(f"\nNotify customer(s) with options {options}\n")
+        print_subtitle(f"Notify customer of repair {options}")
     else:
         options = input("Repair #: ")
     row_num = find_repair_index(options)
-    print(f"row number retrieved is {row_num}")
     if (row_num > 0):
         record_data=return_record("repairs", row_num)
         print(f"record_data returned is {record_data}")
     else:
-        print_error("Repair not found for notification")
+        print("")
+        input("Press ENTER key to return to main menu....\n")
         return False
     message_body = (f"Hi {record_data[3]} your repair from Goldmark jewellers is ready"
                     + " for collection, regards, Derek")
@@ -368,11 +368,14 @@ def notify_customer(options):
         message = client.messages.create(from_='+14847423801',
                                          body=message_body,
                                          to=to_number)
+        print(f"{message}")
+        print(f"SMS sent to customer on phone # {record_data[2]}\n")
     except Exception:
         error_details = sys.exc_info()
         print_error(f"Error occurred sending SMS message: {message_body}"
                     + f" to number {to_number}")
-        print(f"Error occurred, details: {error_details[1]} ")
+        print(f"Details: {error_details[1]} ")
+    
     print("")
     input("Press ENTER key to return to main menu....\n")
     return True
@@ -384,7 +387,7 @@ def maintain_sys(options):
     list contents of sys tables (user can choose from a menu)
     """
     print_title("------------------------------")
-    print_title("--    MAINTAIN/ UPDATE:     --")
+    print_title("--    MAINTAIN/ LIST:     --")
     print_title("------------------------------")
 
     if (options != ""):
