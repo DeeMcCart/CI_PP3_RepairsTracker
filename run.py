@@ -31,7 +31,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("RepairsTracker")
 
 
-def print_title(text_string):
+def print_title(text_string) -> bool:
     """
     The print_title function displays text with consistent appearance 
     """
@@ -162,13 +162,18 @@ def next_index(worksheet):
 def list_worksheet(worksheet):
     """
     This is a utility function to print all data from a given worksheet.
-    Note that some tables have been customised to reduce displayed columns
-    and title fields have been reduced in width to avoid text wrapping
-    as this does not display well using Tabulate
+    Note that certain tables have adjustments to column names to 
+    avoid text wrapping as this does not display well using Tabulate
     """
     all_data = get_worksheet(worksheet)
     print_cols = []
+    print_title = []
     if worksheet == "repairs":
+        
+        for title in all_data[0]:
+            print_title.append(title.strip("rep_"))
+        all_data[0]=print_title    
+        print(f"first line of data is {all_data[0]}")
         for data in all_data:
             print_cols.append([data[0], data[2], data[3], data[10], data[12]])
         all_data = print_cols
