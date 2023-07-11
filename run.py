@@ -356,7 +356,6 @@ def notify_customer(options):
     row_num = find_repair_index(options)
     if (row_num > 0):
         record_data=return_record("repairs", row_num)
-        print(f"record_data returned is {record_data}")
     else:
         print("")
         input("Press ENTER key to return to main menu....\n")
@@ -368,8 +367,7 @@ def notify_customer(options):
         message = client.messages.create(from_='+14847423801',
                                          body=message_body,
                                          to=to_number)
-        print(f"{message}")
-        print(f"SMS sent to customer on phone # {record_data[2]}\n")
+        print(f"SMS sent to customer on phone # {record_data[2]}, message content {message_body}")
     except Exception:
         error_details = sys.exc_info()
         print_error(f"Error occurred sending SMS message: {message_body}"
