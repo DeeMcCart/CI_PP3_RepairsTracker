@@ -197,7 +197,7 @@ def list_worksheet(worksheet, row_num):
         
         all_data[0] = ["id", "T", "Ph", "Name", "I", "M", "Dets", "est", "paid", "in", "due", "date_coll", "st" ]
         for data in all_data:
-            print_cols.append([data[0], data[2][0:10], data[3][0:18], data[6][0:22], data[10], data[12]])
+            print_cols.append([data[0], data[2][0:10], data[3][0:18], data[6][0:20], data[10], data[12]])
         all_data = print_cols
     elif worksheet == "sys_cust":
         for data in all_data:
@@ -233,14 +233,14 @@ def nice_list_worksheet(worksheet):
     return stringy
 
 
-def update_worksheet(data, worksheet):
+def append_worksheet(worksheet, data):
     """
     This function taken from love sandwiches
     Update any worksheet, add new row with the list data provided
     """
     worksheet_to_update = SHEET.worksheet(worksheet)
     worksheet_to_update.append_row(data)
-    print_status(f"{worksheet} worksheet updated successfully")
+    print_status(f"new {worksheet} record {data[0]} for {data[3]} added")
     print("")
 
 
@@ -253,18 +253,19 @@ def enter_repair(options):
     and it can be used for typeahead.
     If an option is not pre-selected, the user is offered a menu
     """
+    print("")
     print_title("------------------------------")
-    print_title("--- ENTER ESTIMATE/ REPAIR ---")
+    print_title("--  ENTER ESTIMATE/ REPAIR  --")
     print_title("------------------------------")
     if (options != ""):
         user_option = options[0]
-        print_message(f"\nEnter estimate/repair option {options}")
-        print("")
+        print_subtitle(f"Enter estimate/repair option {options}")
     else:
-        print_subtitle("    (E)stimate   ")
-        print_subtitle("    (R)epair     ")
-        print_subtitle("    e(X)it       ")
-        input_string = input("Option:\n").upper()
+        print_subtitle("    (E)stimate                ")
+        print_subtitle("    (R)epair                  ")
+        print_subtitle("    e(X)it                    ")
+        print("")
+        input_string = input(colored("Option: ", 'black', 'on_white')).upper()
         if input_string != "":
             user_option = input_string[0]
         else:
@@ -273,40 +274,64 @@ def enter_repair(options):
     if (user_option == "X"):
         return False
     elif (user_option == "E"):
+        print("")
+        print_subtitle("------------------------------")
+        print_subtitle("---      New Estimate      ---")
+        print_subtitle("------------------------------")
+        print("")
         record_type = "E"
         record_status = '10'
-        print_message("Enter estimate")
     elif (user_option == "R"):
+        print("")
+        print_subtitle("------------------------------")
+        print_subtitle("---       New Repair       ---")
+        print_subtitle("------------------------------")
+        print("")
         record_type = "R"
         record_status = '20'
-        print_message("Enter repair")
-
-    search_string = input("Customer phone #: \n").upper()
+    else:
+        print_error("Invalid option")
+        print("")
+        input(colored("Press ENTER key to return to main menu....",
+              'black', 'on_white'))
+        return False
+   
+    search_string = input(colored("Customer phone #: ",
+                          'black', 'on_white')).upper()
+    # validate if this input string is a valid mobile phone #
     cust_index = find_cust(search_string)
     if (cust_index):
         print_status(f"Found customer: {cust_index}")
-
-    if (cust_index) and (input("Correct Customer? (N if not) ").upper() != 'N'):
+    if (cust_index) and (input(colored("Correct Customer? (N if not) ",
+                         'black', 'on_white')).upper() != 'N'):
         rep_phone = cust_index[0]
         rep_cname = cust_index[1]
     else:
         print_error("Existing customer not found")
         rep_phone = search_string
-        rep_cname = input("Customer name: \n")
+        rep_cname = input(colored("Customer name: ",'black', 'on_white'))
     item_types = nice_list_worksheet("sys_item")
-    rep_item_type = input(f"Type: {item_types}").upper()
+    rep_item_type = input(colored(f"Type: {item_types}",
+                          'black', 'on_white')).upper()
+    # if rep_item_type not in item_types then error and loop
+
     mat_types = nice_list_worksheet("sys_mat")
-    rep_material = input(f"Material: {mat_types}").upper()
-    rep_details = input("Repair details: ")
-    rep_estimate = input("Estimated cost (if known): ")
-    rep_deposit = input("Deposit taken: ")
+    rep_material = input(colored(f"Material: {mat_types}",
+                         'black', 'on_white')).upper()
+    # if rep_material not in mat_types then error and loop
+    
+    rep_details = input(colored("Repair details: ",'black', 'on_white'))
+    rep_estimate = input(colored("Estimated cost (if known): ",
+                         'black', 'on_white'))
+    rep_deposit = input(colored("Deposit taken: ",'black', 'on_white'))
     repair_record = [next_index("repairs"), record_type, rep_phone, rep_cname,
                      rep_item_type, rep_material, rep_details,  25, 10,
                      '01/07/23', '08/07/23', '01/01/1900', record_status]
     print_message(f"repair record is: {repair_record}")
-    update_worksheet(repair_record, 'repairs')
+    append_worksheet("repairs", repair_record)
     print("")
-    input("Press any key to return to main menu....\n")
+    input(colored("Press any key to return to main menu....\n",
+                  'black', 'on_white'))
     return True
 
 def find_repair(options):
@@ -321,18 +346,20 @@ def find_repair(options):
     print_title("------------------------------------")
     print_title("---       FIND REPAIR            ---")
     print_title("------------------------------------")
+    print("")
     if options != "":
         print_subtitle(f"Find repair {options}")
     else:
-        options = input("Repair #: ")
+        options = input(colored("Repair #: ",'black', 'on_white'))
     row_num = find_repair_index(options)
     if (row_num==0):
-        disp_all=input("List all repairs? (N for no) ").upper()
+        disp_all=input(colored("List all repairs? (N for no) ",'black', 'on_white')).upper()
         if (disp_all=='N'):
             return False
     list_worksheet("repairs", row_num)
     print("")
-    input("Press ENTER key to return to main menu....\n")
+    input(colored("Press ENTER key to return to main menu....",
+              'black', 'on_white'))
     return True
 
 
@@ -349,16 +376,18 @@ def notify_customer(options):
     print_title("------------------------------")
     print_title("--     NOTIFY CUSTOMER(s)   --")
     print_title("------------------------------")
+    print("")
     if options != "":
         print_subtitle(f"Notify customer of repair {options}")
     else:
-        options = input("Repair #: ")
+        options = input(colored("Repair #: ",'black', 'on_white'))
     row_num = find_repair_index(options)
     if (row_num > 0):
         record_data=return_record("repairs", row_num)
     else:
         print("")
-        input("Press ENTER key to return to main menu....\n")
+        input(colored("Press ENTER key to return to main menu....",
+              'black', 'on_white'))
         return False
     message_body = (f"Hi {record_data[3]} your repair from Goldmark jewellers is ready"
                     + " for collection, regards, Derek")
@@ -375,7 +404,8 @@ def notify_customer(options):
         print(f"Details: {error_details[1]} ")
     
     print("")
-    input("Press ENTER key to return to main menu....\n")
+    input(colored("Press ENTER key to return to main menu....",
+              'black', 'on_white'))
     return True
 
 
@@ -400,7 +430,7 @@ def maintain_sys(options):
         print_subtitle("    (H)elp          ")
         print_subtitle("    e(X)it          ")
 
-        input_string = input("Option:\n").upper()
+        input_string = input(colored("Option:", 'black', 'on_white')).upper()
         if input_string != "":
             user_option = input_string[0]
         else:
@@ -423,7 +453,8 @@ def maintain_sys(options):
     else:
         print_error("Invalid option, try again!")
     print("")
-    input("Press ENTER key to return to main menu....\n")
+    input(colored("Press ENTER key to return to main menu....",
+              'black', 'on_white'))
     return True
 
 
@@ -463,7 +494,9 @@ def show_help(options):
     print_subtitle("    (H)elp:                                            ")
     print_body("This text currently showing on-screen is the help text     ")
     print("")
-    input("Press any key to return to main menu....\n")
+    input(colored("Press any key to return to main menu....\n",
+                  'black', 'on_white'))
+    return True
 
 
 def menu_manager(valid_user):
@@ -472,9 +505,9 @@ def menu_manager(valid_user):
     This is designed to continue running until the user selects
     option X to exit
     """
-    print_title("----------------------------------------")
-    print_title("  REPAIRS TRACKER - MAIN MENU:          ")
-    print_title("----------------------------------------")
+    print_title("-------------------------------------------")
+    print_title("--     REPAIRS TRACKER - MAIN MENU:      --")
+    print_title("-------------------------------------------")
     print_subtitle("    (E)nter new estimate/repair            ")
     print_subtitle("    (F)ind existing estimate/repair        ")
     print_subtitle("    (N)otify customers of repair completion")
@@ -484,8 +517,9 @@ def menu_manager(valid_user):
     print("")
     print_message("(You can combine with submenu options ")
     print_message("e.g. EE to enter estimate, ER to enter repair)")
-
-    input_string = input("Option:\n").upper()
+    print("")
+    
+    input_string = input(colored("Option: ",'black', 'on_white')).upper()
     if input_string != "":
         user_option = input_string[0]
         if (user_option == "X"):
@@ -493,8 +527,6 @@ def menu_manager(valid_user):
 
         if (input_string[1:] != ""):
             further_options = input_string[1:]
-#            print_message(f"Option selected is {user_option},"
-#                          + f" further input options {further_options}")
         else:
             further_options = ""
 
@@ -537,12 +569,14 @@ def main():
     print_body("user u, password u provides user-level  access")
     print_body("user s, password s provides admin-level access")
     print("")
-    user_name = input(colored("Please enter username: ", 'blue', 'on_white'))
-    password = input(colored("Password: ", 'blue', 'on_white'))
+    user_name = input(colored("Please enter username: ", 'black', 'on_white'))
+    password = input(colored("Password: ", 'black', 'on_white'))
     valid_user = authenticate_user(user_name, password)
     while valid_user:
         valid_user = menu_manager(valid_user)
-    print("Exiting... Thank you for using RepairTracker...\n")
+    print_message("Exiting... Thank you for using RepairTracker...")
+    print("")
+    return True
 
 
 main()
