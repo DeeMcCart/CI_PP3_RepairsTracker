@@ -233,6 +233,19 @@ def nice_list_worksheet(worksheet):
     return stringy
 
 
+def get_codes_worksheet(worksheet):
+    """
+    This is a utility function to return a list of values
+    from the first column of a given worksheet 
+    """
+    all_data = get_worksheet(worksheet)
+    all_data.pop(0)
+    stringy = ""
+    for data in all_data:
+        stringy = stringy + data[0]
+    return stringy
+
+
 def append_worksheet(worksheet, data):
     """
     This function taken from love sandwiches
@@ -246,8 +259,7 @@ def append_worksheet(worksheet, data):
 
 def enter_repair(options):
     """
-    This option can be used to enter an estimate which typically includes
-    slightly different input fields.
+    This option can be used to enter an estimate (status 10) or repair (20).  
     The enter_repair function is designed to make input as quick for the user
     Parameter 'options' is a string containing null or more characters,
     and it can be used for typeahead.
@@ -310,16 +322,28 @@ def enter_repair(options):
         print_error("Existing customer not found")
         rep_phone = search_string
         rep_cname = input(colored("Customer name: ",'black', 'on_white'))
+ 
     item_types = nice_list_worksheet("sys_item")
-    rep_item_type = input(colored(f"Type: {item_types}",
-                          'black', 'on_white')).upper()
-    # if rep_item_type not in item_types then error and loop
-
-    mat_types = nice_list_worksheet("sys_mat")
-    rep_material = input(colored(f"Material: {mat_types}",
-                         'black', 'on_white')).upper()
-    # if rep_material not in mat_types then error and loop
+    item_codes = get_codes_worksheet("sys_item")
+    valid_item=False
+    while not valid_item:
+        rep_item_type = input(colored(f"Type: {item_types}",
+                              'black', 'on_white')).upper()
+        if rep_item_type in item_codes:
+            valid_item = True
+        else:
+            print_error("Invalid item type, try again")
     
+    mat_types = nice_list_worksheet("sys_mat")
+    mat_codes = get_codes_worksheet("sys_mat")
+    valid_mat=False
+    while not valid_mat:
+        rep_material = input(colored(f"Material: {mat_types}",
+                             'black', 'on_white')).upper()
+        if rep_material in mat_codes:
+            valid_mat = True
+        else:
+            print_error("Invalid metal, try again")
     rep_details = input(colored("Repair details: ",'black', 'on_white'))
     rep_estimate = input(colored("Estimated cost (if known): ",
                          'black', 'on_white'))
@@ -470,29 +494,35 @@ def show_help(options):
     print_title("- REPAIRS TRACKER - HELP SCREEN -")
     print_title("---------------------------------")
     print_body("")
-    print_subtitle("    SECURITY                     ")
-    print_body("To use the system, you must have a userid and password      "
-               +"    ")
+    print_subtitle("     SECURITY                                           "
+                   +"    ")
+    print_body("To use the system, you must have a userid and password      ")
     print_body("Access is provided at User or Administrator(superuser) level")
     print_body("")
-    print_subtitle("     MAIN MENU OPTIONS:                                 ")
+    print_subtitle("     MAIN MENU OPTIONS:                                 "
+                   +"    ")
     print_body("Type-ahead is supported, if you know sub-menu opt, e.g.     ")
-    print_body("EE Enter Est, ER Enter Repair, F12345 find repair 12345)    ")
-    print_subtitle("    (E)nter new estimate/repair:                        ")
-    print_body("Estimates: typically more complex, e.g. insurance claims    ")
-    print_body("jobs needing extra pricing, or needing ordered-in items.    ")
+    print_body("EE Enter Est, ER Enter Repair, F12345 find repair 12345    ")
+    print_subtitle("    (E)nter new estimate/repair:                        "
+                   +"    ")
     print_body("Repairs track phone#, name, item details, pricing, dates    ")
-    print_subtitle("    (F)ind existing estimate/repair:                    ")
+    print_body("Estimates: typically more complex, e.g. jobs needing extra  ")
+    print_body("pricing, or requiring ordered-in components.                ")
+    print_subtitle("    (F)ind existing estimate/repair:                    "
+                   +"    ")
     print_body("Use typeahead if repair# known, else lists all repairs      ")
     print_body("Enter specific repair number to see just that record.       ")
-    print_subtitle("    (N)otify customers of repair completion:            ")
+    print_subtitle("    (N)otify customers of repair completion:            "
+                   +"    ")
     print_body("This updates the repairs record to completed and generates  ")
     print_body("customised SMS for sending. Typeahead w/repair # e.g. N12345")
-    print_subtitle("    (M)aintain system:                                  ")
+    print_subtitle("    (M)aintain system:                                  "
+                   +"    ")
     print_body("This option is only available to administrator-level users. ")
-    print_body("For this demo version, M lists content of system files      ")
+    print_body("This option shows content of system files                   ")
     print_body("Typeahead to choose which file e.g. MC Maintain Customers   ")
-    print_subtitle("    (H)elp:                                             ")
+    print_subtitle("    (H)elp:                                             "
+                   +"    ")
     print_body("This text currently showing on-screen is the help text      ")
     print("")
     input(colored("Press any key to return to main menu....\n",
