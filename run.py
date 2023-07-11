@@ -136,8 +136,6 @@ def find_cust(search_string):
     """
     all_custs = SHEET.worksheet("sys_cust").get_all_values()
     all_custs.pop(0)
- #   upper_custs = []
- #   upper_custs = all_upper(all_custs)
     all_custs = all_upper(all_custs)
     for ind_cust in all_custs:
         cust_found = (set([search_string]) <= set(ind_cust))
@@ -145,6 +143,18 @@ def find_cust(search_string):
             return ind_cust
     return False
 
+def find_repair_index(search_repair):
+    """ 
+    This is a utility function to located the row # of a given repair
+    when passed a repair number
+    """
+    test = SHEET.worksheet("repairs").col_values(1)
+    try:
+        rownum = test.index(search_repair)
+    except:
+        print_error(f"Repair {search_repair} not found")
+        return 0
+    return rownum
 
 def next_index(worksheet):
     """
@@ -159,23 +169,25 @@ def next_index(worksheet):
     return next_index
 
 
-def list_worksheet(worksheet):
+def list_worksheet(worksheet, row_num):
     """
     This is a utility function to print all data from a given worksheet.
     Note that certain tables have adjustments to column names to 
     avoid text wrapping as this does not display well using Tabulate
+    If @row = 0 then list all rows, 
+    else list heading plus specific row only
     """
-    all_data = get_worksheet(worksheet)
+    if (row_num > 0):
+        all_data = [get_worksheet(worksheet)[0], 
+                    get_worksheet(worksheet)[row_num]]
+    else:
+        all_data = get_worksheet(worksheet)
     print_cols = []
-    print_title = []
     if worksheet == "repairs":
         
-        for title in all_data[0]:
-            print_title.append(title.strip("rep_"))
-        all_data[0]=print_title    
-        print(f"first line of data is {all_data[0]}")
+        all_data[0] = ["id", "T", "Ph", "Name", "I", "M", "Dets", "est", "paid", "in", "due", "date_coll", "st" ]
         for data in all_data:
-            print_cols.append([data[0], data[2], data[3], data[10], data[12]])
+            print_cols.append([data[0], data[2][0:10], data[3][0:18], data[6][0:25], data[10], data[12]])
         all_data = print_cols
     elif worksheet == "sys_cust":
         for data in all_data:
@@ -187,8 +199,7 @@ def list_worksheet(worksheet):
         all_data = print_cols
     table1 = tabulate(all_data, headers='firstrow', tablefmt='fancy_grid')
     print(table1)
-    time.sleep(3)
-
+    return True
 
 def get_worksheet(worksheet):
     """
@@ -302,7 +313,14 @@ def find_repair(options):
     print_title("------------------------------------")
     if options != "":
         print_subtitle(f"Find repair with options {options}")
-    list_worksheet("repairs")
+    else:
+        options = input("Repair #: ")
+    row_num = find_repair_index(options)
+    if (row_num==0):
+        disp_all=input("List all repairs? (N for no) ").upper()
+        if (disp_all=='N'):
+            return False
+    list_worksheet("repairs", row_num)
     print("")
     input("Press ENTER key to return to main menu....\n")
     return True
@@ -370,15 +388,15 @@ def maintain_sys(options):
     if (user_option == "X"):
         return False
     elif (user_option == "C"):
-        list_worksheet('sys_cust')
+        list_worksheet('sys_cust', 0)
     elif (user_option == "I"):
-        list_worksheet('sys_item')
+        list_worksheet('sys_item', 0)
     elif (user_option == "M"):
-        list_worksheet('sys_mat')
+        list_worksheet('sys_mat', 0)
     elif (user_option == "S"):
-        list_worksheet('sys_status')
+        list_worksheet('sys_status', 0)
     elif (user_option == "U"):
-        list_worksheet('sys_users')
+        list_worksheet('sys_users', 0)
     elif (user_option == "H"):
         show_help("M")
     else:
@@ -454,8 +472,8 @@ def menu_manager(valid_user):
 
         if (input_string[1:] != ""):
             further_options = input_string[1:]
-            print_message(f"Option selected is {user_option},"
-                          + f" further input options {further_options}")
+#            print_message(f"Option selected is {user_option},"
+#                          + f" further input options {further_options}")
         else:
             further_options = ""
 
