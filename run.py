@@ -168,6 +168,16 @@ def next_index(worksheet):
     print_message(f"Calculated next index: {next_index}")
     return next_index
 
+def return_record(worksheet, row_num):
+    """
+    This is a utility function to return row data from a given worksheet.
+    """
+    record_data=[]
+    if (row_num > 0):
+        record_data = get_worksheet(worksheet)[row_num]
+    else:
+        print_error(f"Invalid {worksheet} row # {row_num}")
+    return record_data
 
 def list_worksheet(worksheet, row_num):
     """
@@ -187,7 +197,7 @@ def list_worksheet(worksheet, row_num):
         
         all_data[0] = ["id", "T", "Ph", "Name", "I", "M", "Dets", "est", "paid", "in", "due", "date_coll", "st" ]
         for data in all_data:
-            print_cols.append([data[0], data[2][0:10], data[3][0:18], data[6][0:25], data[10], data[12]])
+            print_cols.append([data[0], data[2][0:10], data[3][0:18], data[6][0:22], data[10], data[12]])
         all_data = print_cols
     elif worksheet == "sys_cust":
         for data in all_data:
@@ -340,8 +350,18 @@ def notify_customer(options):
     print_title("--     NOTIFY CUSTOMER(s)   --")
     print_title("------------------------------")
     if options != "":
-        print_subtitle(f"\nNotify customer(s) with options {repair_num}\n")
-    message_body = ("Hi Deirdre your repair from Goldmark jewellers is ready"
+        print_subtitle(f"\nNotify customer(s) with options {options}\n")
+    else:
+        options = input("Repair #: ")
+    row_num = find_repair_index(options)
+    print(f"row number retrieved is {row_num}")
+    if (row_num > 0):
+        record_data=return_record("repairs", row_num)
+        print(f"record_data returned is {record_data}")
+    else:
+        print_error("Repair not found for notification")
+        return False
+    message_body = (f"Hi {record_data[3]} your repair from Goldmark jewellers is ready"
                     + " for collection, regards, Derek")
     to_number = "+353" + "0876203184"[1:]
     try:
@@ -350,9 +370,9 @@ def notify_customer(options):
                                          to=to_number)
     except Exception:
         error_details = sys.exc_info()
-        print_error(f"Error occurred sending SMS message {message_body}"
+        print_error(f"Error occurred sending SMS message: {message_body}"
                     + f" to number {to_number}")
-        print_error(f"Error occurred, details: {error_details[1]} ")
+        print(f"Error occurred, details: {error_details[1]} ")
     print("")
     input("Press ENTER key to return to main menu....\n")
     return True
