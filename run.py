@@ -248,14 +248,81 @@ def get_codes_worksheet(worksheet):
 
 def append_worksheet(worksheet, data):
     """
-    This function taken from love sandwiches
-    Update any worksheet, add new row with the list data provided
+    Update any worksheet, add new row with the data provided
     """
     worksheet_to_update = SHEET.worksheet(worksheet)
     worksheet_to_update.append_row(data)
-    print_status(f"new {worksheet} record {data[0]} for {data[3]} added")
+    print_status(f"New {worksheet} record {data[1]} {data[0]} for {data[3]} added")
     print("")
+    return True
 
+def get_valid_phone():
+    """ 
+    utility function to capture a valid phone number
+    """
+    valid_phone = False
+    while not valid_phone:
+        phone_num = input(colored("Customer phone #: ",
+                          'black', 'on_white')).upper()
+        if phone_num.isnumeric():
+            valid_item = True
+            return phone_num
+        else:
+            print_error("Phone must be all numbers, no spaces, try again")
+    return []
+
+def get_valid_cname(cust_phone):
+    """
+    utility function to retrieve customer name if phone number
+    exists in sys_cust table, otherwise to allow entry
+    of customer name
+    """
+    cust_index = find_cust(cust_phone)
+    if (cust_index):
+        print_status(f"Found customer: {cust_index}")
+    if (cust_index) and (input(colored("Correct Customer? (N if not) ",
+                         'black', 'on_white')).upper() != 'N'):
+        cust_name = cust_index[1]
+    else:
+        print_error("Existing customer not found")
+        cust_name  = input(colored("Customer name: ",'black', 'on_white'))
+    return cust_name
+    
+def get_valid_item():
+    """
+    Utility function to capture a valid item type
+    as per the types codes stored in the sys_items table
+    """
+    item_types = nice_list_worksheet("sys_item")
+    item_codes = get_codes_worksheet("sys_item")
+    valid_item=False
+    while not valid_item:
+        rep_item_type = input(colored(f"Type: {item_types}",
+                              'black', 'on_white')).upper()
+        if (rep_item_type) and (rep_item_type in item_codes):
+            valid_item = True
+            return rep_item_type
+        else:
+            print_error("Invalid item type, try again")
+    return []
+
+def get_valid_material():
+    """
+    Utility function to capture a valid material type
+    as per the material codes stored in the sys_mat table
+    """
+    mat_types = nice_list_worksheet("sys_mat")
+    mat_codes = get_codes_worksheet("sys_mat")
+    valid_mat=False
+    while not valid_mat:
+        rep_material = input(colored(f"Material: {mat_types}",
+                             'black', 'on_white')).upper()
+        if (rep_material) and (rep_material in mat_codes):
+            valid_mat = True
+            return rep_material
+        else:
+            print_error("Invalid metal, try again")
+    return []
 
 def enter_repair(options):
     """
@@ -281,7 +348,7 @@ def enter_repair(options):
         if input_string != "":
             user_option = input_string[0]
         else:
-            print_error("Blank option, try again!")
+            print_error("Blank option, try again")
 
     if (user_option == "X"):
         return False
@@ -307,43 +374,12 @@ def enter_repair(options):
         input(colored("Press ENTER key to return to main menu....",
               'black', 'on_white'))
         return False
-   
-    search_string = input(colored("Customer phone #: ",
-                          'black', 'on_white')).upper()
-    # validate if this input string is a valid mobile phone #
-    cust_index = find_cust(search_string)
-    if (cust_index):
-        print_status(f"Found customer: {cust_index}")
-    if (cust_index) and (input(colored("Correct Customer? (N if not) ",
-                         'black', 'on_white')).upper() != 'N'):
-        rep_phone = cust_index[0]
-        rep_cname = cust_index[1]
-    else:
-        print_error("Existing customer not found")
-        rep_phone = search_string
-        rep_cname = input(colored("Customer name: ",'black', 'on_white'))
- 
-    item_types = nice_list_worksheet("sys_item")
-    item_codes = get_codes_worksheet("sys_item")
-    valid_item=False
-    while not valid_item:
-        rep_item_type = input(colored(f"Type: {item_types}",
-                              'black', 'on_white')).upper()
-        if rep_item_type in item_codes:
-            valid_item = True
-        else:
-            print_error("Invalid item type, try again")
-    
-    mat_types = nice_list_worksheet("sys_mat")
-    mat_codes = get_codes_worksheet("sys_mat")
-    valid_mat=False
-    while not valid_mat:
-        rep_material = input(colored(f"Material: {mat_types}",
-                             'black', 'on_white')).upper()
-        if rep_material in mat_codes:
-            valid_mat = True
-        else:
-            print_error("Invalid metal, try again")
+
+    rep_phone = get_valid_phone()
+    rep_cname = get_valid_cname(rep_phone)
+    rep_item_type = get_valid_item()
+    rep_material = get_valid_material()
+
     rep_details = input(colored("Repair details: ",'black', 'on_white'))
     rep_estimate = input(colored("Estimated cost (if known): ",
                          'black', 'on_white'))
@@ -351,10 +387,9 @@ def enter_repair(options):
     repair_record = [next_index("repairs"), record_type, rep_phone, rep_cname,
                      rep_item_type, rep_material, rep_details,  25, 10,
                      '01/07/23', '08/07/23', '01/01/1900', record_status]
-    print_message(f"repair record is: {repair_record}")
     append_worksheet("repairs", repair_record)
     print("")
-    input(colored("Press any key to return to main menu....\n",
+    input(colored("Press any key to return to main menu....",
                   'black', 'on_white'))
     return True
 
@@ -458,7 +493,7 @@ def maintain_sys(options):
         if input_string != "":
             user_option = input_string[0]
         else:
-            print_error("Blank option, try again!")
+            print_error("Blank option, try again")
 
     if (user_option == "X"):
         return False
@@ -475,7 +510,7 @@ def maintain_sys(options):
     elif (user_option == "H"):
         show_help("M")
     else:
-        print_error("Invalid option, try again!")
+        print_error("Invalid option, try again")
     print("")
     input(colored("Press ENTER key to return to main menu....",
               'black', 'on_white'))
@@ -551,7 +586,8 @@ def menu_manager(valid_user):
     if input_string != "":
         user_option = input_string[0]
         if (user_option == "X"):
-            return False
+            valid_user = False
+            return valid_user
 
         if (input_string[1:] != ""):
             further_options = input_string[1:]
@@ -573,9 +609,9 @@ def menu_manager(valid_user):
         elif (user_option == "H"):
             show_help(further_options)
         else:
-            print_error("Invalid option, try again!")
+            print_error("Invalid option, try again")
     else:
-        print_error("Blank option, try again!")
+        print_error("Blank option, try again")
     return valid_user
 
 
@@ -602,7 +638,7 @@ def main():
     valid_user = authenticate_user(user_name, password)
     while valid_user:
         valid_user = menu_manager(valid_user)
-    print_message("Exiting... Thank you for using RepairTracker...")
+    print_message("Exiting... Thank you for using RepairsTracker...")
     print("")
     return True
 
