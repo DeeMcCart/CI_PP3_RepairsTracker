@@ -2,6 +2,7 @@ import matplotlib
 # matplotlib.use('Agg')
 import gspread
 import time
+from datetime import datetime, timedelta
 import os
 import sys
 import tk
@@ -136,7 +137,6 @@ def find_cust(search_string):
     """
     all_custs = SHEET.worksheet("sys_cust").get_all_values()
     all_custs.pop(0)
-    all_custs = all_upper(all_custs)
     for ind_cust in all_custs:
         cust_found = (set([search_string]) <= set(ind_cust))
         if (cust_found):
@@ -165,7 +165,6 @@ def next_index(worksheet):
     """
     all_repairs = SHEET.worksheet(worksheet).get_all_values()
     next_index = int(all_repairs[-1][0]) + 1
-    print_message(f"Calculated next index: {next_index}")
     return next_index
 
 def return_record(worksheet, row_num):
@@ -324,6 +323,21 @@ def get_valid_material():
             print_error("Invalid metal, try again")
     return []
 
+def get_valid_amount(prompt_text):
+    """
+    Utility function to input a valid amount (0-99999)
+    """
+    valid_num=False
+    while not valid_num:
+        entered_amt = input(colored(prompt_text,
+                            'black', 'on_white'))
+        if (entered_amt.isnumeric()):
+            valid_num=True
+            return entered_amt
+        else:
+            print_error("Amount must be between 0 and 99999")
+    return entered_amt
+
 def enter_repair(options):
     """
     This option can be used to enter an estimate (status 10) or repair (20).  
@@ -379,14 +393,17 @@ def enter_repair(options):
     rep_cname = get_valid_cname(rep_phone)
     rep_item_type = get_valid_item()
     rep_material = get_valid_material()
-
+    
     rep_details = input(colored("Repair details: ",'black', 'on_white'))
-    rep_estimate = input(colored("Estimated cost (if known): ",
-                         'black', 'on_white'))
-    rep_deposit = input(colored("Deposit taken: ",'black', 'on_white'))
+    rep_estimate = get_valid_amount("Estimated cost (if known): ")
+    rep_deposit = get_valid_amount("Deposit taken: ")
+    rep_date_in = datetime.now().strftime("%d/%m/%Y")
+    rep_date_due = (datetime.now() + timedelta(days = 7)).strftime("%d/%m/%Y")
+   
     repair_record = [next_index("repairs"), record_type, rep_phone, rep_cname,
-                     rep_item_type, rep_material, rep_details,  25, 10,
-                     '01/07/23', '08/07/23', '01/01/1900', record_status]
+                     rep_item_type, rep_material, rep_details, rep_estimate,
+                     rep_deposit, rep_date_in, rep_date_due, '01/01/1900',
+                     record_status]
     append_worksheet("repairs", repair_record)
     print("")
     input(colored("Press any key to return to main menu....",
@@ -525,15 +542,14 @@ def show_help(options):
     When RepairsTracker moves from demo to PROD the references to userids
     will need to be removed.
     """
+    print("")
     print_title("---------------------------------")
     print_title("- REPAIRS TRACKER - HELP SCREEN -")
     print_title("---------------------------------")
-    print_body("")
-    print_subtitle("     SECURITY                                           "
+    print_subtitle("     SECURITY:                                           "
                    +"    ")
     print_body("To use the system, you must have a userid and password      ")
     print_body("Access is provided at User or Administrator(superuser) level")
-    print_body("")
     print_subtitle("     MAIN MENU OPTIONS:                                 "
                    +"    ")
     print_body("Type-ahead is supported, if you know sub-menu opt, e.g.     ")
@@ -545,22 +561,22 @@ def show_help(options):
     print_body("pricing, or requiring ordered-in components.                ")
     print_subtitle("    (F)ind existing estimate/repair:                    "
                    +"    ")
-    print_body("Use typeahead if repair# known, else lists all repairs      ")
-    print_body("Enter specific repair number to see just that record.       ")
+    print_body("Use typeahead if repair# known, or enter specific #         ")
+    print_body("If not found, all repairs can be listed.                    ")
     print_subtitle("    (N)otify customers of repair completion:            "
                    +"    ")
     print_body("This updates the repairs record to completed and generates  ")
     print_body("customised SMS for sending. Typeahead w/repair # e.g. N12345")
     print_subtitle("    (M)aintain system:                                  "
                    +"    ")
-    print_body("This option is only available to administrator-level users. ")
-    print_body("This option shows content of system files                   ")
+    print_body("Only available to administrator-level users.  This displays ")
+    print_body("system files, e.g. customers, item types, users.            ")
     print_body("Typeahead to choose which file e.g. MC Maintain Customers   ")
     print_subtitle("    (H)elp:                                             "
                    +"    ")
     print_body("This text currently showing on-screen is the help text      ")
     print("")
-    input(colored("Press any key to return to main menu....\n",
+    input(colored("Press any key to return to main menu....",
                   'black', 'on_white'))
     return True
 
