@@ -149,9 +149,9 @@ def find_repair_index(search_repair):
     This is a utility function to located the row # of a given repair
     when passed a repair number
     """
-    test = SHEET.worksheet("repairs").col_values(1)
+    repair_nums = SHEET.worksheet("repairs").col_values(1)
     try:
-        rownum = test.index(search_repair)
+        rownum = repair_nums.index(search_repair)
     except ValueError:
         print_error(f"Repair {search_repair} not found")
         return 0
@@ -458,12 +458,10 @@ def find_repair(options):
 
 def notify_customer(options):
     """
-    this will:
-    @repair_num:  accept none, one, or more repair number(s)
-    allow status update from in-progress to complete
+    @options:  Option to provide a repair number
+    allow status update from in-progress (20) to customer notified(50)
     update the spreadsheet row completed status and notified date
     activate a trigger to send a customer notification (email or text)
-    (Note - need to deal with situation where options is blank or null)
     """
     print("")
     print_title("------------------------------")
@@ -491,11 +489,18 @@ def notify_customer(options):
                                          to=to_number)
         print(f"SMS sent to customer on phone # {record_data[2]},"
               + " message content {message_body}")
+        repairs_sheet = SHEET.worksheet("repairs")
+        repairs_sheet.update_cell((row_num + 1), 13, "'50")
+        print_status(f"Repair {options} status updated to 50:"
+                      +" Customer Notified")
     except Exception:
         error_details = sys.exc_info()
         print_error(f"Error occurred sending SMS message: {message_body}"
-                    + f" to number {to_number}")
+                    + f" to number {record_data[2]}")
         print(f"Details: {error_details[1]} ")
+        repairs_sheet = SHEET.worksheet("repairs")
+        repairs_sheet.update_cell((row_num + 1), 13, "'40")
+        print_status(f"Repair {options} status updated to 40: Completed")
     print("")
     input(colored("Press ENTER key to return to main menu....",
                   'black', 'on_white'))
