@@ -346,8 +346,8 @@ def get_valid_amount(prompt_text):
     while not valid_num:
         entered_amt = input(colored(prompt_text,
                             'black', 'on_white'))
-        if (entered_amt.isnumeric()) and (int(entered_amt) > 0 
-            and int(entered_amt) < 99999):
+        if (entered_amt.isnumeric()) and (int(entered_amt) > 0
+                                          and int(entered_amt) < 99999):
             valid_num = True
             return entered_amt
         else:
@@ -492,7 +492,7 @@ def notify_customer(options):
         repairs_sheet = SHEET.worksheet("repairs")
         repairs_sheet.update_cell((row_num + 1), 13, "'50")
         print_status(f"Repair {options} status updated to 50:"
-                      +" Customer Notified")
+                     + " Customer Notified")
     except Exception:
         error_details = sys.exc_info()
         print_error(f"Error occurred sending SMS message: {message_body}"

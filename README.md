@@ -1,4 +1,4 @@
-# RepairTracker
+# RepairsTracker
 (Developer:  Deirdre McCarthy, July 2023)
 
 # Table of Contents:
@@ -47,12 +47,11 @@
 
 ## About
 ---------
-RepairTracker is a python- and google-sheets DBMS application intended to replace a manual (paper-based) system for tracking the lifecycle of jewellery repair.  This is a real-world requirement, and while the version of RepairTracker presented is a demo version, the app is presently intended for live use.<br>
+RepairsTracker is a python- and google-sheets DBMS application intended to replace a manual (paper-based) system for tracking the lifecycle of jewellery repair.  This is a real-world requirement, and while the version of RepairTracker presented is a demo version, the app is intended for live use, and has been validated with the help of a real-world user.<br>
 
 ### Responsive Mockup
 A responsive mockup is given here,  although in practice the user interface is a 80-char x 24 line text display regardless of device:
 https://ui.dev/amiresponsive?url=https://repairs-tracker-aa30320aef0e.herokuapp.com/
-(and, in fact, the user interface when tested on a mobile device did not function correctly, and operated with anomolies when used on a Samsung Galaxy tablet)
 
 ### Live webpage link
 https://repairs-tracker-aa30320aef0e.herokuapp.com/
@@ -463,33 +462,26 @@ The following were used to extend the functionality of python.  Each required an
 ### Python Validation 
 - PEP8 validation
 - The pycodestyle validator is available within the CI GitPod development environment.  It is invoked using pycodestyle run.py.
-It was used on 04/07/23 and 10/07/23 and, after corrections on each occasion, returned 0 errors.
-<br>
+I used this 3-4 times over the development duration and each time had a long list of errors!  Advised corrections were applied, then the code was re-verified to ensure still working correctly.
+- Corrections are described in the issue log.
+
 ![pycodestyle dev environment validation](./docs/readme_images/val_pycodestyle_dev_env.jpg?raw=true "pycodestyle 0 errors")
 <br>
-The CI PEP8 validator was also used, by pasting my run.py code into https://pep8ci.herokuapp.com/#
-, and on 04/07/23 and 10/07/23 confirmed 0 linting issues.
+- The CI PEP8 validator was also used, by pasting my run.py code into https://pep8ci.herokuapp.com/#
+, and confirmed 0 linting issues.
+
 <details><summary>Validation: CI PEP8 validator</summary>
 <img src="./docs/readme_images/val_ci_pep8.jpg">
 </details>
-
-- Corrections included:
-
-* over-long lines; 
-* whitespaces at end of lines - or on blank lines, 
-* missing spaces around operators
-* under- or over-indentation, 
-* incorrect # of blank lines between functions.  
 <br>
-When first run (on each occasion!) there were over 50 PEP8 errors present. 
-Advised corrections were applied, then the code was re-verified to ensure still working correctly.
+
 
 ### Accessibility
 N/A for Python project
 
 ### Performance
 Performance  - N/A for Python project?
-Just in case - Ran Lighthouse over the heroku app and got 93% performance.
+Ran Lighthouse over the heroku app and got 93% performance.
 
 <details><summary>Performance: heroku deployed app</summary>
 <img src="./docs/readme_images/val_lighthouse_perf.jpg">
@@ -532,7 +524,7 @@ Each of the user stories was evaluated for testing. The focus was on making the 
 ![User story testing Page4](./docs/readme_images/val_user_story_test_p1.jpg?raw=true "testing user stories P4")
 
 Screenprints listed within the testing grid are listed here:
-
+(to be completed)
 
 
 
