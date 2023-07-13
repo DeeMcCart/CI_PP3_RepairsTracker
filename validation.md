@@ -62,16 +62,29 @@ Features were test, and some issues identified.  These were then resolved and th
 ![Feature testing Page4](./docs/readme_images/val_feature_test_p4.jpg?raw=true "testing features P4")
 
 ### Testing User Stories
-This section to be completed....
-![User story testing Page1](./docs/readme_images/val_user_story_test_p1.jpg?raw=true "testing user stories")
+Each of the user stories was evaluated for testing. The focus was on making the earlier tests quite comprehensive, and to refer back to these proofs for some of the related user stories. Issues captured were 'qualitative' as well as 
 
-### Automated testing
-This section to be completed....
-Python offers opportunities to automate unit tests.... this section still to be completed
+![User story testing Page1](./docs/readme_images/val_user_story_test_p1.jpg?raw=true "testing user stories P1")
+![User story testing Page2](./docs/readme_images/val_user_story_test_p1.jpg?raw=true "testing user stories P2")
+![User story testing Page3](./docs/readme_images/val_user_story_test_p1.jpg?raw=true "testing user stories P3")
+![User story testing Page4](./docs/readme_images/val_user_story_test_p1.jpg?raw=true "testing user stories P4")
+
+Screenprints listed within the testing grid are listed here:
 
 
-### Bugs and issues
-This section requires further work.....
-<details><summary>issue tracker</summary>
-<img src="https://deemccart.github.io/CI_PP2_HumbleNumble/docs/readme_images/issue_tracker.jpg">
-</details>
+
+
+
+### Issues and Bugs
+* Spam in SMS messaging:  When I configured my Twilio a/c and assigned my mobile number as an authorised recipient of SMS messages within the service, I observed several spam calls to my number.  I therefore decided not to use the entered 'customer mobile phone' number on the RepairsTracker record as was cautious that I might expose other mobile users to unwanted SMS messages or calls (as well as the risk of potentially incurring additional costs).  SMS messages generated from RepairsTracker are now directed to a single mobile number (mine).
+
+* Configuring the Twilio SMS messaging service:  The use of the Twilio service requires a .env (dotenv) varaible within the development environment, this is represented by a configuration variable within the deployed environment. Having got the SMS service working, I was surprised to see the following day, that the deployed version was failing authentication with little information returned to the app.  Eventually I realised that, when double checking the credentials, I had configured the Heroku configuration variable with surrounding "" double quotes, causing it to fail.
+The frustration of troubleshooting this error led me to improve the error management by using a try/ except clause for SMS sending and returning a detailed error message (the Twilio error message) when unsuccessful.
+
+The issue log below was created based on the results of feature testing and user story testing.  Feature testing typically identified bugs and programming issues that could be resolved with programming rework.
+User story testing revealed subjective or usability issues which were not are clearly resolved, generally these involved an amount of debate, exploration and negotiation to arrive at an acceptable compromise or workaround.  This compromise might be acceptable for an agreed period of time, with the intention that a longer-term programmatic solution will be delivered.
+
+![Issue Log Page1](./docs/readme_images/val_issue_log_p1.jpg?raw=true "issues P1")
+![Issue Log Page2](./docs/readme_images/val_issue_log_p2.jpg?raw=true "issues P2")
+![Issue Log Page3](./docs/readme_images/val_issue_log_p1.jpg?raw=true "issues P3")
+
