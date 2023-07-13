@@ -371,11 +371,11 @@ needed once the system is to progress to live implementation.
 
 ### Features in Scope 
 
-A checklist of the user stories showing which features address each is given here:
+User story checklist showing which features address each story:
 ![page 1 cross-check user stories](./docs/readme_images/user_stories_vs_features_p1.jpg?raw=true "page1")
 ![page 2 cross-check user stories](./docs/readme_images/user_stories_vs_features_p2.jpg?raw=true "page2")
 
-And a reverse-checklist showing of features, showing which user story each addresses is given here: 
+Feature checklist linking each feature to its user story(ies):
 ![Features vs user stories](./docs/readme_images/features_vs_user_stories.jpg?raw=true "user stories perspective")
 
 RepairsTracker contains:

@@ -55,10 +55,11 @@ The website was tested on the following browsers:
 * Mozilla Firefox v112.1.0 (Motorola g(7) phone)
 
 ### Testing Features
-This section requires further work as feature validation identified some open issues
-![Feature testing Page1](./docs/readme_images/val_feature_test_p1.jpg?raw=true "testing features")
-![Feature testing Page2](./docs/readme_images/val_feature_test_p2.jpg?raw=true "testing features")
-![Feature testing Page3](./docs/readme_images/val_feature_test_p3.jpg?raw=true "testing features")
+Features were test, and some issues identified.  These were then resolved and the failed tests were repeated (rightmost column).  A solution was found for all failing items.
+![Feature testing Page1](./docs/readme_images/val_feature_test_p1.jpg?raw=true "testing features P1")
+![Feature testing Page2](./docs/readme_images/val_feature_test_p2.jpg?raw=true "testing features P2")
+![Feature testing Page3](./docs/readme_images/val_feature_test_p3.jpg?raw=true "testing features P3")
+![Feature testing Page4](./docs/readme_images/val_feature_test_p4.jpg?raw=true "testing features P4")
 
 ### Testing User Stories
 This section to be completed....
