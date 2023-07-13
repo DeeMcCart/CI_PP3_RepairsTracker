@@ -513,20 +513,20 @@ def maintain_sys(options):
     list contents of sys tables (user can choose from a menu)
     """
     print_title("------------------------------")
-    print_title("--    MAINTAIN/ LIST:     --")
+    print_title("--      MAINTAIN/ LIST:     --")
     print_title("------------------------------")
 
     if (options != ""):
         user_option = options[0]
         print_body(f"Option passed is {user_option}")
     else:
-        print_subtitle("    (C)ustomer list ")
-        print_subtitle("    (I)tem type     ")
-        print_subtitle("    (M)aterials     ")
-        print_subtitle("    (S)tatus Codes  ")
-        print_subtitle("    (U)sers         ")
-        print_subtitle("    (H)elp          ")
-        print_subtitle("    e(X)it          ")
+        print_subtitle("    (C)ustomer list           ")
+        print_subtitle("    (I)tem type               ")
+        print_subtitle("    (M)aterials               ")
+        print_subtitle("    (S)tatus Codes            ")
+        print_subtitle("    (U)sers                   ")
+        print_subtitle("    (H)elp                    ")
+        print_subtitle("    e(X)it                    ")
 
         input_string = input(colored("Option:", 'black', 'on_white')).upper()
         if input_string != "":

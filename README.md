@@ -1,6 +1,7 @@
 # RepairsTracker
 (Developer:  Deirdre McCarthy, July 2023)
-
+![splash screen](./docs/readme_images/splash_screen.jpg?raw=true "run program button")
+![first friendly menu](./docs/readme_images/user_first_menu.jpg?raw=true "user menu after signon")
 # Table of Contents:
 1. [About](#about)
 2. [Project Goals: ](#project-goals)
@@ -9,7 +10,7 @@
     3. [UX Design - Strategy - Target Audience](#ux-design-strategy-target-audience)
 3. [UX Design - Scope](#ux-design-scope)
     1. [UX Design - Scope - User Requirements and Expectations](#ux-design-scope-user-requirements-and-expectations)
-    2. [UX Design - Scope - Data](#ux-design-scope-data)
+    2. [UX Design - Scope - Data Model](#ux-design-scope-data-model)
     3. [UX Design - Scope - Viewing Device](#ux-design-scope-viewing-device)
 4. [User goals/ user stories: ](#user-goals-user-stories)
     1. [Site Owner Goals](#site-owner-goals)
@@ -47,7 +48,10 @@
 
 ## About
 ---------
-RepairsTracker is a python- and google-sheets DBMS application intended to replace a manual (paper-based) system for tracking the lifecycle of jewellery repair.  This is a real-world requirement, and while the version of RepairTracker presented is a demo version, the app is intended for live use, and has been validated with the help of a real-world user.<br>
+RepairsTracker is a python- and google-sheets DBMS application intended to replace a manual (paper-based) system for tracking the lifecycle of jewellery repair.  This is a real-world requirement. While RepairsTracker described here is a demo version, the app is intended for live use, and has been specified and validated with a real-world user.<br>
+<details><summary>Current business process</summary>
+<img src="./docs/readme_images/flowchart_current.jpg">
+</details>
 
 ### Responsive Mockup
 A responsive mockup is given here,  although in practice the user interface is a 80-char x 24 line text display regardless of device:
@@ -58,30 +62,28 @@ https://repairs-tracker-aa30320aef0e.herokuapp.com/
 
 ## Project Goals
 ----------------
-1. To automate the existing manual steps for repair tracking, from initial entry through to in-progress, customer notification and collection/payment. 
+
+1. To automate this existing manual process for repair tracking, from initial entry through to in-progress, customer notification and customer collection/final payment.
 2. Using the integration capabilities of python (and associated libraries) to link to Google Sheets as a reasonaby basic DBMS, and bolt-on libraries for SMS notifications (and, in the future, label printing).  
 3. Which is not significantly slower than the current manual (handwritten) system.
 4. And which provides additional functionality for customer tracking, repairs status reporting.
-5. And which provides some capabilities for customisation/ configuration, ie access to maintain certain system parameters.
+5. And which provides some capabilities for customisation/ configuration, ie access to certain system parameters.
   
 ### UX Design Strategy
-As this program is delivered using Python, the emphasis is on functionality rather than appearance.
-So the options for customising appearance are somewhat restricted.   RepairsTracker appears in 'terminal-mode' display of 24 lines x 80 chars.
+As this program is delivered using Python, the emphasis is on functionality rather than appearance.  Options for customising appearance are somewhat restricted.   RepairsTracker appears in 'terminal-mode' display of 24 lines x 80 chars.
 <br>
 The elements which can be customised to improve UX in this context are:
-<br>
 
 * Overall program flow:  ensure a 'natural' flow of activities reflecting the tasks needed to process jewellery repairs (addressing project goal #1). 
 Each estimate/repair is assigned a unique number, and status code is used to track each repair through its lifecycle.  This makes current status, workload and throughput of estimates/repairs clearly visible (partly addressing goal #4 via the underlying data structures).
 
 * RepairsTracker also offers some 'type-ahead' capabilities whereby a user familiar with the menu structure can enter an option from the main menu and submenu in one entry, and be taken directly to that option, e.g. ER to enter an repair (E from main menu, then R from submenu); or MI to Maintain (from main menu) Items (from sub-menu).  Type-ahead partially addresses project goal #3.
 
-* Appearance:  use the text-presentation options of the Colorama library to present on-screen text consistently, so the user learns to recognise error/ success/ info/ background messages by their appearance.  This helps to achieve goals #2 and #3 above.
+* Appearance:  The python Colorama library is used to present on-screen text consistently, so the user learns to recognise error/ success/ info/ background messages by their appearance.  This helps to achieve goals #2 and #3 above.
 
 * Automation: use a 3rd party messaging service to automate the (currently manual) task of texting to customer when repairs are completed (project goal #s 1, 2, 3, 4)
 
-* Use of widely available, familiar database backend - Google sheets.  Project goals #4 (reporting) and #5 (ability to configure/customise) would ideally be achieved via the front-end (Python) interface.  While the RepairsTracker solution delivers demo-level functionality for reporting and data customisation, a lot more can be achieved by using standard Google Sheets functionality.  User familar with spreadsheets can update the spreadsheet data, add tracking view and reports. This is an improvement on the current manual system which sometimes requires a physical search through the repairs to ascertain repair status.
-<br>
+* Use of widely available, familiar database backend - Google sheets.  Project goals #4 (reporting) and #5 (ability to configure/customise) would ideally be achieved via the front-end (Python) interface.  While the RepairsTracker solution delivers demo-level functionality for reporting and data customisation, a lot more can be achieved by using standard Google Sheets functionality.  Users familar with spreadsheets can update the spreadsheet data, add tracking view and reports. This is an improvement on the current manual system which sometimes requires a physical search through the repairs to ascertain repair status.
 <br>
 
 ### UX Design Strategy Analysis - Existing Repair Tracking Apps
@@ -112,17 +114,35 @@ Target users are small-medium sized jewellery shops who perform repairs for dire
 </ul>
 <br>
 
-### UX Design Scope - Data
+### UX Design Scope - Data Model
 A single [Google spreadsheet](https://docs.google.com/spreadsheets/d/1LO_TXPpBZc0xiq5VD1iwtj9MSVeEOlm6eYSkbnScdUQ/edit?usp=sharing) is used to hold the DMBS.
 
-This is pre-populated with configuration data as follows:
+The data has been modelled to loosely represent a RDBMS where each google sheet is named and acts as a 'table' in the database.
 
-* sys_cust holds a list of the customers known to the system;
-* sys_mat holds the type of material/metals and is recorded when a repair is received;
-* sys_users holds a list of userids known to the system, and whether each has user or administrator access;
-* sys_item holds jewellery item types, e.g. (W)atch, (E)arrings;
-* sys_status holds the lifecycle of an estimate/ repair
-<br>
+* sys_users holds a list of userids/ passwords known to the system, and whether each has user or administrator access;
+
+![sys_user sheet](./docs/readme_images/us_ru_08_01u.jpg?raw=true "user table (passwords not displayed)")
+
+* sys_status holds the lifecycle of an estimate/ repair, and is used to indicate the progress of a repair through its lifecycle
+
+![sys_status sheet](./docs/readme_images/us_ru_08_01s.jpg?raw=true "repairs lifecycle")
+
+* sys_mat categorises material/metal types (used for input validation when a repair record is created)
+
+![sys_mat sheet](./docs/readme_images/us_ru_08_01m.jpg?raw=true "categorise metal/material for repair item")
+
+* sys_item categorises jewellery items, e.g. (W)atch, (E)arrings (also used for input validation on creation of new repair record)
+
+![sys_item sheet](./docs/readme_images/us_ru_08_01i.jpg?raw=true "jewellery item types for repair")
+
+* sys_cust holds a list of the customers known to the system.  Below is a subset of customer fields. Phone# and name are important within RepairsTracker, several lines of address are held too. 
+
+![sys_cust sheet](./docs/readme_images/us_ru_08_01c.jpg?raw=true "customer phone, name, address line1")
+
+* repairs is a dynamic table used to track the details of each repair taken into the shop.  This record has more fields than the others, and is the main 'engine' of the system.
+
+![repairs sheet](./docs/readme_images/data_model_repairs_table.jpg?raw=true "repairs database table")
+
 
 ## User Goals/ User Stories
 ----------------
@@ -175,9 +195,6 @@ This is pre-populated with configuration data as follows:
 ----------------
 
 ### Flowcharts
-<details><summary>Current business process</summary>
-<img src="./docs/readme_images/flowchart_current.jpg">
-</details>
 
 <details><summary>Main Menu</summary>
 <img src="./docs/readme_images/flowchart_overview_with_authentication.jpg">
@@ -198,38 +215,38 @@ This is pre-populated with configuration data as follows:
   
 ### Fonts Chosen
 n/a as this is presented as a 'terminal' style window and is therefore quite limited.....
-however using the 'colorama' python library gave the ability to apply some colours and properties (bold, blink, etc) to the text.
 
 ### Colour Scheme 
-Colours & backgrounds are applied consistently to text blocks within RepairsTracker e.g. for error messages, status messages etc.
+Colours & backgrounds are applied consistently to text blocks within RepairsTracker e.g. for error messages, status messages etc.  Using the 'colorama' python library gave the ability to apply some colours and properties (bold, blink, etc) to the text.  This gives a consistent look & feel and helps users to 'get to know' the system.
 
 <details><summary>Colours- used for prompt & feedback to user & to aid user learning</summary>
 <img src="./docs/readme_images/colour_examples.jpg">
 </details>
 
 ### Design Images
-Ideally would like to have a background or splash image which bounds the entry screen as the black and white text based screen drives me up the wall.
+Ideally would like to have a background or splash image.  I did not manage to get an image to display, so compromised with a blue screen background.
 <details><summary>Background image</summary>
 <img src="./docs/readme_images/background_image.jpg">
 </details>
 
 ### Design Images - Icons and Symbols
-N/a to text-based display
+N/a : text-based display
 
 ## Features 
  
 ### F01 Authentication
 The user must give a valid userid and password to gain entry to the system (this demo version is provided with u-u for user-level access and s-s for administrator/super-user access) 
-These userids are stored within Google sheets
 <br>
-<details><summary>Username and password are required to access RepairTracker</summary>
-<img src="./docs/readme_images/f01_user_authentication.jpg"></details>
+
+![user auth](./docs/readme_images/f01_user_authentication.jpg?raw=true "user auth")
+
 <br>
 If the user presents with an invalid userid/password they receive an error message and cannot access RepairsTracker.
 
 ![cannot login](./docs/readme_images/f01_invalid_credentials.jpg?raw=true "invalid login")
 
 Unauthorised (non-administrator) users cannot access certain functions e.g. system maintenance.
+
 ![unsucccessful attempt to access (M)aintain](./docs/readme_images/f01_insufficient_security.jpg?raw=true "security breach")
 
 The implementation of basic authentication satisfies user requirements SO01, SO07, SO08, SO12, FTU02, FTU04, RU08, RU13<br>
@@ -237,39 +254,45 @@ The implementation of basic authentication satisfies user requirements SO01, SO0
 
 
 ### F02 Structured Navigation Menus
-<details><summary>Main Menu options</summary>
-<img src="./docs/readme_images/f02_main_menu.jpg"></details>
+
+![Main Menu options](./docs/readme_images/f02_main_menu.jpg?raw=true "main menu")
 <br>
-The main menu lists options each of which is identified by a letter of the alphabet.  The user can enter an option (in upper or lower case) and will be brought to the linked sub-menu.
-Heading title., subtitle and content are presented with consistent appearance and colours.  
+This gives options identified by a alpha letter.  The user can enter an option (in upper or lower case) and will be brought to the linked sub-menu.
+Colours used are consistent for all the menus.
 <br>
 This meets user requirements SO01, SO03, FTU01, FTU02, FTU05, RU01.
 <br>      
 
 ### F03 Typeahead
-<details><summary>type-ahead</summary>
-<img src="./docs/readme_images/f03_typeahead.jpg"></details>
-If, from the main,menu, the user already knows the submenu option they can key this also, e.g. EE to take the (E)nter option from main menu then (E)stimate from sub-menu.<br>
-<br>
+If the user already knows the option they want to take from the next menu, they can give a 'combined' command from any menu, e.g.
+for example: 
+* EE (E)nter (E)stimate
+* ER (E)nter (R)epair
+* F15058 (F)ind repair# 15058
+* N15056 (N)otify customer that repair#15056 is completed
+
+This is a handy feature for returning users as, once they are familiar with the system, they can speed up navigation.
+
+![type-ahead example](./docs/readme_images/f03_typeahead_find_repair.jpg?raw=true "type-ahead")
+
 This satisfies user stories SO02, SO03, SO04, FTU01, FTU02, FTU05, RU01, RU02.
 <br>
 
 ### F04 'Help' Screen
-<details><summary>Help screen</summary>
-<img src="./docs/readme_images/f04_help_screen.jpg"></details>
-<br>
-A help text screen is available from main menu option 'H'.  This gives more details for each menu option<br>
-This satisfies user stories S03, S10, FTU02, FTU03, FTU05. <br>      
-<br>
-<br>
+
+![help screen](./docs/readme_images/f04_help_screen.jpg?raw=true "helpy")
+
+A help text screen is available from main menu, and maintain menu,  option 'H'.  This acts like a user manual and gives a bit more info on each option.  It's a little bit restricted within the 24-line terminal, and ideally the user shouldnt need to scroll to read the help screen.  In any case it gives more details for each menu option.
+
+This satisfies user stories S03, S10, FTU02, FTU03, FTU05. 
 
 ### F05 Dynamic Prompts
-<details><summary>Value list in prompt is built from system table</summary>
-<img src="./docs/readme_images/f05_dynamic_prompts.jpg"></details>
-The value list offered for item type and item material, within the repairs entry processes, is built from the contents of tables
-sys_type and sys_material, held within the Google Sheet.  Modifying the values within the google sheets will modify 
-the entry prompts shown to the user.
-<br>
+![prompts built from system tables](./docs/readme_images/f05_dynamic_prompts_details.jpg?raw=true "prompty")
+
+The value list offered for item type is dynamically built from the contents of sys_type sheet/table.
+Similarly the sys_material Google Sheet builds the prompts for material.  
+When the user enters a value for either of these fields, the entry is checked agaist the valid codes held in each table.
+
 This satisfies user stories S02, S06, FTU01, FTU03, FTU05<br>
 
 ### F06 Colour coded messages<br>
@@ -285,60 +308,78 @@ This feature addresses user stories S03, S06, S07, S10, FTU01, FTU02, FTU04, FTU
 <img src="./docs/readme_images/f07_google_sheets.jpg"></details>
 
 The RepairsTracker underlying database is represented using Google Sheets as an approximation of an RDBMS.
-This has the advantage of allowing non-routine data updates (e.g. of system tables) to be done within Google Sheets rather
-than by developing a customised Python solution for each type of update.
-Ad hoc reporting can also be done from within Google sheets rather than python, e.g. checking for overdue repairs or items outstanding for collection. <br>
+
+This allows non-routine data updates to be done within Google Sheets rather requiring a customised Python solution for each update.
+
+Ad hoc reporting can also be done from within Google sheets rather than python, e.g. checking for overdue repairs or items outstanding for collection. 
+
 This addresses user stories S01, S02, S04, S12, RU05, RU10, RU11, RU12. 
-<br>
+
 
 ### F08 Repairs/ Estimate Entry
-<details><summary>Repairs/ estimate entry</summary>
-<img src="./docs/readme_images/f08_repair_vs_estimate.jpg"></details>
-Enter a repair/ estimate - each captures slightly different fields, although some fields are common to both.<br>  
 
-* Each new entry is assigned a record type - (R)epair or (E)stimate
+Both repairs and estimates are stored in the 'repairs' table, and go through similar entry steps.  But they have a different record type (R / E) and status (20 / 10).  
+
+![repairs entry](./docs/readme_images/f08_repair_vs_estimate.jpg?raw=true "Repairs record entry")
+
+* Each new entry is assigned a record type - (R)epair or (E)stimate, depending on menu option chosen
+
 * Drop-in date - assigned to today, due date - assigned to today +7 days.
+
 * Customer details and item details are recorded, as well as free-text to describe the repair type.
+
 * Status is assigned as 10: estimate; 20: repair ; this indicates the stage in the repair 'lifecycle'.
+
 * Each new repair/estimate is assigned a 'next number' repair # (based on incrementing the previous repair #).
-<br>
-This addresses user stories S01, S02, S03, S04, S06, S07, FTU01, FTU02, FTU04, FTU05, RU01, RU02, RU03, OT01, OT02<br>
+
+This addresses user stories S01, S02, S03, S04, S06, S07, FTU01, FTU02, FTU04, FTU05, RU01, RU02, RU03, OT01, OT02
 <br>
 
 ### F09 Prompted keying of customer data
-<details><summary>phone# checked for existing & retrieves customer name</summary>
-<img src="./docs/readme_images/f09_customer_retrieval.jpg"></details>
-When entering a repairs record, the user is first asked for the customers phone number, this is checked against the customer database
-to see if customer is already known to RepairsTracker, if so it prompts with the customers name and address and asks the user to verify
-this is the correct customer.
-Pressing <Enter> accepts the suggested customer, entering <N> causes a 'customer name' input prompt to display and the entered value 
-is then used for the new repair record.  
-<br>
-This is another aspect of addressing user stories S01, S02, S03, S04, S06, FTU01, FTU02, FTU04, FTU05, RU01, RU02, RU03<br>
+
+
+When entering a repairs record, the user is first asked for the customers phone number.  When entered, this is checked against the customer database  to see if customer is in sys_cust table/sheet.
+If so it prompts with the customers name and address and asks the user to verify this is the correct customer.
+
+![phone# checked for existing & retrieves customer name](./docs/readme_images/f09_customer_retrieval.jpg?raw=true "Streamlined data entry")
+
+Pressing Enter accepts the suggested customer.
+Alternatively, entering N causes a 'customer name' input prompt to display and a fresh customer name can be entered.  
+
+This is another aspect of addressing user stories S01, S02, S03, S04, S06, FTU01, FTU02, FTU04, FTU05, RU01, RU02, RU03
+
 
 ### F10 Convert Estimate to Repair (FUTURE)
-This is a desired feature to address user story 04 for returning users - convert estimate to repair.  This reflects the business process
-whereby an estimate is created (the item of jewellery might be left in for the duration of the estimate, as possibly stones or metal may need to be priced from external suppliers).  Once the estimate is priced, the customer is contacted and makes a decision whether to proceed with a repair.  In this case it would be useful to be able to convert the estimate to a repair, and to perform the additional functions needed for a repair, such as 
-taking deposit money and assigning a due date.<br>
+This is a desired feature to address user story 04 for returning users - convert estimate to repair.  This reflects the business process whereby an estimate is created (the item of jewellery might be left in for the duration of the estimate, as possibly stones or metal may need to be priced from external suppliers).  Once the estimate is priced, the customer is contacted and makes a decision whether to proceed with a repair.  In this case it would be useful to be able to convert the estimate to a repair, (future functionality), taking deposit money and assigning a due date.
+
 Internally the system would need to change record type from E to R, and to set the status code from 10 (estimate) to 20 (repair - in progress).
 <br>
 <br>
 
 ### F11 Find a repair - including repair status
-<details><summary>Find repair - tabulated output</summary>
-<img src="./docs/readme_images/f11_find_repair.jpg"></details>The (F)ind option is available from the main menu.  This shows summary information per repair in tabulated form.
-<br>
+
+![find repair](./docs/readme_images/f11_find_repair_found.jpg?raw=true "Find repair - single tabulated output")
+
+The (F)ind option is available from the main menu, and typeahead can be used, if desired, to bypass the prompt for repair #.  This shows summary information per repair.  If repair is not found, RepairsTracker will offer to list all repairs:
+
+![find repair](./docs/readme_images/f11_find_repair_not_found.jpg?raw=true "Find repair - not found")
+
+and will then display a long list of entries:
+
+![find repair](./docs/readme_images/f11_find_repair_list_all.jpg?raw=true "Find repair - list all")
+
 This meets user requirement FTU02, RU05, RU10, OT04  
 <br>
 
 ### F12  Notify Customers
-<details><summary>Notify cutomers via SMS</summary>
-<img src="./docs/readme_images/f12_customer_notify.jpg"></details>
-Use of a third-party SMS management service (Twilio) was tested successfully.  It generated messages to a mobile phone number, with a standardised message to represent repairs completion.  This is invoked through the 'notify customers' option.
+A third-party SMS management service (Twilio) was tested successfully.  It generated messages to a mobile phone number, with a standardised message to represent repairs completion.  This is invoked through the 'notify customers' option.
+
 While this particular SMS mangement service may not be the final solution adopted, the RepairsTracker system has proven capable of
 generating a customer notification and sending it to a specified mobile phone #.
-(Note that all SMS messages from RepairsTracker are currently sent to a single mobile phone number, which has been declared to the 3rd party 
-SMS messaging provider) 
+
+![notify customers](./docs/readme_images/f12_customer_notify.jpg?raw=true "Notify cutomers via SMS")
+
+(Note that all SMS messages from RepairsTracker are currently sent to a single mobile phone number, which has been declared to the 3rd party SMS messaging provider) 
 <br>
 This addresses user stories S01, S02, S05, S09 (partially), FTU05, RU06, OT03
 <br>
@@ -351,8 +392,7 @@ copy is attached to the repairs envelope, and one is given to the customer. This
 <br>
 
 ### F14 Maintain System Configuration data
-<details><summary>Menu</summary>
-<img src="./docs/readme_images/f14_maintain_menu.jpg"></details>
+![sys maint menu](./docs/readme_images/f14_maintain_menu.jpg?raw=true "sys maintenance menu")
 
 The 'maintain' feature partially addresses user story S12 - configure and maintain system.  This menu provides an option to list each of the system files.  The output is presented in 'nice' tabular format, which is readable on the 24 x 80 character screen.  
 <details><summary>Example - item type</summary>
