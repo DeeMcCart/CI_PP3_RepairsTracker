@@ -261,7 +261,7 @@ def append_worksheet(worksheet, data):
     worksheet_to_update = SHEET.worksheet(worksheet)
     worksheet_to_update.append_row(data)
     print_status(f"New {worksheet} record {data[1]} {data[0]} for"
-                 + " {data[3]} added")
+                 + f" {data[3]} added")
     print("")
     return True
 
