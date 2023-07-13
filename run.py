@@ -346,7 +346,8 @@ def get_valid_amount(prompt_text):
     while not valid_num:
         entered_amt = input(colored(prompt_text,
                             'black', 'on_white'))
-        if (entered_amt.isnumeric()):
+        if (entered_amt.isnumeric()) and (int(entered_amt) > 0 
+            and int(entered_amt) < 99999):
             valid_num = True
             return entered_amt
         else:
