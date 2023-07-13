@@ -204,7 +204,7 @@ def list_worksheet(worksheet, row_num):
                        "paid", "in", "due", "date_coll", "st"]
         for data in all_data:
             print_cols.append([data[0], data[2][0:10], data[3][0:18],
-                              data[6][0:20], data[10], data[12]])
+                              data[6][0:20], data[10][0:5], data[12]])
         all_data = print_cols
     elif worksheet == "sys_cust":
         for data in all_data:

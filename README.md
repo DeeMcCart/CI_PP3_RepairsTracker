@@ -176,6 +176,10 @@ This is pre-populated with configuration data as follows:
 ----------------
 
 ### Flowcharts
+<details><summary>Current business process</summary>
+<img src="./docs/readme_images/flowchart_current.jpg">
+</details>
+
 <details><summary>Main Menu</summary>
 <img src="./docs/readme_images/flowchart_overview_with_authentication.jpg">
 </details>
