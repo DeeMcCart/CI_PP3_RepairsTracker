@@ -376,8 +376,7 @@ A checklist of the user stories showing which features address each is given her
 ![page 2 cross-check user stories](./docs/readme_images/user_stories_vs_features_p2.jpg?raw=true "page2")
 
 And a reverse-checklist showing of features, showing which user story each addresses is given here: 
-<details><summary>Mapping of user stories to features</summary>
-<img src="./docs/readme_images/user_stories_vs_features.jpg"></details>
+![Features vs user stories](./docs/readme_images/features_vs_user_stories.jpg?raw=true "user stories perspective")
 
 RepairsTracker contains:
 * 3 menus (main, enter, maintain)

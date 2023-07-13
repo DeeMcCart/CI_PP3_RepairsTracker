@@ -34,7 +34,7 @@ SHEET = GSPREAD_CLIENT.open("RepairsTracker")
 
 def print_title(text_string) -> bool:
     """
-    The print_title function displays text with consistent appearance 
+    The print_title function displays text with consistent appearance
     """
     print(colored(text_string, "white", "on_green",
                   attrs=['reverse', 'blink']))
@@ -43,7 +43,7 @@ def print_title(text_string) -> bool:
 
 def print_subtitle(text_string):
     """
-    The print_subtitle function displays text with consistent appearance 
+    The print_subtitle function displays text with consistent appearance
     """
     print(colored(text_string, "white", "on_red", attrs=['reverse', 'blink']))
     return True
@@ -51,7 +51,7 @@ def print_subtitle(text_string):
 
 def print_body(text_string):
     """
-    The print_body function displays text with consistent appearance 
+    The print_body function displays text with consistent appearance
     """
     print(colored(text_string, 'blue', 'on_white'))
     return True
@@ -59,7 +59,7 @@ def print_body(text_string):
 
 def print_status(text_string):
     """
-    The print_text function displays text with consistent appearance 
+    The print_text function displays text with consistent appearance
     """
     print(colored(text_string, "white", "on_green"))
     return True
@@ -67,7 +67,7 @@ def print_status(text_string):
 
 def print_message(text_string):
     """
-    The print_message function displays text with consistent appearance 
+    The print_message function displays text with consistent appearance
     """
     print(colored(text_string, 'black', 'on_white'))
     return True
@@ -75,7 +75,7 @@ def print_message(text_string):
 
 def print_error(text_string):
     """
-    The print_error function displays text with consistent appearance 
+    The print_error function displays text with consistent appearance
     """
     print(colored(text_string, 'black', 'on_yellow'))
     return True
@@ -143,18 +143,23 @@ def find_cust(search_string):
             return ind_cust
     return False
 
+
 def find_repair_index(search_repair):
-    """ 
+    """
     This is a utility function to located the row # of a given repair
     when passed a repair number
     """
     test = SHEET.worksheet("repairs").col_values(1)
     try:
         rownum = test.index(search_repair)
-    except:
+    except ValueError:
+        print_error(f"Repair {search_repair} not found")
+        return 0
+    except IndexError:
         print_error(f"Repair {search_repair} not found")
         return 0
     return rownum
+
 
 def next_index(worksheet):
     """
@@ -167,36 +172,39 @@ def next_index(worksheet):
     next_index = int(all_repairs[-1][0]) + 1
     return next_index
 
+
 def return_record(worksheet, row_num):
     """
     This is a utility function to return row data from a given worksheet.
     """
-    record_data=[]
+    record_data = []
     if (row_num > 0):
         record_data = get_worksheet(worksheet)[row_num]
     else:
         print_error(f"Invalid {worksheet} row # {row_num}")
     return record_data
 
+
 def list_worksheet(worksheet, row_num):
     """
     This is a utility function to print all data from a given worksheet.
-    Note that certain tables have adjustments to column names to 
+    Note that certain tables have adjustments to column names to
     avoid text wrapping as this does not display well using Tabulate
-    If @row = 0 then list all rows, 
+    If @row = 0 then list all rows,
     else list heading plus specific row only
     """
     if (row_num > 0):
-        all_data = [get_worksheet(worksheet)[0], 
+        all_data = [get_worksheet(worksheet)[0],
                     get_worksheet(worksheet)[row_num]]
     else:
         all_data = get_worksheet(worksheet)
     print_cols = []
     if worksheet == "repairs":
-        
-        all_data[0] = ["id", "T", "Ph", "Name", "I", "M", "Dets", "est", "paid", "in", "due", "date_coll", "st" ]
+        all_data[0] = ["id", "T", "Ph", "Name", "I", "M", "Dets", "est",
+                       "paid", "in", "due", "date_coll", "st"]
         for data in all_data:
-            print_cols.append([data[0], data[2][0:10], data[3][0:18], data[6][0:20], data[10], data[12]])
+            print_cols.append([data[0], data[2][0:10], data[3][0:18],
+                              data[6][0:20], data[10], data[12]])
         all_data = print_cols
     elif worksheet == "sys_cust":
         for data in all_data:
@@ -209,6 +217,7 @@ def list_worksheet(worksheet, row_num):
     table1 = tabulate(all_data, headers='firstrow', tablefmt='fancy_grid')
     print(table1)
     return True
+
 
 def get_worksheet(worksheet):
     """
@@ -235,7 +244,7 @@ def nice_list_worksheet(worksheet):
 def get_codes_worksheet(worksheet):
     """
     This is a utility function to return a list of values
-    from the first column of a given worksheet 
+    from the first column of a given worksheet
     """
     all_data = get_worksheet(worksheet)
     all_data.pop(0)
@@ -251,12 +260,14 @@ def append_worksheet(worksheet, data):
     """
     worksheet_to_update = SHEET.worksheet(worksheet)
     worksheet_to_update.append_row(data)
-    print_status(f"New {worksheet} record {data[1]} {data[0]} for {data[3]} added")
+    print_status(f"New {worksheet} record {data[1]} {data[0]} for"
+                 + " {data[3]} added")
     print("")
     return True
 
+
 def get_valid_phone():
-    """ 
+    """
     utility function to capture a valid phone number
     """
     valid_phone = False
@@ -269,6 +280,7 @@ def get_valid_phone():
         else:
             print_error("Phone must be all numbers, no spaces, try again")
     return []
+
 
 def get_valid_cname(cust_phone):
     """
@@ -284,9 +296,10 @@ def get_valid_cname(cust_phone):
         cust_name = cust_index[1]
     else:
         print_error("Existing customer not found")
-        cust_name  = input(colored("Customer name: ",'black', 'on_white'))
+        cust_name = input(colored("Customer name: ", 'black', 'on_white'))
     return cust_name
-    
+
+
 def get_valid_item():
     """
     Utility function to capture a valid item type
@@ -294,7 +307,7 @@ def get_valid_item():
     """
     item_types = nice_list_worksheet("sys_item")
     item_codes = get_codes_worksheet("sys_item")
-    valid_item=False
+    valid_item = False
     while not valid_item:
         rep_item_type = input(colored(f"Type: {item_types}",
                               'black', 'on_white')).upper()
@@ -305,6 +318,7 @@ def get_valid_item():
             print_error("Invalid item type, try again")
     return []
 
+
 def get_valid_material():
     """
     Utility function to capture a valid material type
@@ -312,7 +326,7 @@ def get_valid_material():
     """
     mat_types = nice_list_worksheet("sys_mat")
     mat_codes = get_codes_worksheet("sys_mat")
-    valid_mat=False
+    valid_mat = False
     while not valid_mat:
         rep_material = input(colored(f"Material: {mat_types}",
                              'black', 'on_white')).upper()
@@ -323,24 +337,26 @@ def get_valid_material():
             print_error("Invalid metal, try again")
     return []
 
+
 def get_valid_amount(prompt_text):
     """
     Utility function to input a valid amount (0-99999)
     """
-    valid_num=False
+    valid_num = False
     while not valid_num:
         entered_amt = input(colored(prompt_text,
                             'black', 'on_white'))
         if (entered_amt.isnumeric()):
-            valid_num=True
+            valid_num = True
             return entered_amt
         else:
             print_error("Amount must be between 0 and 99999")
     return entered_amt
 
+
 def enter_repair(options):
     """
-    This option can be used to enter an estimate (status 10) or repair (20).  
+    This option can be used to enter an estimate (status 10) or repair (20).
     The enter_repair function is designed to make input as quick for the user
     Parameter 'options' is a string containing null or more characters,
     and it can be used for typeahead.
@@ -393,13 +409,11 @@ def enter_repair(options):
     rep_cname = get_valid_cname(rep_phone)
     rep_item_type = get_valid_item()
     rep_material = get_valid_material()
-    
-    rep_details = input(colored("Repair details: ",'black', 'on_white'))
+    rep_details = input(colored("Repair details: ", 'black', 'on_white'))
     rep_estimate = get_valid_amount("Estimated cost (if known): ")
     rep_deposit = get_valid_amount("Deposit taken: ")
     rep_date_in = datetime.now().strftime("%d/%m/%Y")
-    rep_date_due = (datetime.now() + timedelta(days = 7)).strftime("%d/%m/%Y")
-   
+    rep_date_due = (datetime.now() + timedelta(days=7)).strftime("%d/%m/%Y")
     repair_record = [next_index("repairs"), record_type, rep_phone, rep_cname,
                      rep_item_type, rep_material, rep_details, rep_estimate,
                      rep_deposit, rep_date_in, rep_date_due, '01/01/1900',
@@ -409,6 +423,7 @@ def enter_repair(options):
     input(colored("Press any key to return to main menu....",
                   'black', 'on_white'))
     return True
+
 
 def find_repair(options):
     """
@@ -426,16 +441,17 @@ def find_repair(options):
     if options != "":
         print_subtitle(f"Find repair {options}")
     else:
-        options = input(colored("Repair #: ",'black', 'on_white'))
+        options = input(colored("Repair #: ", 'black', 'on_white'))
     row_num = find_repair_index(options)
-    if (row_num==0):
-        disp_all=input(colored("List all repairs? (N for no) ",'black', 'on_white')).upper()
-        if (disp_all=='N'):
+    if (row_num == 0):
+        disp_all = input(colored("List all repairs? (N for no) ",
+                                 'black', 'on_white')).upper()
+        if (disp_all == 'N'):
             return False
     list_worksheet("repairs", row_num)
     print("")
     input(colored("Press ENTER key to return to main menu....",
-              'black', 'on_white'))
+                  'black', 'on_white'))
     return True
 
 
@@ -456,32 +472,32 @@ def notify_customer(options):
     if options != "":
         print_subtitle(f"Notify customer of repair {options}")
     else:
-        options = input(colored("Repair #: ",'black', 'on_white'))
+        options = input(colored("Repair #: ", 'black', 'on_white'))
     row_num = find_repair_index(options)
     if (row_num > 0):
-        record_data=return_record("repairs", row_num)
+        record_data = return_record("repairs", row_num)
     else:
         print("")
         input(colored("Press ENTER key to return to main menu....",
               'black', 'on_white'))
         return False
-    message_body = (f"Hi {record_data[3]} your repair from Goldmark jewellers is ready"
-                    + " for collection, regards, Derek")
+    message_body = (f"Hi {record_data[3]} your repair from Goldmark jewellers"
+                    " is ready for collection, regards, Derek")
     to_number = "+353" + "0876203184"[1:]
     try:
         message = client.messages.create(from_='+14847423801',
                                          body=message_body,
                                          to=to_number)
-        print(f"SMS sent to customer on phone # {record_data[2]}, message content {message_body}")
+        print(f"SMS sent to customer on phone # {record_data[2]},"
+              + " message content {message_body}")
     except Exception:
         error_details = sys.exc_info()
         print_error(f"Error occurred sending SMS message: {message_body}"
                     + f" to number {to_number}")
         print(f"Details: {error_details[1]} ")
-    
     print("")
     input(colored("Press ENTER key to return to main menu....",
-              'black', 'on_white'))
+                  'black', 'on_white'))
     return True
 
 
@@ -530,7 +546,7 @@ def maintain_sys(options):
         print_error("Invalid option, try again")
     print("")
     input(colored("Press ENTER key to return to main menu....",
-              'black', 'on_white'))
+                  'black', 'on_white'))
     return True
 
 
@@ -547,33 +563,33 @@ def show_help(options):
     print_title("- REPAIRS TRACKER - HELP SCREEN -")
     print_title("---------------------------------")
     print_subtitle("     SECURITY:                                           "
-                   +"    ")
+                   + "    ")
     print_body("To use the system, you must have a userid and password      ")
     print_body("Access is provided at User or Administrator(superuser) level")
     print_subtitle("     MAIN MENU OPTIONS:                                 "
-                   +"    ")
+                   + "    ")
     print_body("Type-ahead is supported, if you know sub-menu opt, e.g.     ")
     print_body("EE Enter Est, ER Enter Repair, F12345 find repair 12345    ")
     print_subtitle("    (E)nter new estimate/repair:                        "
-                   +"    ")
+                   + "    ")
     print_body("Repairs track phone#, name, item details, pricing, dates    ")
     print_body("Estimates: typically more complex, e.g. jobs needing extra  ")
     print_body("pricing, or requiring ordered-in components.                ")
     print_subtitle("    (F)ind existing estimate/repair:                    "
-                   +"    ")
+                   + "    ")
     print_body("Use typeahead if repair# known, or enter specific #         ")
     print_body("If not found, all repairs can be listed.                    ")
     print_subtitle("    (N)otify customers of repair completion:            "
-                   +"    ")
+                   + "    ")
     print_body("This updates the repairs record to completed and generates  ")
     print_body("customised SMS for sending. Typeahead w/repair # e.g. N12345")
     print_subtitle("    (M)aintain system:                                  "
-                   +"    ")
+                   + "    ")
     print_body("Only available to administrator-level users.  This displays ")
     print_body("system files, e.g. customers, item types, users.            ")
     print_body("Typeahead to choose which file e.g. MC Maintain Customers   ")
     print_subtitle("    (H)elp:                                             "
-                   +"    ")
+                   + "    ")
     print_body("This text currently showing on-screen is the help text      ")
     print("")
     input(colored("Press any key to return to main menu....",
@@ -597,8 +613,8 @@ def menu_manager(valid_user):
     print_subtitle("    (H)elp                                 ")
     print_subtitle("    e(X)it                                 ")
     print("")
-    
-    input_string = input(colored("Option: ",'black', 'on_white')).upper()
+
+    input_string = input(colored("Option: ", 'black', 'on_white')).upper()
     if input_string != "":
         user_option = input_string[0]
         if (user_option == "X"):
@@ -634,10 +650,10 @@ def menu_manager(valid_user):
 def main():
     """
     Function main() runs all program functions.
-    It begins with a call to valid_user() to establish if a user is authorised 
+    It begins with a call to valid_user() to establish if a user is authorised
     to access the system.
     valid_user() returns a value of:
-    * 0(False) 
+    * 0(False)
     * 1(user-level security)
     *  2(super-user level security)
     """
