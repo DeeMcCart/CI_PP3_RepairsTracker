@@ -563,7 +563,7 @@ Note that there are a couple of implementation decisions described below, which 
 The frustration of troubleshooting this error led me to improve the error management by using a try/ except clause for SMS sending and returning a detailed error message (the Twilio error message) when unsuccessful.
 
 
-## Setup and Deployment
+## Deployment
 ### Setting up a new Python project using Google Sheets:
 1. Create the python github repository using template 
 https://github.com/Code-Institute-Org/p3-template
