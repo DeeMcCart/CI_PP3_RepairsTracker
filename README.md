@@ -470,8 +470,9 @@ The following features would add to the RepairsTracker functionality and improve
 The following were used to extend the functionality of python.  Each required an install in the development environment, and an update to the requirements.txt file with the package name and version.  The requirements.txt file is then carried through and its contents installed when the CI terminal is built in the Production/ Heroku environment. As variety of libaries were tried when developing RepairsTracker, I needed to prune requirements.txt back to just those libraries required for the delivered version.
 <br>
 
-* os - used to pickup environment variable(s) (required for Twilio use)
-* dotenv - used to define and retrieve environment variables (required for Twilio use)
+* os - used to pickup environment variable(s) (required for Twilio SMS use)
+* dotenv - used to define and retrieve environment variables (required for Twilio SMS use)
+* sys - used to pickup environment variables (required for Twilio use)
 * time - used for sleep function
 * datetime - used for determining current date and incrementing to calculate due dates
 
@@ -480,13 +481,13 @@ The following were used to extend the functionality of python.  Each required an
 * gspread - used to access google worksheets/ spreadsheets and to interact with Google APIs to manipulate data within these spreadsheets 
 * Twilio Client - used to generate SMS for customer notification once repair is completed
 * tabulate - used to present column/row from google sheets in 'nice' format
-* Colorama - used to colour messages for most of the on-screen user interaction
+* termcolor (Colorama) - used to colour messages for most of the on-screen user interaction
 
 ## Validation 
 
 ### Python Validation 
 - PEP8 validation
-- The pycodestyle validator is available within the CI GitPod development environment.  It is invoked using pycodestyle run.py.
+- The pycodestyle validator within the CI GitPod development environment is invoked using pycodestyle run.py.
 I used this 3-4 times over the development duration and each time had a long list of errors!  Advised corrections were applied, then the code was re-verified to ensure still working correctly.
 - PEP8 Corrections are described in the issue log.
 
@@ -517,10 +518,9 @@ The website was tested on the following devices:
 * Motorola G(7) android phone
 
 Testing on the HP laptop performed as expected with no additional errors.
-Testing on the Samsung Galaxy tablet, which is the desired end-user device (under Google Chrome), showed a strange anomaly wherby the text the user is entering displays as superscript.  However the user-entered input was processed successfully and the system operated as expected, so it is close-to-functional with a small anomaly.
+Testing on the Samsung Galaxy tablet, which is the desired end-user device (under Google Chrome), showed a strange anomaly wherby the text the user is entering displays as superscript.  However the user-entered input was still processed successfully and the system operated as expected, so it is close-to-functional with a small anomaly.
 
-Testing on the Motorola android phone in a FireFox browser was unsuccessful, the display screen doesn't show correctly in portrait mode, it chops off the first 10 or so characters so menus and prompts cannot be read correctly.  If the screen is put into landscape mode the user cannot access on the on-screen keyboard so cannot make any entries.  It also seemed during one test to have difficulty processing the user input, and doubled up the entries, e.g. 's' becames 'ss'.  This system is totally unusable on the android phone.
-(As the python terminal is in fact delivered via a html emulator, it might be possible to modify the CI terminal emulation software to include responsiveness, however such work  is definitely outside the scope of this project!)
+Testing on the Motorola android phone in a FireFox browser was unsuccessful, the terminal emulator doesn't show correctly in portrait mode, it chops off the first 10 or so characters so menus and prompts cannot be read correctly.  In landscape mode the user cannot access on the on-screen keyboard so cannot make any entries.  It might be possible to modify the CI terminal emulation software to include responsiveness, however such work  is definitely outside the scope of this project!
 
 
 ### Multi-browser Testing

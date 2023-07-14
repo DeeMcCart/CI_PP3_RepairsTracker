@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 import os
 import sys
 # import tk
-# from termcolor import colored
+from termcolor import colored
 from tabulate import tabulate
 from colorama import Fore, Back, Style
 from google.oauth2.service_account import Credentials
