@@ -392,15 +392,14 @@ copy is attached to the repairs envelope, and one is given to the customer. This
 <br>
 
 ### F14 Maintain System Configuration data
+The 'maintain' feature partially addresses user story S12 - configure and maintain system.  This menu provides an option to list each of the system files.  The output is presented in 'nice' tabular format, which is readable on the 24 x 80 character screen.  
+
 ![sys maint menu](./docs/readme_images/f14_maintain_menu.jpg?raw=true "sys maintenance menu")
 
-The 'maintain' feature partially addresses user story S12 - configure and maintain system.  This menu provides an option to list each of the system files.  The output is presented in 'nice' tabular format, which is readable on the 24 x 80 character screen.  
-<details><summary>Example - item type</summary>
-<img src="./docs/readme_images/f14_maintain_item.jpg"></details>
-<details><summary>Example - lifecycle</summary>
-<img src="./docs/readme_images/f14_maintain_status.jpg"></details>
 
-Note:  These tables can be amended, if necessary, by an authorised user directly within Google Sheets.
+![list system status](./docs/readme_images/f14_maintain_status.jpg?raw=true "main - status")
+
+These tables can be amended, by an authorised user in Google Sheets.
 Note: the (M)aintain menu also supports type-ahead, so, for example, selecting MI from the main menu, will take the user to (M)aintain (I)tem.
 Note: only users with administrative rights can access the maintain menu, other users will receive an error
 
@@ -408,7 +407,7 @@ Note: only users with administrative rights can access the maintain menu, other 
 
 ### F15 Update repair from status 'notified' (50) to 'collected' (60) (FUTURE)
 To address user stories RU07 (update status from customer notified -> customer collected) and OT05 (reminder for customer to collect)
-a feature is needed to update the status of selected repairs.  This has not been included in this RepairsTracker version however it will be
+a feature is needed to update the status of selected repairs.  This feature is not in scope for this Demo RepairsTracker, but will be
 needed once the system is to progress to live implementation.
 <br>
 
@@ -418,14 +417,16 @@ User story checklist showing which features address each story:
 ![page 1 cross-check user stories](./docs/readme_images/user_stories_vs_features_p1.jpg?raw=true "page1")
 ![page 2 cross-check user stories](./docs/readme_images/user_stories_vs_features_p2.jpg?raw=true "page2")
 
-Feature checklist linking each feature to its user story(ies):
+
+And here is the same information, presented from the features perspective; so a checklist of Features linking each to its user story(ies):
+
 ![Features vs user stories](./docs/readme_images/features_vs_user_stories.jpg?raw=true "user stories perspective")
 
 RepairsTracker contains:
 * 3 menus (main, enter, maintain)
-* help page
 * two entry options (estimates and repair) 
-* various supporting options to manage the lifecycle of an estimate or repair.
+* a customer notification option to sned SMS that a repair has been completed, and to update the repair status to 40 (completed) or 50 (completed & text message sent)
+* a find option to see summary details for a known repair #, or for all repair #s.
 
 This version of RepairsTracker system is a demo version. Some features are marked as 'future'.  This recognises that, while the RepairsTracker app contains a lot of the core functionality, it doesn't include the full set of features which would be required to meet real-world requirements.
 
@@ -434,36 +435,23 @@ This version of RepairsTracker system is a demo version. Some features are marke
 * Integrated SMS messaging:  The use of a third party SMS notification sevice (Twilio), invoked from within the RepairsTracker python code was a real eye-opener.  Once the use of environment variables (and the necessity to keep them hidden) was understood, and that these could be represented in Heroku as configuration/credential  variables, this opened up a whole world of possibilities.
 <br>
 
-
 * Google spreadsheets API links:  These were first seen in the 'love sandwiches' project.  These features are enormously powerful and really enjoyable to work with.  I could immediately see how a practical, real-world application could be quickly built, and presented as a low-cost, easily used system with a quick learning curve.
 
-* Inadventent security error with Google links:  However on first making a connection to the RepairsTracker google sheet, I made a mistake and added the google credentials to the creds.json file in my repository and committed, before adding to the gitignore file...... this caused Google to send me numerous notifications that credentials had been possibly exposed on a public site.  After resisting for some time, I eventually closed out the first service account I had created for the Google link, and recreated with a new set of credentials, ensuring that the gitignore file had been first set to ignore the json entries.
+* Inadventent security error with Google links:  However on first making a connection to the RepairsTracker google sheet, I made a mistake and added the google credentials to the creds.json file in my repository and committed, before adding to the gitignore file...... this caused Google to send me numerous notifications that credentials had been possibly exposed on a public site.  After some resistance, I closed out the service account I had created for the Google link, and recreated with a new set of credentials, ensuring that the gitignore file had been first set to ignore the json entries.
 This involved some rework which was frustrating but also a good lesson in security!
 <br>
 
 * Use of Tabulate to nicely display spreadsheet data:  The python library 'tabulate' was used to present tabular data in a readable manner, organised into rows and columns.  However I found the 80-character line width quite restrictive as often I wished to display longer field values but tabulate does not wrap well, the data becomes unreadable once wrapped.  I employed two workarounds - rename the column headings to prevent them from forcing a particular column e.g. with single-character data, to take up extra width, and reduced the number of columns on display for some items (e.g. repairs).     
 
 ### Features Left to Implement 
-The following features are described in the previous section, and an explanation is given of each requirement.
+The following features would add to the RepairsTracker functionality and improve the user experience.
+
 * F10 Convert Estimate to Repair (FUTURE)
 * F13 Label/ Docket Printing per Repair (FUTURE)
 * F15 Update repair from status 'notified' (50) to 'collected' (60) (FUTURE)
-* Improved search and retrieval of records
-* Extend type-ahead functionality
-* Improve terminal display screen
-<br>
-
-In general, improved searching and retrieval of records, as well as specific record updates would improve the RepairTracker capabilities and
-make it more usable in a real-world environment.   
-<br>
-
-I would also like to extend the type-ahead feature (F03) as follows:
-In the future, for more complex processes which may involve updates/searching for a number of repair records, the user could type-ahead giving multiple repair numbers, separated by a comma:
-e.g. F12345,13456,15567 would the find option and ask it to find 3 specific repairs records.
-N12345,13456,15567 would invoke the 'notify' option and perform updates for 3 individual repair records.
-<br>
-
-I would very much like to show a display screen (with a picture of a jewellers bench) as a splash screen behind the black terminal window.  I attempted to do this using html (as I saw other PP3 project such as the american pizza system had accomplished it) but without success....In my view this would greatly improve the the visual appearance....
+* Ability to close out a repair record (e.g. uncollected after 12 months) to status 99
+* Extend type-ahead to process multiple repair records, e.g. for customer notify, perhaps separated by commas, e.g. N12345,13456,15567 would invoke the 'notify' option and perform updates for 3 individual repair records.
+* Show an image screen (with a picture of a jewellers bench) as a splash screen behind the black terminal window.  I attempted to do this using html (as I saw other PP3 project such as the american pizza system had accomplished it) but without success....In my view this would greatly improve the the visual appearance....
 <br>
 <br>               
 ## Technologies
@@ -503,7 +491,7 @@ The following were used to extend the functionality of python.  Each required an
 - PEP8 validation
 - The pycodestyle validator is available within the CI GitPod development environment.  It is invoked using pycodestyle run.py.
 I used this 3-4 times over the development duration and each time had a long list of errors!  Advised corrections were applied, then the code was re-verified to ensure still working correctly.
-- Corrections are described in the issue log.
+- PEP8 Corrections are described in the issue log.
 
 ![pycodestyle dev environment validation](./docs/readme_images/val_pycodestyle_dev_env.jpg?raw=true "pycodestyle 0 errors")
 <br>
