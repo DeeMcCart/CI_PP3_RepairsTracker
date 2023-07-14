@@ -14,7 +14,6 @@
 3. [UX Design - Scope](#ux-design-scope)
     1. [UX Design - Scope - User Requirements and Expectations](#ux-design-scope-user-requirements-and-expectations)
     2. [UX Design - Scope - Data Model](#ux-design-scope-data-model)
-    3. [UX Design - Scope - Viewing Device](#ux-design-scope-viewing-device)
 4. [User goals/ user stories: ](#user-goals-user-stories)
     1. [Site Owner Goals](#site-owner-goals)
     2. [First-time User Goals](#first-time-user-goals)
@@ -55,7 +54,7 @@ RepairsTracker is a python- and google-sheets DBMS application intended to repla
 <img src="./docs/readme_images/flowchart_current1.jpg">
 </details>
 
-<details><summary>Revised business process - jewellery repair</summary>
+<details><summary>Revised business process using RepairsTracker - jewellery repair</summary>
 <img src="./docs/readme_images/flowchart_revised.jpg">
 </details>
 
@@ -122,7 +121,7 @@ Target users are small-medium sized jewellery shops who perform repairs for dire
 </ul>
 <br>
 
-### UX Design Scope - Data Model
+### UX Design Scope Data Model
 A single [Google spreadsheet](https://docs.google.com/spreadsheets/d/1LO_TXPpBZc0xiq5VD1iwtj9MSVeEOlm6eYSkbnScdUQ/edit?usp=sharing) is used to hold the DMBS.
 
 The data has been modelled to loosely represent a RDBMS where each google sheet is named and acts as a 'table' in the database.
@@ -217,17 +216,17 @@ The data has been modelled to loosely represent a RDBMS where each google sheet 
 </details>
  
 ### Colour Scheme 
-Colours & backgrounds are applied consistently to text blocks within RepairsTracker e.g. for error messages, status messages etc.  Using the 'colorama' python library gave the ability to apply some colours and properties (bold, blink, etc) to the text.  This gives a consistent look & feel and helps users to 'get to know' the system.
+Colours & backgrounds are applied consistently to text blocks within RepairsTracker e.g. for error messages, status messages etc.  Using the 'colorama' python library gave the ability to apply some colours and properties (bold, blink, etc) to the text.  This gives a consistent look & feel and helps users to 'get to know' the system.  Examples are:
 
-<details><summary>Colours- used for prompt & feedback to user & to aid user learning</summary>
-<img src="./docs/readme_images/colour_examples.jpg">
-</details>
+Success message:  ![success message](./docs/readme_images/f06_success_message.jpg?raw=true "success colours")
+
+Error message:  ![error message](./docs/readme_images/f06_error_message.jpg?raw=true "error colours")
+
+Menu colours:  
+![example menu](./docs/readme_images/f14_maintain_menu.jpg?raw=true "example menu colours")
 
 ### Design Images
 Ideally would like to have a background or splash image.  I did not manage to get an image to display in the background, so compromised with a blue screen background.
-<details><summary>Background image</summary>
-<img src="./docs/readme_images/background_image.jpg">
-</details>
 
 ### Design Images - Icons and Symbols
 N/a : text-based display
