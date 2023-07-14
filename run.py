@@ -487,7 +487,7 @@ def notify_customer(options):
                                          body=message_body,
                                          to=to_number)
         print(f"SMS sent to customer on phone # {record_data[2]},"
-              + " message content {message_body}")
+              + f" message content {message_body}")
         repairs_sheet = SHEET.worksheet("repairs")
         repairs_sheet.update_cell((row_num + 1), 13, "'50")
         print_status(f"Repair {options} status updated to 50:"
