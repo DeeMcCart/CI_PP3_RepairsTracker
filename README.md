@@ -22,9 +22,8 @@
     4. [Other stakeholder Goals](#other-stakeholder-goals)
 5. [Further UX Design: ](#ux-design-decisions)
     1. [Skeleton - Flowcharts; ](#flowcharts)
-    2. [Surface - Fonts; ](#fonts-chosen)
-    3. [Surface - Colours](#colour-scheme)
-    4. [Surface - Imagery](#design-images)
+    2. [Surface - Colours](#colour-scheme)
+    3. [Surface - Imagery](#design-images)
 6. [Features](#features)
     1. [Included](#features-in-scope)
     2. [Future Development](#features-left-to-implement)
@@ -52,8 +51,12 @@
 ## About
 ---------
 RepairsTracker is a python- and google-sheets DBMS application intended to replace a manual (paper-based) system for tracking the lifecycle of jewellery repair.  This is a real-world requirement. While RepairsTracker described here is a demo version, the app is intended for live use, and has been specified and validated with a real-world user.<br>
-<details><summary>Current business process</summary>
-<img src="./docs/readme_images/flowchart_current.jpg">
+<details><summary>Current business process - jewellery repair</summary>
+<img src="./docs/readme_images/flowchart_current1.jpg">
+</details>
+
+<details><summary>Revised business process - jewellery repair</summary>
+<img src="./docs/readme_images/flowchart_revised.jpg">
 </details>
 
 ### Responsive Mockup
@@ -70,7 +73,7 @@ https://repairs-tracker-aa30320aef0e.herokuapp.com/
 2. Using the integration capabilities of python (and associated libraries) to link to Google Sheets as a reasonaby basic DBMS, and bolt-on libraries for SMS notifications (and, in the future, label printing).  
 3. Which is not significantly slower than the current manual (handwritten) system.
 4. And which provides additional functionality for customer tracking, repairs status reporting.
-5. And which provides some capabilities for customisation/ configuration, ie access to certain system parameters.
+5. And which provides some capabilities for customisation/ configuration.
   
 ### UX Design Strategy
 As this program is delivered using Python, the emphasis is on functionality rather than appearance.  Options for customising appearance are somewhat restricted.   RepairsTracker appears in 'terminal-mode' display of 24 lines x 80 chars.
@@ -86,7 +89,9 @@ Each estimate/repair is assigned a unique number, and status code is used to tra
 
 * Automation: use a 3rd party messaging service to automate the (currently manual) task of texting to customer when repairs are completed (project goal #s 1, 2, 3, 4)
 
-* Use of widely available, familiar database backend - Google sheets.  Project goals #4 (reporting) and #5 (ability to configure/customise) would ideally be achieved via the front-end (Python) interface.  While the RepairsTracker solution delivers demo-level functionality for reporting and data customisation, a lot more can be achieved by using standard Google Sheets functionality.  Users familar with spreadsheets can update the spreadsheet data, add tracking view and reports. This is an improvement on the current manual system which sometimes requires a physical search through the repairs to ascertain repair status.
+* Use of widely available, familiar database backend - Google sheets.  Project goals #4 (reporting) and #5 (ability to configure/customise) would ideally be achieved via the front-end (Python) interface.  While the RepairsTracker solution delivers demo-level functionality for reporting and data customisation, a lot more can be achieved by using standard Google Sheets functionality.  
+Users familar with spreadsheets can update the spreadsheet data, add tracking view and reports. 
+This is an improvement on the current manual system which can requires a physical search through the repairs to ascertain repair status.
 <br>
 
 ### UX Design Strategy Analysis - Existing Repair Tracking Apps
@@ -204,21 +209,13 @@ The data has been modelled to loosely represent a RDBMS where each google sheet 
 </details>
 
 <details><summary>Enter repair/estimate</summary>
-<img src="./docs/readme_images/flowchart_enter_repair.jpg">
+<img src="./docs/readme_images/flowchart_enter_repair1.jpg">
 </details>
 
-<details><summary>Complete Repair - Notify Customer</summary>
-<img src="./docs/readme_images/flowchart_complete_notify.jpg">
+<details><summary>Complete Repair - Notify Customer (also process for Find repair)</summary>
+<img src="./docs/readme_images/flowcharts_notify_find.jpg">
 </details>
-
-<details><summary>Customer Collect/ Completion</summary>
-<img src="./docs/readme_images/flowchart_collect.jpg">
-</details>
-
-  
-### Fonts Chosen
-n/a as this is presented as a 'terminal' style window and is therefore quite limited.....
-
+ 
 ### Colour Scheme 
 Colours & backgrounds are applied consistently to text blocks within RepairsTracker e.g. for error messages, status messages etc.  Using the 'colorama' python library gave the ability to apply some colours and properties (bold, blink, etc) to the text.  This gives a consistent look & feel and helps users to 'get to know' the system.
 
@@ -227,7 +224,7 @@ Colours & backgrounds are applied consistently to text blocks within RepairsTrac
 </details>
 
 ### Design Images
-Ideally would like to have a background or splash image.  I did not manage to get an image to display, so compromised with a blue screen background.
+Ideally would like to have a background or splash image.  I did not manage to get an image to display in the background, so compromised with a blue screen background.
 <details><summary>Background image</summary>
 <img src="./docs/readme_images/background_image.jpg">
 </details>
