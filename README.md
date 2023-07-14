@@ -1,7 +1,10 @@
 # RepairsTracker
 (Developer:  Deirdre McCarthy, July 2023)
+
 ![splash screen](./docs/readme_images/splash_screen.jpg?raw=true "run program button")
+
 ![first friendly menu](./docs/readme_images/user_first_menu.jpg?raw=true "user menu after signon")
+
 # Table of Contents:
 1. [About](#about)
 2. [Project Goals: ](#project-goals)
