@@ -1,16 +1,15 @@
-import matplotlib
+# import matplotlib
 # matplotlib.use('Agg')
 import gspread
 import time
 from datetime import datetime, timedelta
 import os
 import sys
-import tk
-from termcolor import colored
+# import tk
+# from termcolor import colored
 from tabulate import tabulate
 from colorama import Fore, Back, Style
 from google.oauth2.service_account import Credentials
-# from wallpaper import set_wallpaper, get_wallpaper
 from twilio.rest import Client
 from dotenv import load_dotenv
 load_dotenv()

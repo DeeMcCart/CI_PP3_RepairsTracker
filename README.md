@@ -437,7 +437,7 @@ This version of RepairsTracker system is a demo version. Some features are marke
 This involved some rework which was frustrating but also a good lesson in security!
 <br>
 
-* Use of Tabulate to nicely display spreadsheet data:  The python library 'tabulate' was used to present tabular data in a readable manner, organised into rows and columns.  However I found the 80-character line width quite restrictive as often I wished to display longer field values but tabulate does not wrap well, the data becomes unreadable once wrapped.  I employed two workarounds - rename the column headings to prevent them from forcing a particular column e.g. with single-character data, to take up extra width, and reduced the number of columns on display for some items (e.g. repairs).     
+* Use of Tabulate to nicely display spreadsheet data:  The python library 'tabulate' was used to present tabular data in a readable manner, organised into rows and columns.  However I found the 80-character line width quite restrictive as often I wished to display longer field values but tabulate does not wrap well, the data becomes unreadable once wrapped.  I employed two workarounds - reduce/rename column headings, and display fewer columns (e.g. for repairs record).     
 
 ### Features Left to Implement 
 The following features would add to the RepairsTracker functionality and improve the user experience.
@@ -458,7 +458,7 @@ The following features would add to the RepairsTracker functionality and improve
 - Javascript
 
 ### Frameworks & Tools
-* LucidChart was used to draw the systgem flowcharts
+* LucidChart was used to draw the system flowcharts
 * Github was used to hold the project repository and implement versioning
 * Gitpod was used for code and readme maintenance
 * Google Cloud Platform was used to manage access and permissions to the Google Drive and Google Sheets
@@ -473,6 +473,7 @@ The following were used to extend the functionality of python.  Each required an
 * os - used to pickup environment variable(s) (required for Twilio use)
 * dotenv - used to define and retrieve environment variables (required for Twilio use)
 * time - used for sleep function
+* datetime - used for determining current date and incrementing to calculate due dates
 
 ### Third Party Libraries
 * google.oauth2.service_account used for Credentials/ permissions management to access the Google API and connect my Service Account with the Credentials function
