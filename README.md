@@ -553,7 +553,7 @@ User story testing revealed subjective or usability issues which were not are cl
 
 ![Issue Log Page1](./docs/readme_images/val_issue_log_p1.jpg?raw=true "issues P1")
 ![Issue Log Page2](./docs/readme_images/val_issue_log_p2.jpg?raw=true "issues P2")
-![Issue Log Page3](./docs/readme_images/val_issue_log_p1.jpg?raw=true "issues P3")
+![Issue Log Page3](./docs/readme_images/val_issue_log_p3.jpg?raw=true "issues P3")
 
 Note that there are a couple of implementation decisions described below, which are based on issues experienced through the evolution
 
@@ -580,6 +580,16 @@ https://github.com/Code-Institute-Org/p3-template
 12.  Connect project to worksheet by installing gspread google-auth
 13.  Add import/scope statements to run.py  
 
+### Twilio
+Twilio is a 3rd-party system and requires an account to be created and associated with a 'from' and 'to' number.
+1. Create an account at [Twilio](https://www.twilio.com/en-us).
+2. Take the option to 'get a number' - this will be the send-from number for any SMS mesages generated
+3. An account is created with account SID & auto token
+4. Identify a desintation mobile phone with the account (the Twilio trial version only permits sending to pre-identified mobile phone #s)
+5. Send a test message to prove the connection
+6. Take link to 'get sample code' to determine the code needed to integrate within Python
+7. Add the auth code to a .env table in dev environment (ensure .env is placed in gitignore first to avoid publishing the creds) 
+
 ### Heroku
 
 This application is deployed from GitHub using Heroku in following steps:
@@ -600,6 +610,9 @@ This application is deployed from GitHub using Heroku in following steps:
 * Add a second key as follows:
 * Key: PORT
 * Value: 8000
+* For Twilio use, add a third key as follows:
+* Key: auth_token
+* Value: {auth token provided by Twilio - same as .env value in DEV environment}
 4. Add buidpacks
 * Click on ‘Add buildpack’
 * Click on ‘python’ icon, then ‘add buildpack’…. 
@@ -637,11 +650,9 @@ To fork the repository:
 ## Credits 
 Multiple sources were used in assembling this site.
 
-* Image credits:  https://www.istockphoto.com/ for wallpaper photo of jewellers bench
 
-
-### Content - Humble Numble
-* Inspiration taken from wordle.com
+### Content - RepairsTracker
+* Real life inspiration and guidance provided by a jewellery shop
  
 ### Code - RepairsTracker
 
@@ -663,9 +674,6 @@ The following sites were used for research and improving  understanding while cr
 * https://www.askpython.com/python-modules/tabulate-tables-in-python
 * https://twilio.com/docs/libraries/reference/twilio-python/
 * https://www.youtube.com/watch?v=n2cF1e2tyhI What Is Twilio? SMS and Voice API's explained - Matt Kander
-* https://realpython.com/python-testing/#:~:text=Automated%20testing%20is%20the%20execution,automated%20tests%20for%20your%20application.
-
-
  
 ### Acknowledgements
 * I would like to sincerely thank my mentor, Mo Shami for his excellent guidance and support.
