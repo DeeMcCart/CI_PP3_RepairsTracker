@@ -1,11 +1,8 @@
-# import matplotlib
-# matplotlib.use('Agg')
 import gspread
 import time
 from datetime import datetime, timedelta
 import os
 import sys
-# import tk
 from termcolor import colored
 from tabulate import tabulate
 from colorama import Fore, Back, Style

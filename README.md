@@ -27,7 +27,7 @@
     1. [Included](#features-in-scope)
     2. [Future Development](#features-left-to-implement)
 7. [Technology](#technologies)
-    1. [Languages](#langugages)
+    1. [Languages](#languages)
     2. [Frameworks and Tools](#frameworks--tools)
 8. [Validation](#validation)
     1. [Python Validation](#python-validation)
@@ -452,10 +452,10 @@ The following features would add to the RepairsTracker functionality and improve
        
 ## Technologies
 
-### Langugages
+### Languages
 - HTML (for background image splash screen)
-- Python V3.1.3
-- Javascript
+- Python V3.11.1 programming logic for the logic of the program
+
 
 ### Frameworks & Tools
 * LucidChart was used to draw the system flowcharts
@@ -467,12 +467,12 @@ The following features would add to the RepairsTracker functionality and improve
 * Heroku was used for deployment of the RepairsTracker demo version 
 
 ### Python Libraries
-The following were used to extend the functionality of python.  Each required an install in the development environment, and an update to the requirements.txt file with the package name and version.  The requirements.txt file is then carried through and its contents installed when the CI terminal is built in the Production/ Heroku environment. As variety of libaries were tried when developing RepairsTracker, I needed to prune requirements.txt back to just those libraries required for the delivered version.
+The following were used to extend the functionality of python.  
 <br>
 
 * os - used to pickup environment variable(s) (required for Twilio SMS use)
-* dotenv - used to define and retrieve environment variables (required for Twilio SMS use)
-* sys - used to pickup environment variables (required for Twilio use)
+* dotenv - used to define and retrieve environment variables (required for Twilio SMS authentication)
+* sys - used for retrieving error message content (Twilio try/except clause) 
 * time - used for sleep function
 * datetime - used for determining current date and incrementing to calculate due dates
 
@@ -540,10 +540,10 @@ Features were pretty comprehensively tested, and some issues identified.  These 
 ### Testing User Stories
 Each of the user stories was evaluated for testing. The focus was on making the earlier tests quite comprehensive, and to refer back to these proofs for some of the related user stories. Issues captured tended to be more 'qualitative' than the feature testing. 
 
-![User story testing Page1](./docs/readme_images/val_user_story_test_p1.jpg?raw=true "testing user stories P1")
-![User story testing Page2](./docs/readme_images/val_user_story_test_p1.jpg?raw=true "testing user stories P2")
-![User story testing Page3](./docs/readme_images/val_user_story_test_p1.jpg?raw=true "testing user stories P3")
-![User story testing Page4](./docs/readme_images/val_user_story_test_p1.jpg?raw=true "testing user stories P4")
+![User story testing Page1](./docs/readme_images/val_user_story_test1_p1.jpg?raw=true "testing user stories P1")
+![User story testing Page2](./docs/readme_images/val_user_story_test1_p2.jpg?raw=true "testing user stories P2")
+![User story testing Page3](./docs/readme_images/val_user_story_test1_p3.jpg?raw=true "testing user stories P3")
+![User story testing Page4](./docs/readme_images/val_user_story_test1_p4.jpg?raw=true "testing user stories P4")
 
 
 ### Issues and Bugs
