@@ -307,17 +307,14 @@ This feature addresses user stories S03, S06, S07, S10, FTU01, FTU02, FTU04, FTU
 <br>
 
 ### F07 Database held in Google Sheets:
-<details><summary>RepairsTracker in Google Sheets</summary>
-<img src="./docs/readme_images/f07_google_sheets.jpg"></details>
 
-The RepairsTracker underlying database is represented using Google Sheets as an approximation of an RDBMS.
+The RepairsTracker underlying database is represented using Google Sheets as an approximation of an RDBMS.  This allows non-routine data updates to be done within Google Sheets rather requiring a customised Python solution for each update.
 
-This allows non-routine data updates to be done within Google Sheets rather requiring a customised Python solution for each update.
+![database view](./docs/readme_images/f07_google_sheets.jpg?raw=true "Google sheets")
 
 Ad hoc reporting can also be done from within Google sheets rather than python, e.g. checking for overdue repairs or items outstanding for collection. 
 
 This addresses user stories S01, S02, S04, S12, RU05, RU10, RU11, RU12. 
-
 
 ### F08 Repairs/ Estimate Entry
 
@@ -428,7 +425,7 @@ And here is the same information, presented from the features perspective; so a 
 RepairsTracker contains:
 * 3 menus (main, enter, maintain)
 * two entry options (estimates and repair) 
-* a customer notification option to sned SMS that a repair has been completed, and to update the repair status to 40 (completed) or 50 (completed & text message sent)
+* a customer notification option to send SMS that a repair has been completed, and to update the repair status to 40 (completed) or 50 (completed & text message sent)
 * a find option to see summary details for a known repair #, or for all repair #s.
 
 This version of RepairsTracker system is a demo version. Some features are marked as 'future'.  This recognises that, while the RepairsTracker app contains a lot of the core functionality, it doesn't include the full set of features which would be required to meet real-world requirements.
@@ -456,7 +453,7 @@ The following features would add to the RepairsTracker functionality and improve
 * Extend type-ahead to process multiple repair records, e.g. for customer notify, perhaps separated by commas, e.g. N12345,13456,15567 would invoke the 'notify' option and perform updates for 3 individual repair records.
 * Show an image screen (with a picture of a jewellers bench) as a splash screen behind the black terminal window.  I attempted to do this using html (as I saw other PP3 project such as the american pizza system had accomplished it) but without success....In my view this would greatly improve the the visual appearance....
 <br>
-<br>               
+       
 ## Technologies
 
 ### Langugages
@@ -501,11 +498,8 @@ I used this 3-4 times over the development duration and each time had a long lis
 - The CI PEP8 validator was also used, by pasting my run.py code into https://pep8ci.herokuapp.com/#
 , and confirmed 0 linting issues.
 
-<details><summary>Validation: CI PEP8 validator</summary>
-<img src="./docs/readme_images/val_ci_pep8.jpg">
-</details>
+![PEP8 validator 0 errors](./docs/readme_images/val_ci_pep8.jpg?raw=true "PEP8 validator 0 errors")
 <br>
-
 
 ### Accessibility
 N/A for Python project
@@ -554,13 +548,9 @@ Each of the user stories was evaluated for testing. The focus was on making the 
 ![User story testing Page3](./docs/readme_images/val_user_story_test_p1.jpg?raw=true "testing user stories P3")
 ![User story testing Page4](./docs/readme_images/val_user_story_test_p1.jpg?raw=true "testing user stories P4")
 
-Screenprints listed within the testing grid are listed here:
-(to be completed)
-
-
-
 
 ### Issues and Bugs
+
 The issue log below was created based on the results of feature testing and user story testing.  Feature testing typically identified bugs and programming issues that could be resolved with programming rework.
 User story testing revealed subjective or usability issues which were not are clearly resolved, generally these involved an amount of debate, exploration and negotiation to arrive at an acceptable compromise or workaround.  This compromise might be acceptable for an agreed period of time, with the intention that a longer-term programmatic solution will be delivered.
 
@@ -607,7 +597,7 @@ This application is deployed from GitHub using Heroku in following steps:
 * Click on ‘create app’.
 3.	Apply config variables to this app
 * Click on settings – Reveal config vars – there are no config vars for this app yet
-* Over type ‘KEY’ with CREDS
+* Overtype ‘KEY’ with CREDS
 * Overtype VALUE with the contents of the cred.json file
 * Click ADD
 * Add a second key as follows:
@@ -616,7 +606,8 @@ This application is deployed from GitHub using Heroku in following steps:
 4. Add buidpacks
 * Click on ‘Add buildpack’
 * Click on ‘python’ icon, then ‘add buildpack’…. 
-* This brings you back to main menu, but there are a couple more needed.  Click on ‘Add buildpack’ again
+* This brings you back to main menu, but there are a couple more needed.  
+* Click on ‘Add buildpack’ again
 * Click on NodeJS, then ‘add buildpack’
 * A message is displayed on screen ‘Your new buildpack configuration will be used when this app is next deployed’.
 5.	Go to the ‘Deploy’ tab
@@ -645,19 +636,6 @@ To fork the repository:
 - Change the current working directory to the one where you want the cloned directory
 - Type git clone and paste the URL from the clipboard($ git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY)
 - Press Enter to create your local clone
-
-## Creating the Heroku app
-
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
-
-1. `heroku/python`
-2. `heroku/nodejs`
-
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
-
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
 
 ## Credits 
 Multiple sources were used in assembling this site.
